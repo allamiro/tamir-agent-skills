@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="t d">
+  <title id="t">Agent Skills</title>
+  <desc id="d">Reusable expert workflows for Claude Code, Codex and ChatGPT. A grid of 17 colored tiles stands for the 17 system design skills.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15123d"/>
+      <stop offset="1" stop-color="#2c2778"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c9c5ff"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6c64eb" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#6c64eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#096efb" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#096efb" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="320" rx="20" fill="url(#bg)"/>
+  <circle cx="930" cy="60" r="260" fill="url(#glowA)"/>
+  <circle cx="1100" cy="300" r="220" fill="url(#glowB)"/>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="150" font-size="76" font-weight="800" fill="url(#word)" letter-spacing="-1.5">Agent Skills</text>
+    <rect x="66" y="172" width="120" height="6" rx="3" fill="#f5eb89"/>
+    <text x="64" y="224" font-size="26" fill="#e6e4ff">Reusable expert workflows for your coding agent</text>
+    <text x="64" y="264" font-size="20" font-weight="600" fill="#9cc464">Claude Code</text>
+    <text x="196" y="264" font-size="20" fill="#8f8bd6">·</text>
+    <text x="214" y="264" font-size="20" font-weight="600" fill="#8ab4ff">Codex</text>
+    <text x="290" y="264" font-size="20" fill="#8f8bd6">·</text>
+    <text x="308" y="264" font-size="20" font-weight="600" fill="#fb8d99">ChatGPT</text>
+  </g>
+
+  <!-- 17 tiles, one per skill -->
+  <g>
+    <rect x="740"  y="58"  width="56" height="56" rx="12" fill="#6c64eb"/>
+    <rect x="808"  y="58"  width="56" height="56" rx="12" fill="#096efb"/>
+    <rect x="876"  y="58"  width="56" height="56" rx="12" fill="#9cc464"/>
+    <rect x="944"  y="58"  width="56" height="56" rx="12" fill="#fb6373"/>
+    <rect x="1012" y="58"  width="56" height="56" rx="12" fill="#f5eb89"/>
+    <rect x="1080" y="58"  width="56" height="56" rx="12" fill="#6c64eb"/>
+
+    <rect x="740"  y="126" width="56" height="56" rx="12" fill="#096efb"/>
+    <rect x="808"  y="126" width="56" height="56" rx="12" fill="#9cc464"/>
+    <rect x="876"  y="126" width="56" height="56" rx="12" fill="#fb6373"/>
+    <rect x="944"  y="126" width="56" height="56" rx="12" fill="#f5eb89"/>
+    <rect x="1012" y="126" width="56" height="56" rx="12" fill="#6c64eb"/>
+    <rect x="1080" y="126" width="56" height="56" rx="12" fill="#096efb"/>
+
+    <rect x="740"  y="194" width="56" height="56" rx="12" fill="#9cc464"/>
+    <rect x="808"  y="194" width="56" height="56" rx="12" fill="#fb6373"/>
+    <rect x="876"  y="194" width="56" height="56" rx="12" fill="#f5eb89"/>
+    <rect x="944"  y="194" width="56" height="56" rx="12" fill="#6c64eb"/>
+    <rect x="1012" y="194" width="56" height="56" rx="12" fill="#096efb"/>
+  </g>
+</svg>

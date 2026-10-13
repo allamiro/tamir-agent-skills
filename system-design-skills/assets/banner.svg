@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="t d">
+  <title id="t">System Design Skills</title>
+  <desc id="d">Seventeen agent skills for designing, scaling, securing and reviewing software systems. Seventeen colored tiles stand for the skills.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d2438"/>
+      <stop offset="1" stop-color="#17436b"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#bfe3ff"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#096efb" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#096efb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#9cc464" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#9cc464" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="280" rx="20" fill="url(#bg)"/>
+  <circle cx="900" cy="40" r="240" fill="url(#glowA)"/>
+  <circle cx="1120" cy="270" r="200" fill="url(#glowB)"/>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="132" font-size="68" font-weight="800" fill="url(#word)" letter-spacing="-1.2">System Design Skills</text>
+    <rect x="66" y="154" width="120" height="6" rx="3" fill="#f5eb89"/>
+    <text x="64" y="208" font-size="26" fill="#dcecff">Design, scale, secure and review software systems</text>
+    <text x="64" y="244" font-size="20" font-weight="600" fill="#8ab4ff">17 skills  ·  11 templates  ·  validated</text>
+  </g>
+
+  <g>
+    <rect x="800"  y="40"  width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="860"  y="40"  width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="920"  y="40"  width="48" height="48" rx="11" fill="#f5eb89"/>
+    <rect x="980"  y="40"  width="48" height="48" rx="11" fill="#fb6373"/>
+    <rect x="1040" y="40"  width="48" height="48" rx="11" fill="#6c64eb"/>
+    <rect x="1100" y="40"  width="48" height="48" rx="11" fill="#096efb"/>
+
+    <rect x="800"  y="100" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="860"  y="100" width="48" height="48" rx="11" fill="#f5eb89"/>
+    <rect x="920"  y="100" width="48" height="48" rx="11" fill="#fb6373"/>
+    <rect x="980"  y="100" width="48" height="48" rx="11" fill="#6c64eb"/>
+    <rect x="1040" y="100" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="1100" y="100" width="48" height="48" rx="11" fill="#9cc464"/>
+
+    <rect x="800"  y="160" width="48" height="48" rx="11" fill="#f5eb89"/>
+    <rect x="860"  y="160" width="48" height="48" rx="11" fill="#fb6373"/>
+    <rect x="920"  y="160" width="48" height="48" rx="11" fill="#6c64eb"/>
+    <rect x="980"  y="160" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="1040" y="160" width="48" height="48" rx="11" fill="#9cc464"/>
+  </g>
+</svg>
