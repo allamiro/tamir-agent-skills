@@ -1,0 +1,14 @@
+# The source book stays local. Never commit the PDF or text extracted from it.
+source/
+*.pdf
+*.pdf.txt
+book-extract/
+# Local working notes derived from the book (titles/pages index and paraphrased notes).
+references/
+# Build output and caches. chatgpt/ (generated bundles) IS committed on purpose.
+dist/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
