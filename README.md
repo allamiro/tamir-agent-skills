@@ -51,6 +51,8 @@ Then ask in plain language:
 >
 > Review this architecture and give me findings with evidence and severity.
 
+Every skill has a ready-to-paste prompt in [`PROMPTS.md`](system-design-skills/PROMPTS.md).
+
 ## What you get
 
 - **Workflows.** Each skill says when to use it, what it needs, the steps, how to choose between

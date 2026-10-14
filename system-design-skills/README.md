@@ -80,20 +80,20 @@ Upload `system-design.zip` plus the specialists you want.
 | "Review `docs/architecture.md` and `services/`. Give me findings with evidence and severity." | `system-design-review`, plus any specialist the findings need |
 | "Duplicate emails after consumer restarts. How do I make confirmation idempotent?" | `messaging-streaming`, with `transactions-consistency` |
 
-Fill a template by asking for it: "write an ADR for this decision" or "run the production
-readiness checklist".
+Every skill has a ready-to-paste prompt in [PROMPTS.md](PROMPTS.md). Fill a template by asking for
+it: "write an ADR for this decision" or "run the production readiness checklist".
 
 ## Check it
 
 ```bash
 python3 scripts/validate_library.py         # spec, sections, size, links, templates, script self-tests
-python3 scripts/check_routing.py            # description routing, 26 cases
+python3 scripts/check_routing.py            # description routing, 43 cases (incl. PROMPTS.md)
 python3 scripts/build_chatgpt.py --check    # ChatGPT bundle limits
 skills-ref validate skills/<name>           # official validator
 ```
 
 Last run, 2026-10-14: all 17 skills and all 17 ChatGPT bundles pass `skills-ref`, the library
-validator reports 0 errors, routing passes 26 of 26, both script self-tests pass, and all 11 Mermaid
+validator reports 0 errors, routing passes 43 of 43, both script self-tests pass, and all 11 Mermaid
 diagrams parse. Routing is a word-match check, not a model of how an LLM picks a skill.
 
 Not run yet: the five end-to-end scenarios in [`evals/scenarios.md`](evals/scenarios.md). They need a

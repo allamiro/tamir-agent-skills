@@ -12,6 +12,8 @@ with a simple BM25 lexical score and checks:
 This is a lexical proxy for description quality. It does NOT prove an LLM will route
 correctly; it catches descriptions that lack the words users actually type.
 
+Also checks every prompt in PROMPTS.md: the skill named in its heading must rank first.
+
 Usage: python3 scripts/check_routing.py [--root PATH] [--verbose]
 """
 import argparse
@@ -76,6 +78,22 @@ def bm25(query, docs, k1=1.5, b=0.75):
     return scores
 
 
+def load_prompt_cases(path):
+    """Cases from PROMPTS.md: a '### `skill`' heading followed by a '> prompt' line."""
+    cases, skill = [], None
+    if not os.path.isfile(path):
+        return cases
+    for line in open(path, encoding="utf-8").read().split("\n"):
+        m = re.match(r"^###\s+`([a-z0-9-]+)`\s*$", line)
+        if m:
+            skill = m.group(1)
+        elif skill and line.startswith("> "):
+            cases.append({"id": "prompt:" + skill, "prompt": line[2:].strip(),
+                          "expect_any": [skill], "forbidden": [], "require_top1": True})
+            skill = None
+    return cases
+
+
 def main():
     ap = argparse.ArgumentParser(description="Lexical routing smoke test for skill descriptions.")
     ap.add_argument("--root", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
@@ -87,6 +105,7 @@ def main():
     root = os.path.abspath(a.root)
     cases_path = a.cases or os.path.join(root, "evals", "routing_cases.json")
     spec = json.load(open(cases_path, encoding="utf-8"))
+    spec["cases"] += load_prompt_cases(os.path.join(root, "PROMPTS.md"))
     k = spec.get("top_k", 3)
     docs = load_skills(root)
     failures, passed = [], 0
@@ -101,6 +120,9 @@ def main():
         top_score = ranked[0][1]
         # A forbidden skill only counts as a routing error when it scores at least
         # MIN_SHARE of the best score; low-scoring rank-3 noise is not misrouting.
+        if c.get("require_top1") and top[0] not in c["expect_any"]:
+            ok = False
+            why.append("expected %s to rank first, got %s" % (c["expect_any"], top[0]))
         bad = {n for n in set(c.get("forbidden", [])) & set(top)
                if sc[n] >= MIN_SHARE * top_score and sc[n] > 3.0}
         if bad:
