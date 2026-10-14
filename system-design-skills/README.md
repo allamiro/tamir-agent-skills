@@ -217,6 +217,20 @@ Share of runs passing each check, with Wilson 95% intervals; the last column is 
 |---|---|---|---|---|
 | system-design-skills | 62% (49-73) | 100% (94-100) | 100% (91-100) | 0 of 6 |
 
+#### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
+
+The same final cases, run again with a different, cheaper agent model and no changes to any test after the first runs. Same judge as before (three votes).
+
+| Collection | Rubric: skills / none | Rubric difference | Facts: skills / none | Limits: skills / none | Expected skill invoked | Trigger recall | Near-miss specificity |
+|---|---|---|---|---|---|---|---|
+| system-design-skills | 100% (91-100) / 90% (77-96) | +10 (-1 to +23) | 95% (83-99) / 95% (83-99) | 65% (50-78) / 40% (26-55) | 95% (83-99) | 58% (42-71) | 100% (91-100) |
+
+#### Second judge (claude-opus-5-5) on the same saved answers
+
+| Collection | Rubric: same verdict as the first judge | Rubric difference under the second judge | Limits: same verdict | Limits difference under the second judge |
+|---|---|---|---|---|
+| system-design-skills | 111 of 120 (kappa 0.27) | +2 (-9 to +12) | 93 of 120 (kappa 0.57) | +18 (+1 to +34) |
+
 #### Model-judged pairwise comparison (both orders)
 
 | Collection | Skill preferred | Baseline preferred | Tie | Inconsistent across orders | Share preferring the skill, decisive pairs only |
@@ -235,10 +249,10 @@ Human grading: the blind kit is built (`run_evals.py sheet`) but no person has g
 
 <!-- results:end -->
 
-Read these with care. Each starter prompt was run three times with the skills and three times without, on one model on one
-day, and the prompts were written alongside the skills. On these general engineering prompts a strong model often
+Read these with care. Each starter prompt was run three times with the skills and three times without with Opus 5.5 as the agent,
+then twice each with Sonnet 5.5 as a check, on frozen cases, and the prompts were written alongside the skills. On these general engineering prompts a strong model often
 passes the facts and rubric checks without any skill, so the main differences are in how often the answer states its limits
-and in whether the skill is picked up at all. The rubric and limits checks are a model's judgement, with moderate agreement with
+and in whether the skill is picked up at all. A second judge model passes more of the no-skill answers than the first, so the size of any judged difference depends on the judge (see the second-judge table above). The rubric and limits checks are a model's judgement, with moderate agreement with
 itself (see `evals/results/judge-check.md`). No systems engineer has graded any answer. The blind kit for that is built
 (`python3 ../tools/run_evals.py sheet .`), and until people use it, the judged results here are not checked against
 human preference. The five end-to-end scenarios in [`evals/scenarios.md`](evals/scenarios.md) still need a person to grade them.

@@ -117,9 +117,71 @@ def main_rejudge(args):
     return 0
 
 
+def cross_judge(records, info, judge_model, runner=None, jobs=4):
+    """Grade every saved outcome answer once with a second judge. Returns (list of (record, rubric, limits), cost)."""
+    todo = [r for r in records if r.get("kind") == "outcome" and r.get("text") and "rubric" in r.get("graders", {})]
+    cost = [0.0]
+
+    def work(r):
+        prompt, rubric = info[r["key"]]
+        v, _why, c = direct.judge_once(prompt, r["text"], rubric, cases_mod.CALIBRATION, judge_model, runner)
+        cost[0] += c
+        return r, bool(v.get("rubric")), bool(v.get("limits"))
+    with ThreadPoolExecutor(max_workers=jobs) as pool:
+        return list(pool.map(work, todo)), cost[0]
+
+
+def cross_summary(graded):
+    """Agreement with the stored verdicts and the with/without pass rates under the second judge."""
+    out = {"n": len(graded)}
+    for i, (name, key) in enumerate((("rubric", "rubric"), ("limits", "calibration"))):
+        stored = ["PASS" if r["graders"][key]["passed"] else "FAIL" for r, _a, _b in graded]
+        second = ["PASS" if g[1 + i] else "FAIL" for g in graded]
+        out[name] = {"agree": sum(1 for x, y in zip(stored, second) if x == y), "kappa": stats.cohen_kappa(stored, second) if graded else None}
+        for arm in ("with", "without"):
+            sel = [g for g in graded if g[0]["arm"] == arm]
+            out[name][arm] = {"runs": len(sel), "stored": sum(1 for g in sel if g[0]["graders"][key]["passed"]), "second": sum(1 for g in sel if g[1 + i])}
+    return out
+
+
+def main_cross(args):
+    col = os.path.abspath(args.collection)
+    saved = json.load(open(os.path.join(col, "evals", "runs", "latest-outcome.json"), encoding="utf-8"))
+    data = cases_mod.load_cases(col)
+    info = {}
+    for c in data["outcome"]:
+        prompt, good = cases_mod.resolve_outcome(col, c)
+        info[c["skill"]] = (prompt, cases_mod.RUBRIC_TEMPLATE % (c.get("rubric") or good))
+    model = args.judge_model or "claude-opus-5-5"
+    graded, cost = cross_judge(saved["records"], info, model)
+    summ = cross_summary(graded)
+    summ["judge_model"], summ["first_judge_model"], summ["cost"] = model, saved["meta"].get("judge_model"), round(cost, 2)
+    os.makedirs(os.path.join(col, "evals", "results"), exist_ok=True)
+    json.dump(summ, open(os.path.join(col, "evals", "results", "cross-judge.json"), "w"), indent=1)
+    open(os.path.join(col, "evals", "results", "cross-judge.md"), "w", encoding="utf-8").write(render_cross(summ))
+    print(render_cross(summ))
+    return 0
+
+
+def render_cross(summ):
+    lines = ["# Second judge", "",
+             "Every saved answer (%d) was graded once more by %s, a different model from the first judge (%s), with the same rubric and limits check. "
+             "The first judge's verdicts are the majority of three votes; this is a single vote. If the second judge agrees with the first and finds the same "
+             "difference between the arms, the result does not depend on one judge model. Both are models, not people." % (summ["n"], summ["judge_model"], summ["first_judge_model"]), "",
+             "| Check | Same verdict as the first judge | Cohen's kappa | With skills: first / second judge | No skills: first / second judge |", "|---|---|---|---|---|"]
+    for name, label in (("rubric", "Rubric"), ("limits", "States its limits")):
+        r = summ[name]
+        k = "n/a" if r["kappa"] is None else "%.2f" % r["kappa"]
+        lines.append("| %s | %d of %d | %s | %d / %d of %d | %d / %d of %d |" % (label, r["agree"], summ["n"], k, r["with"]["stored"], r["with"]["second"], r["with"]["runs"],
+                                                                                 r["without"]["stored"], r["without"]["second"], r["without"]["runs"]))
+    return "\n".join(lines) + "\n"
+
+
 def main(args):
     if getattr(args, "cmd", "") == "rejudge":
         return main_rejudge(args)
+    if getattr(args, "cmd", "") == "cross-judge":
+        return main_cross(args)
     col = os.path.abspath(args.collection)
     path = os.path.join(col, "evals", "runs", "latest-outcome.json")
     if not os.path.isfile(path):
@@ -169,6 +231,17 @@ def selftest():
     eq("kappa below one", r["rubric"]["kappa"] < 1.0, True)
     eq("empty comparison", compare_verdicts([], [])["rubric"]["kappa"], None)
     eq("render", "| Rubric | 3 of 4 |" in render(r, {"judge_model": "m"}), True)
+    gr = [({"arm": "with", "graders": {"rubric": {"passed": True}, "calibration": {"passed": True}}}, True, False),
+          ({"arm": "with", "graders": {"rubric": {"passed": True}, "calibration": {"passed": False}}}, False, False),
+          ({"arm": "without", "graders": {"rubric": {"passed": False}, "calibration": {"passed": False}}}, False, True),
+          ({"arm": "without", "graders": {"rubric": {"passed": False}, "calibration": {"passed": True}}}, False, True)]
+    cs = cross_summary(gr)
+    eq("cross summary agreement", (cs["n"], cs["rubric"]["agree"], cs["limits"]["agree"]), (4, 3, 2))
+    eq("cross summary rates by arm", (cs["rubric"]["with"], cs["limits"]["without"]), ({"runs": 2, "stored": 2, "second": 1}, {"runs": 2, "stored": 1, "second": 2}))
+    eq("cross render", "| Rubric | 3 of 4 |" in render_cross(dict(cs, judge_model="b", first_judge_model="a")), True)
+    cg, cc = cross_judge([{"kind": "outcome", "text": "t", "key": "a", "arm": "with", "graders": {"rubric": {"passed": True}, "calibration": {"passed": True}}}],
+                         {"a": ("p", "r")}, None, runner=lambda body: ({"rubric": False, "limits": True}, {}, 0.02), jobs=1)
+    eq("cross judge grades once per answer", (len(cg), cg[0][1], cg[0][2], round(cc, 2)), (1, False, True, 0.02))
     eq("combine majority", (combine(True, [True, False]), combine(False, [True, False]), combine(True, [False, False]), combine(False, [True, True])), (True, False, False, True))
     eq("combine even split fails", combine(True, [False]), False)
     rr = [{"kind": "outcome", "text": "t", "key": "a", "graders": {"rubric": {"passed": True}, "calibration": {"passed": False}}},

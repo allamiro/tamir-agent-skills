@@ -9,6 +9,7 @@
   run_evals.py pairwise COLLECTION [--judge-model M] a model compares with-skill and no-skill answers, both orders
   run_evals.py sheet COLLECTION [--seed 1]           blind sheet for human graders, plus the answer key
   run_evals.py score COLLECTION --ratings CSV [CSV ...]   score filled-in ratings (win rate, agreement)
+  run_evals.py cross-judge COLLECTION [--judge-model M] grade every saved answer once with a different judge model and compare
   run_evals.py rejudge COLLECTION                    add two more judge votes to every saved answer and keep the majority of three
   run_evals.py judge-check COLLECTION [-n 20]        re-grade a sample of saved answers to see how steady the judge is
   run_evals.py codex COLLECTION [--only SKILL ...]   smoke test of the same prompts in OpenAI Codex
@@ -91,7 +92,8 @@ def cmd_run(a):
     stamp = datetime.date.today().isoformat()
     only = set(a.only) if a.only else None
     for kind in kinds:
-        print("running %s cases (%d runs each, engine %s) ..." % (kind, a.runs, a.engine), flush=True)
+        name = kind + ("-" + a.label if a.label else "")
+        print("running %s cases (%d runs each, engine %s) ..." % (name, a.runs, a.engine), flush=True)
         if a.engine == "direct":
             recs, meta = direct.run_cases(col, kind, runs=a.runs, only=only, jobs=a.jobs, model=a.model, judge_model=a.judge_model,
                                           votes=a.votes, max_cost=a.max_cost_usd)
@@ -107,7 +109,7 @@ def cmd_run(a):
             meta["runs_per_case"] = a.runs
         meta["_stamp"] = stamp
         if a.merge:
-            old_path = os.path.join(col, "evals", "runs", "latest-%s.json" % kind)
+            old_path = os.path.join(col, "evals", "runs", "latest-%s.json" % name)
             if not os.path.isfile(old_path):
                 raise SystemExit("--merge needs earlier saved runs")
             old = json.load(open(old_path, encoding="utf-8"))
@@ -130,8 +132,9 @@ def cmd_run(a):
         else:
             summary = report.summarise_trigger(recs, data["trigger"])
             body = report.render_trigger(summary, meta)
-        _save(col, kind, recs, meta, summary, _header(kind, col, meta) + body, stamp)
-        print("%s: %d run records, cost %.2f US dollars, results in evals/results/%s.md" % (kind, len(recs), meta.get("costUsd") or 0, kind))
+        meta["label"] = a.label or ""
+        _save(col, name, recs, meta, summary, _header(kind, col, meta) + body, stamp)
+        print("%s: %d run records, cost %.2f US dollars, results in evals/results/%s.md" % (name, len(recs), meta.get("costUsd") or 0, name))
     return 0
 
 
@@ -208,6 +211,7 @@ def main():
     r.add_argument("-j", "--jobs", type=int, default=4)
     r.add_argument("--engine", choices=["direct", "native"], default="direct", help="direct: claude -p in a project with the skills installed (default); native: claude plugin eval")
     r.add_argument("--votes", type=int, default=1, help="judge calls per run for the rubric checks (majority wins)")
+    r.add_argument("--label", help="save the results under outcome-LABEL / trigger-LABEL instead of overwriting the main ones (for example a second agent model)")
     r.add_argument("--merge", action="store_true", help="replace only the --only skills' records in the saved runs instead of overwriting them")
     r.add_argument("--model")
     r.add_argument("--judge-model")
@@ -215,7 +219,7 @@ def main():
     rp = sub.add_parser("report")
     rp.add_argument("collection")
     sub.add_parser("selftest")
-    for name in ("samples", "pairwise", "sheet", "score", "codex", "judge-check", "rollup", "rejudge"):
+    for name in ("samples", "pairwise", "sheet", "score", "codex", "judge-check", "rollup", "rejudge", "cross-judge"):
         q = sub.add_parser(name)
         q.add_argument("collection")
         q.add_argument("--feature")
@@ -226,8 +230,8 @@ def main():
         q.add_argument("--max-cost-usd", type=float)
         q.add_argument("-n", type=int, default=20)
     a = ap.parse_args()
-    if a.cmd in ("samples", "pairwise", "sheet", "score", "codex", "judge-check", "rollup", "rejudge"):
-        mod_name = {"samples": "samples", "pairwise": "pairwise", "sheet": "humankit", "score": "humankit", "codex": "codex_runner", "judge-check": "judgecheck", "rollup": "rollup", "rejudge": "judgecheck"}[a.cmd]
+    if a.cmd in ("samples", "pairwise", "sheet", "score", "codex", "judge-check", "rollup", "rejudge", "cross-judge"):
+        mod_name = {"samples": "samples", "pairwise": "pairwise", "sheet": "humankit", "score": "humankit", "codex": "codex_runner", "judge-check": "judgecheck", "rollup": "rollup", "rejudge": "judgecheck", "cross-judge": "judgecheck"}[a.cmd]
         try:
             mod = __import__("skilleval." + mod_name, fromlist=["main"])
         except ImportError as e:

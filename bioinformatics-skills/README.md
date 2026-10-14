@@ -277,6 +277,20 @@ Leaving out the starter prompts that ask for the skill's own table, checker or t
 |---|---|---|---|---|
 | bioinformatics-skills | 80% (69-88) | 100% (95-100) | 100% (93-100) | 0 of 6 |
 
+#### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
+
+The same final cases, run again with a different, cheaper agent model and no changes to any test after the first runs. Same judge as before (three votes).
+
+| Collection | Rubric: skills / none | Rubric difference | Facts: skills / none | Limits: skills / none | Expected skill invoked | Trigger recall | Near-miss specificity |
+|---|---|---|---|---|---|---|---|
+| bioinformatics-skills | 93% (82-98) / 83% (69-91) | +11 (-3 to +25) | 91% (80-97) / 89% (77-95) | 26% (16-40) / 28% (17-43) | 57% (42-70) | 76% (62-86) | 100% (92-100) |
+
+#### Second judge (claude-opus-5-5) on the same saved answers
+
+| Collection | Rubric: same verdict as the first judge | Rubric difference under the second judge | Limits: same verdict | Limits difference under the second judge |
+|---|---|---|---|---|
+| bioinformatics-skills | 130 of 138 (kappa 0.57) | +3 (-6 to +12) | 114 of 138 (kappa 0.62) | +12 (-5 to +27) |
+
 #### Model-judged pairwise comparison (both orders)
 
 | Collection | Skill preferred | Baseline preferred | Tie | Inconsistent across orders | Share preferring the skill, decisive pairs only |
@@ -295,11 +309,11 @@ Human grading: the blind kit is built (`run_evals.py sheet`) but no person has g
 
 <!-- results:end -->
 
-Read these with care. Each starter prompt was run three times with the skills and three times without, on one model on one
-day, and the prompts were written alongside the skills. On most of these prompts a strong model already knows the key facts,
+Read these with care. Each starter prompt was run three times with the skills and three times without with Opus 5.5 as the agent,
+then twice each with Sonnet 5.5 as a check, on frozen cases, and the prompts were written alongside the skills. On most of these prompts a strong model already knows the key facts,
 so the facts check barely separates the two arms; the skills are picked up far less often on self-contained calculations
 (translation, alignment, protein mass), where the model works the answer out itself, than on planning and judgement prompts.
-The rubric and limits checks are a model's judgement (see `evals/results/judge-check.md`). No bioinformatician has graded
+A second judge model passes more of the no-skill answers than the first, so the size of any judged difference depends on the judge (see the second-judge table above). The rubric and limits checks are a model's judgement (see `evals/results/judge-check.md`). No bioinformatician has graded
 any answer. The blind kit for that is built (`python3 ../tools/run_evals.py sheet .`), and until people use it, the judged
 results here are not checked against human preference.
 

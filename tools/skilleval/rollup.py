@@ -81,6 +81,38 @@ def build(root, only=None, level=3):
             tp, fn, fp, tn = s["tp"], s["fn"], s["fp"], s["tn"]
             out.append("| %s | %s | %s | %s | %d of %d |" % (name, _p(tp, tp + fn), _p(tn, tn + fp), _p(tp, tp + fp), s["unrelated_false"], s["unrelated_runs"]))
         out += [""]
+    rep = []
+    for name, path in names:
+        o, t = _load(path, "outcome-sonnet.json"), _load(path, "trigger-sonnet.json")
+        if o:
+            rep.append((name, o["summary"], t["summary"] if t else None))
+    if rep:
+        out += ["### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)", "",
+                "The same final cases, run again with a different, cheaper agent model and no changes to any test after the first runs. Same judge as before (three votes).", "",
+                "| Collection | Rubric: skills / none | Rubric difference | Facts: skills / none | Limits: skills / none | Expected skill invoked | Trigger recall | Near-miss specificity |",
+                "|---|---|---|---|---|---|---|---|"]
+        for name, s, t in rep:
+            w, wo = s["overall"]["with"], s["overall"]["without"]
+            rec = _p(t["tp"], t["tp"] + t["fn"]) if t else "n/a"
+            spec = _p(t["tn"], t["tn"] + t["fp"]) if t else "n/a"
+            out.append("| %s | %s / %s | %s | %s / %s | %s / %s | %s | %s | %s |" % (
+                name, _p(w["rubric"], w["runs"]), _p(wo["rubric"], wo["runs"]), _diff(w["rubric"], w["runs"], wo["rubric"], wo["runs"]),
+                _p(w["facts"], w["runs"]), _p(wo["facts"], wo["runs"]), _p(w["calibration"], w["runs"]), _p(wo["calibration"], wo["runs"]), _p(w["fired"], w["runs"]), rec, spec))
+        out += [""]
+    xrows = []
+    for name, path in names:
+        x = _load(path, "cross-judge.json")
+        if x:
+            xrows.append((name, x))
+    if xrows:
+        out += ["### Second judge (%s) on the same saved answers" % xrows[0][1].get("judge_model", "another model"), "",
+                "| Collection | Rubric: same verdict as the first judge | Rubric difference under the second judge | Limits: same verdict | Limits difference under the second judge |", "|---|---|---|---|---|"]
+        for name, x in xrows:
+            r, l = x["rubric"], x["limits"]
+            out.append("| %s | %d of %d (kappa %s) | %s | %d of %d (kappa %s) | %s |" % (
+                name, r["agree"], x["n"], "n/a" if r["kappa"] is None else "%.2f" % r["kappa"], _diff(r["with"]["second"], r["with"]["runs"], r["without"]["second"], r["without"]["runs"]),
+                l["agree"], x["n"], "n/a" if l["kappa"] is None else "%.2f" % l["kappa"], _diff(l["with"]["second"], l["with"]["runs"], l["without"]["second"], l["without"]["runs"])))
+        out += [""]
     prow = []
     for name, path in names:
         p = _load(path, "pairwise.json")

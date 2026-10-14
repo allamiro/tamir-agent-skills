@@ -121,28 +121,32 @@ Read on 2026-10-14 unless noted.
 
 ## What the latest runs show
 
-In plain terms, on 2026-10-14, one model (Claude Opus 5.5) in Claude Code 2.1.296:
+Main runs on 2026-10-14 with Claude Opus 5.5 as the agent in Claude Code 2.1.296, a confirmatory replication on 2026-10-15 with
+Claude Sonnet 5.5 as the agent on the frozen cases, and a second judge (Opus 5.5) over every saved answer of the main runs:
 
-- **The skills are never picked up by mistake.** Across every near-miss and unrelated prompt there was not one false trigger.
-  Precision and specificity are 100 percent in all three collections.
-- **Whether a skill is picked up depends on how much the model needs it.** Recall on implicit requests was 100 percent for
-  Egyptology, 80 percent for Bioinformatics and 62 percent for System Design. Every miss was the model answering directly; none was
-  a wrong skill. The misses cluster on self-contained calculations (translation, alignment, protein mass) and on general
-  engineering questions the model already handles.
-- **Whether a skill changes the answer depends on the field.** In Egyptology, where the work rests on conventions and sources a model
-  may not have to hand, the rubric pass rate rose from 33 to 100 percent. In Bioinformatics it rose from 86 to 97 percent. In System
-  Design it was 93 to 100 percent and the interval includes no difference. For general engineering prompts a strong model
-  already passes the facts and rubric checks, so the skills' measurable effect there is smaller than the noise.
-- **Stating limits is where System Design moves.** The share of answers that mark specific items as unverified or assumed rose
-  from 32 to 52 percent with the skills. Bioinformatics showed no difference on this check (22 to 28 percent).
-- **A model judge prefers the skill's answer in most decisive pairs** (14 of 18, 4 of 6 and 15 of 18), but it is a model's opinion
-  from the same family, on one answer pair per skill. It is not evidence that people would agree.
-- **The skills cost tokens.** A run with the skills read between 44 and 123 percent more input tokens, wrote between 9 percent
-  fewer and 18 percent more output tokens, and cost between 24 and 64 percent more per answer (the loaded skill text, the
-  reference files it reads, script output and extra turns).
-- **Not established:** that people prefer these answers (no one has graded them), that a model judge agrees with people, or that the
-  results hold for other models. The judge agrees with itself only moderately on some checks (Cohen's kappa 0.48 for the Egyptology
-  rubric and 0.49 for the System Design limits check; where nearly every verdict is PASS, kappa is not informative).
+- **The skills are never picked up by mistake.** Across every near-miss and unrelated prompt, with both agent models, there was not one
+  false trigger.
+- **Whether a skill is picked up depends on how much the model needs it.** Recall on implicit requests was 100 / 88 percent for Egyptology
+  (Opus / Sonnet), 80 / 76 for Bioinformatics and 62 / 58 for System Design. Every miss was the model answering directly, never a wrong skill.
+  The misses cluster on self-contained calculations and on general engineering questions the model already handles.
+- **Egyptology is the one place where the skills clearly change the answer.** The rubric pass rate rose from 33 to 100 percent with
+  Opus as agent, and from 31 to 88 percent with Sonnet. **How large that gain is depends on the judge:** a second judge (Opus 5.5) passed more
+  of the no-skill answers and found a gain of 21 points, with an interval that just reaches zero. So the direction holds across both agents and
+  both judges, and the size does not.
+- **In System Design and Bioinformatics the rubric gain is small and not reliable.** It was 7 and 12 points with the first judge,
+  10 and 11 points with Sonnet as agent, and 2 and 3 points under the second judge; most intervals include zero. A strong model already
+  answers these prompts well without a skill.
+- **Stating limits is the most consistent effect in System Design.** The share of answers that mark specific items as unverified or
+  assumed rose by 20 points (first judge), 25 points (Sonnet as agent) and 18 points (second judge). In Bioinformatics this check showed
+  no reliable difference.
+- **A model judge prefers the skill's answer in most decisive pairs** (14 of 18, 4 of 6 and 15 of 18), but it is a model's opinion from the
+  same family, on one answer pair per skill. It is not evidence that people would agree.
+- **The skills cost tokens.** With Opus as agent, a run with the skills read between 44 and 123 percent more input tokens, wrote between
+  9 percent fewer and 18 percent more output tokens, and cost between 24 and 64 percent more per answer.
+- **The judges disagree with each other more than with themselves.** The two judge models gave the same rubric verdict on 77 to 94 percent
+  of answers, with Cohen's kappa between 0.27 and 0.57. Judged results are screening, not measurement.
+- **Not established:** that people prefer these answers. No one has graded them; the blind kit and instructions are in each
+  collection's `evals/human/`.
 
 ## Corrections made after seeing results
 
@@ -165,7 +169,11 @@ These changes were made after looking at runs, so they could in principle favour
 7. **Three judge votes** were added to every saved answer after the single-vote judge showed only moderate self-agreement. The tables use the majority of three.
 8. **Prompts that presuppose the skill** (a prompt that asks for the skill's own table or checker) were flagged by a pattern and reported separately.
 
-Spend: roughly 100 US dollars at list price in all, including about 12 on runs discarded after the harness fixes. Trigger runs stop at the first skill
+After these corrections the cases were frozen. The Sonnet replication and the second judge were run on the frozen cases with no further
+changes, so they are the cleanest check on whether the corrections favoured the skills.
+
+Spend: roughly 100 US dollars at list price for the main runs, including about 12 on runs discarded after the harness fixes, plus about 39
+for the Sonnet replication and about 20 for the second judge, including about 12 on runs discarded after the harness fixes. Trigger runs stop at the first skill
 call and report no cost, so they are counted at 5 cents each; Codex runs are counted in tokens only.
 
 ## Latest results
@@ -204,6 +212,24 @@ Leaving out the starter prompts that ask for the skill's own table, checker or t
 | system-design-skills | 62% (49-73) | 100% (94-100) | 100% (91-100) | 0 of 6 |
 | egyptology-skills | 100% (86-100) | 100% (86-100) | 100% (86-100) | 0 of 6 |
 | bioinformatics-skills | 80% (69-88) | 100% (95-100) | 100% (93-100) | 0 of 6 |
+
+### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
+
+The same final cases, run again with a different, cheaper agent model and no changes to any test after the first runs. Same judge as before (three votes).
+
+| Collection | Rubric: skills / none | Rubric difference | Facts: skills / none | Limits: skills / none | Expected skill invoked | Trigger recall | Near-miss specificity |
+|---|---|---|---|---|---|---|---|
+| system-design-skills | 100% (91-100) / 90% (77-96) | +10 (-1 to +23) | 95% (83-99) / 95% (83-99) | 65% (50-78) / 40% (26-55) | 95% (83-99) | 58% (42-71) | 100% (91-100) |
+| egyptology-skills | 88% (64-97) / 31% (14-56) | +56 (+22 to +76) | 94% (72-99) / 75% (51-90) | 100% (81-100) / 81% (57-93) | 100% (81-100) | 88% (64-97) | 100% (81-100) |
+| bioinformatics-skills | 93% (82-98) / 83% (69-91) | +11 (-3 to +25) | 91% (80-97) / 89% (77-95) | 26% (16-40) / 28% (17-43) | 57% (42-70) | 76% (62-86) | 100% (92-100) |
+
+### Second judge (claude-opus-5-5) on the same saved answers
+
+| Collection | Rubric: same verdict as the first judge | Rubric difference under the second judge | Limits: same verdict | Limits difference under the second judge |
+|---|---|---|---|---|
+| system-design-skills | 111 of 120 (kappa 0.27) | +2 (-9 to +12) | 93 of 120 (kappa 0.57) | +18 (+1 to +34) |
+| egyptology-skills | 37 of 48 (kappa 0.44) | +21 (-3 to +42) | 42 of 48 (kappa 0.51) | +17 (-0 to +36) |
+| bioinformatics-skills | 130 of 138 (kappa 0.57) | +3 (-6 to +12) | 114 of 138 (kappa 0.62) | +12 (-5 to +27) |
 
 ### Model-judged pairwise comparison (both orders)
 

@@ -1,0 +1,34 @@
+{
+ "n": 138,
+ "rubric": {
+  "agree": 130,
+  "kappa": 0.5700934579439254,
+  "with": {
+   "runs": 69,
+   "stored": 67,
+   "second": 66
+  },
+  "without": {
+   "runs": 69,
+   "stored": 59,
+   "second": 64
+  }
+ },
+ "limits": {
+  "agree": 114,
+  "kappa": 0.6215722120658136,
+  "with": {
+   "runs": 69,
+   "stored": 19,
+   "second": 33
+  },
+  "without": {
+   "runs": 69,
+   "stored": 15,
+   "second": 25
+  }
+ },
+ "judge_model": "claude-opus-5-5",
+ "first_judge_model": "claude-sonnet-5-5",
+ "cost": 5.69
+}

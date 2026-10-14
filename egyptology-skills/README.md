@@ -192,6 +192,20 @@ Leaving out the starter prompts that ask for the skill's own table, checker or t
 |---|---|---|---|---|
 | egyptology-skills | 100% (86-100) | 100% (86-100) | 100% (86-100) | 0 of 6 |
 
+#### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
+
+The same final cases, run again with a different, cheaper agent model and no changes to any test after the first runs. Same judge as before (three votes).
+
+| Collection | Rubric: skills / none | Rubric difference | Facts: skills / none | Limits: skills / none | Expected skill invoked | Trigger recall | Near-miss specificity |
+|---|---|---|---|---|---|---|---|
+| egyptology-skills | 88% (64-97) / 31% (14-56) | +56 (+22 to +76) | 94% (72-99) / 75% (51-90) | 100% (81-100) / 81% (57-93) | 100% (81-100) | 88% (64-97) | 100% (81-100) |
+
+#### Second judge (claude-opus-5-5) on the same saved answers
+
+| Collection | Rubric: same verdict as the first judge | Rubric difference under the second judge | Limits: same verdict | Limits difference under the second judge |
+|---|---|---|---|---|
+| egyptology-skills | 37 of 48 (kappa 0.44) | +21 (-3 to +42) | 42 of 48 (kappa 0.51) | +17 (-0 to +36) |
+
 #### Model-judged pairwise comparison (both orders)
 
 | Collection | Skill preferred | Baseline preferred | Tie | Inconsistent across orders | Share preferring the skill, decisive pairs only |
@@ -210,9 +224,9 @@ Human grading: the blind kit is built (`run_evals.py sheet`) but no person has g
 
 <!-- results:end -->
 
-Read these with care. Each starter prompt was run three times with the skills and three times without, on one model on one
-day, and the prompts were written alongside the skills. The facts check is a regular expression and a strong model often
-passes it without help; the rubric and limits checks are a model's judgement, with moderate agreement with itself (see
+Read these with care. Each starter prompt was run three times with the skills and three times without with Opus 5.5 as the agent,
+then twice each with Sonnet 5.5 as a check, on frozen cases, and the prompts were written alongside the skills. The facts check is a regular expression and a strong model often
+passes it without help. A second judge model passes more of the no-skill answers than the first, so the size of the rubric gain depends on the judge (see the second-judge table above). The rubric and limits checks are a model's judgement, with moderate agreement with itself (see
 `evals/results/judge-check.md`). No Egyptologist has graded any answer. The blind kit for that is built
 (`python3 ../tools/run_evals.py sheet .`), and until specialists use it, the judged results here are not checked against
 expert preference.
