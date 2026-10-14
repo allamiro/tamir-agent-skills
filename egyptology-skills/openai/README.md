@@ -7,8 +7,8 @@ does not say is marked as unconfirmed.
 | Tool | How skills get in | Status for this collection | Read |
 |---|---|---|---|
 | **Codex** (CLI and IDE extension) | Folders of `SKILL.md` files in `.agents/skills` | Works | [Codex](#codex) |
-| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 8 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
-| **OpenAI Skills API** | A zip with one top-level folder | 8 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
+| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 9 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
+| **OpenAI Skills API** | A zip with one top-level folder | 9 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
 
 ## Codex
 
@@ -21,7 +21,7 @@ bash scripts/install.sh --codex --project /path/to/your/project   # this project
 bash scripts/install.sh --codex --user                            # every project on this machine
 ```
 
-`--codex` and `--agents` do the same thing. Install all 8 skills together, because they refer to each other.
+`--codex` and `--agents` do the same thing. Install all 9 skills together, because they refer to each other.
 `--symlink`, `--force` and `--dry-run` work as they do for Claude Code.
 
 Codex scans `.agents/skills` in every directory from the working directory up to the repository root,
@@ -56,7 +56,7 @@ a single top-level folder; a bundle may hold exactly one `SKILL.md`; the zip may
 there may be at most 500 files per skill version; and an uncompressed file may be at most 25 MB. The
 zips in [`chatgpt/`](chatgpt/) meet all of these, one zip per skill:
 
-Upload the skills you need; they refer to each other by name, so take all eight if you can.
+Upload the skills you need; they refer to each other by name, so take all nine if you can.
 
 | Zip | Skill |
 |---|---|
@@ -65,6 +65,10 @@ Upload the skills you need; they refer to each other by name, so take all eight 
 | [`text-annotation.zip`](chatgpt/text-annotation.zip) | Lay a text out line by line with glosses and a grade per word |
 | [`hieroglyph-app-builder.zip`](chatgpt/hieroglyph-app-builder.zip) | Data model, rendering, search and exchange for a hieroglyph tool |
 | [`accuracy-review.zip`](chatgpt/accuracy-review.zip) | Audit a reading or sign table for confident errors |
+| [`egyptology-literature.zip`](chatgpt/egyptology-literature.zip) | Find, read and cite scholarship, and check references for invented citations |
+| [`edition-conventions.zip`](chatgpt/edition-conventions.zip) | Editorial marks with a declared key, notes, witnesses, transliteration standards |
+| [`provenance-research-ethics.zip`](chatgpt/provenance-research-ethics.zip) | Object histories, gaps, permissions and disclosure |
+| [`egyptology-research-writing.zip`](chatgpt/egyptology-research-writing.zip) | Write up, submit and revise a publication, answer reviewers, check proofs |
 
 ### Rebuild the zips
 

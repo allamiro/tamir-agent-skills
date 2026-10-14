@@ -10,64 +10,60 @@ A real answer from a Claude Code session, with the numbers behind it. The prompt
 
 | | Without the skill | With the skill |
 |---|---|---|
-| Output tokens (what the model wrote, including its reasoning) | 1,985 | 1,817 |
-| Input tokens read across all turns (including cached context) | 30,398 | 59,818 |
-| Extra input tokens when the skill is installed | | +29,420 |
-| Cost, US dollars at list price | 0.100 | 0.151 |
-| Skills invoked in the sample run | none | none |
+| Output tokens (what the model wrote, including its reasoning) | 1,839 | 1,912 |
+| Input tokens read across all turns (including cached context) | 30,399 | 72,529 |
+| Extra input tokens when the skill is installed | | +42,130 |
+| Cost, US dollars at list price | 0.097 | 0.165 |
+| Skills invoked in the sample run | none | `performance-evaluation-methodology` |
 
-Size of the skill by Claude Code's own estimate (`claude plugin details`): about 270 tokens for its name and description, which are in every session where the skill is installed, and about 2,800 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
+Size of the skill by Claude Code's own estimate (`claude plugin details`): about 270 tokens for its name and description, which are in every session where the skill is installed, and about 2,900 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
 
 ## Answer with the skill (excerpt)
 
 ````text
-**Not yet.** The arithmetic is right: (41 − 38) / 41 ≈ 7.3% lower mean latency. But two means from 5 runs each don't tell you whether that 3 ms gap is real or just run-to-run noise. Whether you can claim it depends on numbers you haven't shown: the spread of the 10 individual runs.
+**Short answer: not yet.** The 7% figure is just arithmetic: (41 − 38) / 41 = 7.3%. Whether it's a real speedup depends on how much the 5 runs varied, and you haven't said. Two means alone can't support any claim.
 
-## Why the spread decides it
+## The deciding check: run-to-run spread
 
-With n = 5 per build, here is how the 95% confidence interval on the 3 ms difference changes with the per-run standard deviation (SD):
+Take the 5 per-run means for each build and run a Welch t-test. With 5 runs each, a 3 ms gap only clears 95% confidence if the standard deviation between runs is **below about 2 ms** (roughly 5% of the mean):
 
-| Per-run SD | 95% CI on the difference | What you can say |
+| Run-to-run SD | 95% CI on the 3 ms gap (approx.) | Verdict |
 |---|---|---|
-| ~1 ms | ≈ 1.5 to 4.5 ms (about 4% to 11%) | It's a real improvement, but "7%" is only the midpoint of a wide range |
-| ~3 ms | ≈ −1.4 to 7.4 ms (includes 0) | You can't tell it apart from noise |
+| 1 ms | about 1.5 to 4.5 ms | Real, somewhere between 4% and 11% faster |
+| 2 ms | about 0.1 to 5.9 ms | Borderline, the low end is close to zero |
+| 3 ms | about −1.4 to 7.4 ms | Can't tell apart from noise |
 
-Even in the best case, "7% faster" claims more precision than you have.
+Even in the best case, the honest claim is a range ("4–11%"), not exactly "7%".
 
 ## What to check
 
-1. **The raw per-run numbers.** Compute the SD for each build and a CI on the difference using Welch's t-test or a bootstrap. This tells you right now which row of the table you're in.
-2. **"Faster" at what?** You measured lower mean latency. That isn't the same as throughput, and it isn't tail latency. Check p50 and p99 as well. A mean can improve while p99 gets worse.
-3. **Run order.** If you ran all the old runs and then all the new ones, drift (thermals, background jobs, caches, CPU frequency scaling) can produce a gap like this on its own.
-4. **Same conditions.** Confirm both builds used the same machine, inputs, build flags, warm-up and config, and that nothing else changed between runs.
-5. **Noise floor (A/A test).** Benchmark the old build against itself the same way. If two identical builds differ by 2–3 ms, a 3 ms gap means nothing.
-6. **Representativeness.** Check that the workload resembles production. If this is a load test, use an open-loop load generator so slow requests aren't hidden (coordinated omission).
+1. **Were the runs independent?** Each run should be a fresh process or instance. Five samples from one process don't count as five runs.
+2. **Were the builds interleaved?** If you ran all old runs and then all new ones, drift (thermal, background jobs, cloud neighbours, cache state) can look like a speedup. Rerun in alternating or random order.
+3. **A/A noise floor.** Benchmark the old build against itself the same way. If two copies of the same build differ by 2–3 ms, your 3 ms means nothing.
+4. **Did both builds get the same treatment?** Same hardware, config, data size and warm-up. A warm cache for one build and a cold one for the other is a classic accident.
+5. **Is the mean the right metric?** "Faster" to users usually means the median and p99. A lower mean can hide a worse tail. Compare percentiles, and make sure each percentile you quote has enough samples behind it (at least ~10 above it, so p99 needs about 1,000+ requests).
+6. **Resource use.** Check CPU and memory too, so you'd notice a speedup that just uses more cores.
+7. **Load model.** If the load generator waits for each reply before sending the next request, it under-reports latency spikes (coordinated omission). Make sure both builds were measured the same way, ideally at the load level you actually care about.
 
 ## What to run
 
-- **Interleave and randomise the order** (ABBA…), with warm-up runs discarded, and do at least 20–30 runs per build.
-  - For a CLI program: `hyperfine --warmup 3 --runs 30 './old ...' './new ...'` reports mean ± SD and the relative difference.
-- **Run an A/A test** with the same harness.
-- **Analyse the per-run results:**
+Put one value per line in files (per-run means, or raw per-request latencies):
 
-```python
-import numpy as np
-from scipy import stats
-old = np.array([...]); new = np.array([...])   # per-run latencies (ms)
-print(stats.ttest_ind(old, new, equal_var=False))
-boot = [np.mean(np.random.choice(old, len(old))) - np.mean(np.random.choice(new, len(new)))
-        for _ in range(10000)]
-lo, hi = np.percentile(boot, [2.5, 97.5])
-print(f"diff CI: {lo:.2f}–{hi:.2f} ms ({lo/old.mean():.1%}–{hi/old.mean():.1%})")
+```bash
+S=.claude/skills/performance-evaluation-methodology/scripts/perfstats.py
+python3 $S compare old_runs.txt new_runs.txt --stat mean    # difference + CI + effect size + rank test
+python3 $S compare old_raw.txt  new_raw.txt  --stat p99     # check the tail too
+python3 $S runs --cv <your observed CV> --rel 0.07          # how many runs you need to resolve 7%
+python3 $S tail --q 0.99 --k 10                             # samples needed for a trustworthy p99
 ```
 
-- **Look at percentiles** (p50, p99) across all requests, not just the mean of per-run means.
+Plus the A/A run (old against old) through the same `compare` command.
+
+If the spread turns out to be around 5%, plan on **at least 8–10 interleaved runs per build**. With a spread of 3% or less, 5 runs is enough.
 
 ## What you can honestly say today
 
-> "In a preliminary benchmark (5 runs per build, [machine/workload]), mean latency dropped from 41 ms to 38 ms (~7%). We haven't yet confirmed that this is outside run-to-run noise; a larger interleaved run is in progress."
-
-If the SD turns out to be small (about 1 ms or less), you can upgrade that to: "mean latency improved by roughly 4–11% (95% CI) on [workload]."
+> "In an initial benchmark (5 runs each), mean latency was 38 ms for the new build vs 41 ms for the old. We're confirming this with repeated, interleaved runs and a noise check before quoting a speedup figure."
 
 [... excerpt ends; the full answer is longer]
 ````
@@ -75,25 +71,21 @@ If the SD turns out to be small (about 1 ms or less), you can upgrade that to: "
 ## Answer without the skill (excerpt)
 
 ````text
-# Can you claim "7% faster" from 5 runs at 41 ms vs 38 ms?
+## Short answer
 
-**Not yet.** The arithmetic is right: 3/41 is a 7.3% drop in mean latency. But two means from 5 runs each don't show whether that 3 ms is a real improvement or ordinary run-to-run noise. Whether it holds up depends almost entirely on how much your runs vary, and you haven't measured that yet.
+**Not yet.** The arithmetic is right: (41 − 38) / 41 ≈ 7.3% lower mean latency. Two things are missing before you can claim it. First, you don't know whether a 3 ms gap is bigger than the normal run-to-run noise. Second, you don't know whether a mean measured under your conditions reflects what users will see. With only 5 runs per build, the answer depends almost entirely on how much the runs vary, and two means don't tell you that.
 
-## Why 5 runs may not be enough
+## What to check first (using the data you already have)
 
-The answer depends on the standard deviation (SD) across runs:
-
-| SD per build | 95% CI on the difference | Verdict |
-|---|---|---|
-| ~1 ms | roughly 1.5 to 4.5 ms (4–11%) | Real improvement, but "7%" is still loose |
-| ~2 ms | roughly 0.1 to 5.9 ms (0–14%) | Barely distinguishable from zero |
-| ~3 ms | roughly −1.4 to 7.4 ms | Can't tell it apart from no change |
-
-A 2–3 ms spread is very common for latency benchmarks on a laptop. It's especially likely on a Mac, where thermal throttling, power state and background processes all add noise.
-
-Rounding alone also matters. If 41 and 38 are rounded values, the true difference could be anywhere from about 2 to 4 ms, which is 5–10%.
-
-## What to check
+1. **Spread of the 5 runs in each build.** Look at the standard deviation or the min–max range. Here's roughly how it plays out for a Welch t-test with n=5 per group:
+   - SD ≈ 1 ms: t ≈ 4.7. The difference is clearly real.
+   - SD ≈ 2 ms: t ≈ 2.4, p ≈ 0.05. Borderline.
+   - SD ≈ 3 ms or more: t ≈ 1.6. You can't tell it apart from noise.
+   
+   If the two builds' ranges overlap a lot, stop there. You don't have a result yet.
+2. **Unit of replication.** If each "run" contains thousands of requests, n is still 5, not thousands. Pooling all the requests and running a test on them makes the result look far more certain than it is.
+3. **Run order.** Did all the old runs happen before all the new ones? If so, warm caches, thermal throttling, CPU frequency boost or a background job could explain the 3 ms on their own.
+4. **Same conditions.** Check that both builds ran on the same machine, inputs, configuration, build flags (release vs debug, same compiler or JIT settings), warm-up and dataset state.
 
 [... excerpt ends; the full answer is longer]
 ````

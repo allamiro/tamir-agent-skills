@@ -1,6 +1,6 @@
 # Trigger results: system-design-skills
 
-Engine direct. Agent model claude-opus-5-5, judge model claude-sonnet-5-5 (1 vote per verdict), 3 runs per case. Trigger runs stop at the first skill call, so their cost is not tallied.
+Engine direct. Agent model claude-opus-5-5, judge model default (1 vote per verdict), 3 runs per case. Trigger runs stop at the first skill call, so their cost is not tallied.
 
 Each skill has a should-trigger prompt (written without naming the skill) and a near-miss prompt that shares vocabulary but belongs elsewhere; there are also unrelated prompts that should trigger nothing. Every prompt was run several times with the skills installed and the first skill the agent invoked was recorded from its tool calls. A should-trigger run passes when the expected skill was invoked; a near-miss run passes when the named skill was not.
 
@@ -10,12 +10,12 @@ Measured 2026-10-14 with 2.1.296 (Claude Code).
 
 | Measure | Value |
 |---|---|
-| Recall on should-trigger prompts | 62% (49-73) |
+| Recall on should-trigger prompts | 60% (47-71) |
 | Specificity on near-miss prompts | 100% (94-100) |
-| Precision (invoked when it should be) | 100% (91-100) |
+| Precision (invoked when it should be) | 100% (90-100) |
 | Unrelated prompts that triggered a skill | 0/6 |
 
-Recall 0.62, precision 1.00, specificity 1.00. Wilson 95% intervals; runs of one prompt are not independent.
+Recall 0.60, precision 1.00, specificity 1.00. Wilson 95% intervals; runs of one prompt are not independent.
 
 ## By skill
 
@@ -31,7 +31,7 @@ Recall 0.62, precision 1.00, specificity 1.00. Wilson 95% intervals; runs of one
 | `messaging-streaming` | 3/3 | 0/3 |
 | `observability` | 2/3 | 0/3 |
 | `payment-systems` | 2/3 | 0/3 |
-| `performance-evaluation-methodology` | 2/3 | 0/3 |
+| `performance-evaluation-methodology` | 1/3 | 0/3 |
 | `reliability-resilience` | 2/3 | 0/3 |
 | `requirements-capacity` | 0/3 | 0/3 |
 | `sharding-replication` | 3/3 | 0/3 |

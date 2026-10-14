@@ -82,6 +82,14 @@
    ],
    "script": "provrecord.py",
    "presupposes_skill": true
+  },
+  {
+   "skill": "egyptology-research-writing",
+   "facts": [
+    "permission",
+    "journal",
+    "abstract"
+   ]
   }
  ],
  "trigger": [
@@ -200,6 +208,19 @@
    "prompt": "What is a good name for a golden retriever puppy?",
    "expect": null,
    "kind": "unrelated"
+  },
+  {
+   "id": "eg-write-pos",
+   "prompt": "I want to publish the funerary stela I studied in the museum storeroom. How should I structure the article and what do I sort out before submitting?",
+   "expect": "egyptology-research-writing",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-write-neg",
+   "prompt": "What writing materials did ancient Egyptian scribes use?",
+   "expect": null,
+   "avoid": "egyptology-research-writing",
+   "kind": "near-miss"
   }
  ]
 }

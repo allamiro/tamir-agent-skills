@@ -53,7 +53,7 @@ bioinformatics-skills/
 | [`experimental-design`](skills/experimental-design/) | Replicates, controls, batch layout, sample size and power before data are collected | [6](prompts/experimental-design.md) |
 | [`biological-databases`](skills/biological-databases/) | Identifiers, versions and builds, ID mapping, annotation reliability, citing and depositing data | [6](prompts/biological-databases.md) |
 | [`data-governance-ethics`](skills/data-governance-ethics/) | Consent, privacy, controlled access, sharing, and care with online tools (guidance, not legal advice) | [6](prompts/data-governance-ethics.md) |
-| [`research-writing-reporting`](skills/research-writing-reporting/) | Methods sections, claim wording, figures, availability statements, reviewer replies | [6](prompts/research-writing-reporting.md) |
+| [`research-writing-reporting`](skills/research-writing-reporting/) | Methods sections, claim wording, figures, availability statements, journal choice and authorship, cover letters, reviewer replies, rejection and proofs | [7](prompts/research-writing-reporting.md) |
 | [`bioinformatics-learning-path`](skills/bioinformatics-learning-path/) | A study plan for your background, exercises with checkable answers, projects | [5](prompts/bioinformatics-learning-path.md) |
 
 ### Academic and research skills
@@ -164,7 +164,7 @@ Every skill has one real answer in [`examples/`](examples/), with the prompt tha
 | `bioinformatics-workflow` | 2,572 to 3,669 | +83,073 | 0.11 to 0.22 | ~270 / ~2,400 | [answer](examples/bioinformatics-workflow.md) |
 | `biological-databases` | 1,056 to 1,469 | +81,378 | 0.08 to 0.17 | ~240 / ~1,900 | [answer](examples/biological-databases.md) |
 | `data-governance-ethics` | 1,653 to 1,210 | +43,055 | 0.09 to 0.15 | ~270 / ~2,000 | [answer](examples/data-governance-ethics.md) |
-| `experimental-design` | 2,113 to 2,149 | +78,818 | 0.12 to 0.19 | ~190 / ~2,000 | [answer](examples/experimental-design.md) |
+| `experimental-design` | 1,877 to 1,532 | +107,947 | 0.10 to 0.18 | ~190 / ~2,100 | [answer](examples/experimental-design.md) |
 | `gene-finding-translation` | 196 to 401 | +5,288 | 0.06 to 0.11 | ~230 / ~2,200 | [answer](examples/gene-finding-translation.md) |
 | `information-theory-sequences` | 2,299 to 1,744 | +56,518 | 0.11 to 0.16 | ~230 / ~2,000 | [answer](examples/information-theory-sequences.md) |
 | `literature-search-appraisal` | 1,581 to 2,553 | +74,506 | 0.11 to 0.22 | ~290 / ~2,500 | [answer](examples/literature-search-appraisal.md) |
@@ -176,7 +176,7 @@ Every skill has one real answer in [`examples/`](examples/), with the prompt tha
 | `protein-analysis` | 817 to 1,057 | +5,290 | 0.08 to 0.12 | ~220 / ~2,000 | [answer](examples/protein-analysis.md) |
 | `reproducible-research-code` | 10,376 to 12,519 | +242,295 | 0.40 to 0.58 | ~230 / ~1,900 | [answer](examples/reproducible-research-code.md) |
 | `research-proposal-planning` | 708 to 921 | +5,288 | 0.07 to 0.12 | ~290 / ~2,300 | [answer](examples/research-proposal-planning.md) |
-| `research-writing-reporting` | 1,059 to 2,030 | +69,194 | 0.08 to 0.18 | ~250 / ~1,900 | [answer](examples/research-writing-reporting.md) |
+| `research-writing-reporting` | 1,034 to 2,002 | +83,078 | 0.08 to 0.19 | ~290 / ~2,300 | [answer](examples/research-writing-reporting.md) |
 | `sequence-alignment` | 1,747 to 1,667 | +24,046 | 0.11 to 0.16 | ~210 / ~1,900 | [answer](examples/sequence-alignment.md) |
 | `sequence-formats` | 1,480 to 1,500 | +5,291 | 0.09 to 0.13 | ~210 / ~2,100 | [answer](examples/sequence-formats.md) |
 | `sequence-statistics` | 366 to 466 | +5,284 | 0.07 to 0.11 | ~240 / ~2,000 | [answer](examples/sequence-statistics.md) |
@@ -257,7 +257,7 @@ Share of runs passing each check, with Wilson 95% intervals; the last column is 
 
 | Collection | Skills | Runs per arm | Facts: skills / none | Rubric: skills / none | Rubric difference | Limits: skills / none | Expected skill invoked |
 |---|---|---|---|---|---|---|---|
-| bioinformatics-skills | 23 | 69 / 69 | 97% (90-99) / 90% (81-95) | 97% (90-99) / 86% (75-92) | +12 (+2 to +22) | 28% (18-39) / 22% (14-33) | 57% (45-68) |
+| bioinformatics-skills | 23 | 69 / 69 | 97% (90-99) / 90% (81-95) | 97% (90-99) / 86% (75-92) | +12 (+2 to +22) | 26% (17-38) / 19% (11-30) | 57% (45-68) |
 
 Leaving out the starter prompts that ask for the skill's own table, checker or template:
 
@@ -269,7 +269,7 @@ Leaving out the starter prompts that ask for the skill's own table, checker or t
 
 | Collection | Output tokens: skills / none | Input tokens read: skills / none | Cost, US dollars: skills / none | Runs with a denied tool call: skills / none |
 |---|---|---|---|---|
-| bioinformatics-skills | 2,458 / 2,086 | 101,518 / 54,658 | 0.185 / 0.113 | 0 / 0 |
+| bioinformatics-skills | 2,430 / 2,075 | 101,554 / 52,823 | 0.185 / 0.112 | 0 / 0 |
 
 #### Trigger runs: does the agent pick the right skill
 

@@ -3,23 +3,34 @@
   "engine": "direct",
   "agent_model": "claude-opus-5-5",
   "judge_model": "claude-sonnet-5-5",
-  "judge_votes": 3,
+  "judge_votes": 1,
   "runs_per_case": 3,
-  "costUsd": 29.0188,
+  "costUsd": 31.2854,
   "skipped_runs": 0,
   "partial": false,
   "claudeVersion": "2.1.296 (Claude Code)",
   "startedAt": "2026-10-14T12:45:21Z",
-  "_stamp": "2026-10-14",
-  "previous_judge_votes": 1,
+  "_stamp": "2026-10-15",
+  "previous_judge_votes": 3,
+  "previous_rejudge": {
+   "answers": 138,
+   "verdicts": 276,
+   "changed": 5
+  },
   "merged_cases": [
-   "research-proposal-planning"
+   "experimental-design",
+   "research-writing-reporting"
   ],
+  "label": "",
   "rejudge": {
    "answers": 138,
    "verdicts": 276,
    "changed": 5
-  }
+  },
+  "rerun_after_skill_change": [
+   "experimental-design",
+   "research-writing-reporting"
+  ]
  },
  "summary": {
   "skills": {
@@ -232,33 +243,33 @@
      "runs": 3,
      "facts": 3,
      "rubric": 3,
-     "calibration": 3,
+     "calibration": 2,
      "fired": 3,
      "script": 3,
      "any_skill": 3,
      "denied": 0,
      "has_script": 3,
      "errors": 0,
-     "out_tokens": 2148.6667,
-     "in_tokens": 151375,
-     "cost": 0.1942,
-     "seconds": 26.8333
+     "out_tokens": 1532.3333,
+     "in_tokens": 138320.3333,
+     "cost": 0.178,
+     "seconds": 20.3667
     },
     "without": {
      "runs": 3,
      "facts": 3,
      "rubric": 3,
-     "calibration": 1,
+     "calibration": 0,
      "fired": 0,
      "script": 0,
      "any_skill": 0,
      "denied": 0,
      "has_script": 3,
      "errors": 0,
-     "out_tokens": 2113.3333,
-     "in_tokens": 72556.6667,
-     "cost": 0.118,
-     "seconds": 24.2667
+     "out_tokens": 1877.3333,
+     "in_tokens": 30373,
+     "cost": 0.0972,
+     "seconds": 19.8
     }
    },
    "gene-finding-translation": {
@@ -647,26 +658,26 @@
      "denied": 0,
      "has_script": 0,
      "errors": 0,
-     "out_tokens": 2029.6667,
-     "in_tokens": 99634.3333,
-     "cost": 0.1778,
-     "seconds": 28.9667
+     "out_tokens": 2002.3333,
+     "in_tokens": 113517,
+     "cost": 0.1857,
+     "seconds": 22.8
     },
     "without": {
      "runs": 3,
      "facts": 3,
      "rubric": 3,
-     "calibration": 1,
+     "calibration": 0,
      "fired": 0,
      "script": 0,
      "any_skill": 0,
      "denied": 0,
      "has_script": 0,
      "errors": 0,
-     "out_tokens": 1059.3333,
-     "in_tokens": 30440.6667,
-     "cost": 0.0813,
-     "seconds": 13.8667
+     "out_tokens": 1034.3333,
+     "in_tokens": 30439.3333,
+     "cost": 0.0808,
+     "seconds": 14.1
     }
    },
    "sequence-alignment": {
@@ -812,7 +823,7 @@
     "skills": 23,
     "facts": 67,
     "rubric": 67,
-    "calibration": 19,
+    "calibration": 18,
     "fired": 39,
     "script": 14,
     "any_skill": 39,
@@ -822,17 +833,17 @@
     "runs_per_skill": 3,
     "pass_hat_all_facts": 0.9565,
     "pass_hat_rubric": 0.913,
-    "mean_out_tokens": 2457.5,
-    "mean_in_tokens": 101518.5,
-    "mean_cost": 0.1852,
-    "total_cost": 12.78
+    "mean_out_tokens": 2429.5,
+    "mean_in_tokens": 101554.5,
+    "mean_cost": 0.1848,
+    "total_cost": 12.75
    },
    "without": {
     "runs": 69,
     "skills": 23,
     "facts": 62,
     "rubric": 59,
-    "calibration": 15,
+    "calibration": 13,
     "fired": 0,
     "script": 0,
     "any_skill": 0,
@@ -842,10 +853,10 @@
     "runs_per_skill": 3,
     "pass_hat_all_facts": 0.8261,
     "pass_hat_rubric": 0.8261,
-    "mean_out_tokens": 2086.4,
-    "mean_in_tokens": 54657.5,
-    "mean_cost": 0.1131,
-    "total_cost": 7.8
+    "mean_out_tokens": 2075.1,
+    "mean_in_tokens": 52823.3,
+    "mean_cost": 0.1121,
+    "total_cost": 7.74
    }
   },
   "flagged": [
@@ -856,14 +867,14 @@
     "runs": 66,
     "facts": 64,
     "rubric": 64,
-    "calibration": 16,
+    "calibration": 15,
     "skills": 22
    },
    "without": {
     "runs": 66,
     "facts": 61,
     "rubric": 59,
-    "calibration": 12,
+    "calibration": 10,
     "skills": 22
    }
   }

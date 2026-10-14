@@ -28,37 +28,40 @@ reviews and the word limit.
 
 Writing:
 
-1. **Write the claim in one sentence,** then at most three contributions, each falsifiable. Fill the
+1. **Choose the venue and settle authorship first.** Read the call or the instructions for authors, agree
+   who is an author and who is acknowledged, and plan the next venue in case of rejection
+   (`references/manuscript-craft.md` takes a paper from that decision to the camera-ready version).
+2. **Write the claim in one sentence,** then at most three contributions, each falsifiable. Fill the
    matrix in `assets/templates/claims-evidence.md`: contribution, the experiment or argument that
    supports it, the figure or table, and the limit of the claim.
-2. **State the problem and the insight.** Why do existing approaches fail, shown with a measurement or
+3. **State the problem and the insight.** Why do existing approaches fail, shown with a measurement or
    a precise argument, and what is the one idea that changes it.
-3. **Outline** (adapt to the call): abstract; introduction with problem, insight, contributions and
+4. **Outline** (adapt to the call): abstract; introduction with problem, insight, contributions and
    headline results; background or motivation; design; implementation; evaluation; related work;
    limitations and discussion; conclusion.
-4. **Write the evaluation as questions:** each experiment answers a stated question, with setup,
+5. **Write the evaluation as questions:** each experiment answers a stated question, with setup,
    workload, baselines, metric, runs and variance, an ablation, a sensitivity study, overheads and
    failures. Take the plan from `performance-evaluation-methodology`.
-5. **Write related work as a comparison** along the axes that matter (assumptions, guarantees, cost),
+6. **Write related work as a comparison** along the axes that matter (assumptions, guarantees, cost),
    not as a list. Find and check the sources with `systems-literature-reading`, including its citation checker.
-6. **Write limitations and threats to validity** in three groups: internal (could something else explain
+7. **Write limitations and threats to validity** in three groups: internal (could something else explain
    the result), external (does it generalise), and construct (does the metric measure what is claimed).
-7. **Prepare the artifact:** code, configuration, scripts, raw data, environment description and a
+8. **Prepare the artifact:** code, configuration, scripts, raw data, environment description and a
    one-command run, placed in a permanent public repository if the venue awards an "available" badge.
-8. **Record contributions and tool use:** who did what (the CRediT roles are a standard vocabulary) and
+9. **Record contributions and tool use:** who did what (the CRediT roles are a standard vocabulary) and
    any generative-AI use, following the venue's policy.
 
 Reviewing:
 
-9. **Summarise the paper's claims in your own words** before judging; if you cannot, say what is unclear.
-10. **Judge** significance, novelty, soundness, evaluation and clarity; list major concerns first, each
+10. **Summarise the paper's claims in your own words** before judging; if you cannot, say what is unclear.
+11. **Judge** significance, novelty, soundness, evaluation and clarity; list major concerns first, each
     with the page or figure and what would resolve it; then minor points and questions for the authors.
-11. **Give a recommendation with your confidence,** and say which parts you are not expert in
+12. **Give a recommendation with your confidence,** and say which parts you are not expert in
     (`assets/templates/review-and-response.md`).
 
 Responding:
 
-12. **Answer each point,** grouped by reviewer concern: agree and change, clarify, disagree with evidence,
+13. **Answer each point,** grouped by reviewer concern: agree and change, clarify, disagree with evidence,
     or cannot address (say why). Do not introduce claims the paper does not support.
 
 ## Decision framework
@@ -70,6 +73,7 @@ Responding:
 | Novelty unclear | Compare against the closest prior work on the axes that differ | Attack the reviewer |
 | Claim too strong | Narrow the claim in the text | Defend wording with adjectives |
 | Misunderstanding | Point to the section and fix the clarity problem | Blame the reader |
+| Rejection | Revise on the constructive points and target the next deadline agreed with co-authors | Resubmit unchanged |
 
 | Venue artifact badge | What it generally requires | Check |
 |---|---|---|
@@ -119,5 +123,5 @@ review or a point-by-point response with the changes made.
 
 - Book (direct): none; this skill extends the library to research work and is not taken from the book
 - Book (synthesized): none
-- Modern: Levin and Redell (1983, reprinted 1988) and Smith, *The Task of the Referee* (IEEE Computer, 1990), records fetched from Crossref 2026-10-14, content from author knowledge, VERIFY; ACM Artifact Review and Badging pages read in part 2026-10-14 (version 1.1 swaps the meanings of "reproduced" and "replicated", and "available" needs a permanent public archive); 14 CRediT roles from CASRAI pages 2026-10-14; the ACM authorship policy page says generative AI tools cannot be authors and use must be disclosed, while one conference page read the same day says otherwise, so read the venue's current policy
+- Modern: Baker, "How to write your first paper", *Obstetrics, Gynaecology and Reproductive Medicine* 22(3):81–82, 2012, doi:10.1016/j.ogrm.2011.12.003 (supplied text, paraphrased; record checked on Crossref 2026-10-15) for the sequence from journal choice to proofs; Levin and Redell (1983, reprinted 1988) and Smith, *The Task of the Referee* (IEEE Computer, 1990), records fetched from Crossref 2026-10-14, content from author knowledge, VERIFY; ACM Artifact Review and Badging pages read in part 2026-10-14 (version 1.1 swaps the meanings of "reproduced" and "replicated", and "available" needs a permanent public archive); 14 CRediT roles from CASRAI pages 2026-10-14; the ACM authorship policy page says generative AI tools cannot be authors and use must be disclosed, while one conference page read the same day says otherwise, so read the venue's current policy
 - Needs workload validation: the venue's call, page limit, review form, badge rules and AI policy decide the details; not covered are formal proofs, statistics (`performance-evaluation-methodology`) and venues outside ACM

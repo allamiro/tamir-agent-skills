@@ -9,146 +9,6 @@ For each item, read the prompt and both answers. Do not try to guess which answe
 
 ---
 
-## P08
-
-**Prompt:** Transliterate this sequence of Gardiner codes: G39 A1. Classify each sign, say which transliteration convention you use, say where the word ends, and flag anything ambiguous.
-
-### Answer A
-
-**Transliteration: sꜣ, "son"** (the alternative reading is sꜣ=ꞽ, "my son"; see below)
-
-## Sign classification
-
-| Gardiner | Sign | Function here | Value |
-|---|---|---|---|
-| **G39** | pintail duck | Biliteral phonogram | **sꜣ** |
-| **A1** | seated man | Determinative (classifier) for "man, male person" | not pronounced |
-
-G39 gives the whole sound of the word. A1 marks it as a word about a male person, which tells it apart from the many other words spelled with sꜣ, such as sꜣ "back" or sꜣ "protection". G39 + A1 (often with the stroke Z1 as well) is the standard spelling of sꜣ "son".
-
-## Convention
-
-I use the standard Egyptological transliteration found in Gardiner and Allen, written in Unicode characters:
-- ꜣ (U+A723) for the aleph.
-- ꞽ for yod, needed for the alternative reading below.
-- `=` for the boundary between a noun and a suffix pronoun, following Leiden Unified Transliteration practice.
-
-In Manuel de Codage ASCII this would be `zA`.
-
-## Word boundary
-
-The word ends **after A1**. Determinatives close a word, so A1 is the last sign of the lexeme and anything after it would start a new word. Because the word ends there, the reading is **sꜣ** and not *sꜣꞽ*.
-
-## Ambiguities
-
-1. **A1: determinative or suffix pronoun?** A1 can also write the 1st person singular suffix pronoun **=ꞽ** ("my"). G39 + A1 could therefore be **sꜣ=ꞽ, "my son"**, with the noun ending after G39 and =ꞽ attached to it. The determinative reading is the default for an isolated pair. A suffix reading becomes more likely when a speaker is talking about their own son, especially if a second A1 appears (determinative + suffix), or in formulas such as *sꜣ=ꞽ mrꞽ=ꞽ* "my beloved son". Only context can settle this.
-2. **G39 vs G38.** G39 (pintail, sꜣ) is easily confused with **G38** (white-fronted goose, gb), especially in hieratic or worn inscriptions. If the sign is really G38, the reading changes completely, for example to the god Geb (gb). The sign identification is worth checking.
-3. **Absent Z1.** Many attestations of "son" add the stroke Z1 after the duck (G39-Z1-A1). Leaving it out is normal and doesn't change the reading.
-4. **Grammatical context.** Without surrounding text, sꜣ could stand alone, be the first part of a filiation formula (*sꜣ N* "son of N"), or be part of the royal title *sꜣ Rꜥ* "Son of Ra". The transliteration stays the same in each case, but how it is parsed and translated changes.
-
-### Answer B
-
-**Transliteration: *sꜣ*** (G39 A1). Written right to left, as 𓅭𓀀 in the usual layout.
-
-**Convention:** I've used the current Egyptological letters (ꜣ, ꜥ, ḥ, ḫ, ẖ, š, q, ṯ, ḏ, …). I haven't checked these against the transliteration standard agreed at Leiden in 2023, so check them against whatever scheme your target publication follows. Gardiner's sign list prints some letters differently (for example ḳ where we now write q). This word doesn't use any of those letters, though.
-
-| # | Glyph | Code | Role | Value | Confidence | Alternatives |
-|---|---|---|---|---|---|---|
-| 1 | 𓅭 | G39 (pintail duck) | Biliteral | *sꜣ* | High | Older reading *zꜣ* (see below) |
-| 2 | 𓀀 | A1 (seated man) | Determinative (man, male person) | none | High | A1 can also be the first-person suffix *=ỉ* "I/my" (see below) |
-
-**Word boundary:** the word ends after A1. A1 is a classifier that closes the word and puts it in the category "man", so it adds no sound. G39 alone writes the whole consonant skeleton. Nothing is written twice, so there's no phonetic complement to worry about.
-
-**Things that are ambiguous:**
-
-1. **s or z.** Old Egyptian kept *s* and *z* apart, and this word was originally *zꜣ*. Gardiner's sign list prints it as s (z) for that reason. For Middle Egyptian, *sꜣ* is standard. In an Old Kingdom text you might want *zꜣ*.
-2. **Determinative or suffix pronoun.** After a noun, A1 can also stand for the first-person suffix, giving *sꜣ=ỉ* "my son". Here A1 is the last sign and nothing else is written, so the determinative reading is the more likely one. But the two signs can't settle it alone; the surrounding text decides. In many texts the determinative and the suffix are written as one sign, so a writing like this can sometimes mean "my son".
-3. **Which word it is.** I've read this as *sꜣ* "son", the standard example in the sign list. G39 is only ever read as *sꜣ*, so the alternatives come down to which *sꜣ* word this is. The man determinative points to "son", but I haven't checked other words spelled the same way. I haven't translated it, since you asked only for the transliteration.
-4. **Context.** I had only two sign codes, with no date, damage marks or surrounding text. If either sign is damaged or restored, these confidence grades no longer hold.
-
-**Needs expert review:** whether to write *s* or *z* for the date of your text, and whether A1 here is a determinative or a suffix pronoun.
-
----
-
-## P06
-
-**Prompt:** An object was excavated in 1895 with a field register entry, sold in 1921 with a catalogue lot number, and given to a museum in 1982 by the collector's heirs, with only an oral account for that last step. Build the record, run the checker and tell me what can and cannot be said.
-
-### Answer A
-
-I built the record and ran the checker. The checker's self-test passed (27 checks). It returned **4 flags and 2 notes**. The record is at `scratchpad/record.json`. Names, the site, the entry number and the lot number are placeholders because you didn't give them.
-
-## The record
-
-| # | Date | Event | From → To | Evidence | Reference |
-|---|---|---|---|---|---|
-| 1 | 1895 | Excavation | — → Excavator A | Document | Field register, entry [no.] |
-| 2 | 1921 | Sale | Excavator A → Collector B | Publication | Sale catalogue, lot [no.] |
-| 3 | 1982 | Gift | Heirs of Collector B → Museum M | Oral | Oral account only |
-
-**One assumption to check:** I recorded the excavator as the 1921 seller. You didn't say who sold it. If the seller was someone else, the checker would also flag a break between 1895 and 1921.
-
-## Checker flags and what each means
-
-1. **Undocumented event (1982 gift):** the step into the museum rests only on an oral account. The museum should have an accession register entry, a deed of gift or correspondence. Ask for them. Until one is found, this step can only be called "claimed".
-2. **Broken chain (Collector B → heirs):** there is no record of the collector's death or of the object passing to the heirs, and the heirs aren't named. A will, probate inventory or estate papers would close this.
-3. **26-year gap (1895–1921):** nothing records how the object went from the excavation to the sale. In particular, there is no export record or division of finds with the Egyptian authorities, so nothing shows how or when it left Egypt.
-4. **61-year gap (1921–1982):** nothing records where the object was for six decades, including through the 1970 and 1973 benchmark years.
-
-**Notes:** the object was first documented in 1895, before both benchmarks: the UNESCO Convention (1970) and the Archaeological Institute of America's publication cut-off (30 Dec 1973). The checker itself warns that this **does not show the object left Egypt lawfully**. It only shows when the object was first recorded.
-
-## What can be said
-
-**I haven't seen any of the documents myself.** So for now every step is at most "reported". It becomes "documented" only once someone examines the register and the catalogue.
-
-- **Reported:** an object was recorded in the 1895 field register (entry no.) and in a 1921 sale catalogue (lot no.). This becomes "documented" once someone has examined both.
-- **Claimed:** the collector's heirs gave the object to Museum M in 1982. At present this rests on an oral account.
-- **Unknown:** how and when the object left Egypt, who held it between 1921 and 1982, and how ownership passed from the collector to the heirs.
-
-## What cannot be said
-
-- That the object left Egypt lawfully. The 1895 date doesn't establish this.
-- That it has a continuous or complete provenance. It has two long gaps and one undocumented step.
-- That Museum M acquired it lawfully or holds good title. Museum ownership doesn't prove that, and this is a question for counsel or the museum's provenance researcher, not for me.
-- That the register object, the catalogue lot and the museum object are the same object. Nothing in the record yet links them: you need matching descriptions, dimensions, marks or labels. **This is the most important thing for a specialist to check.** The checker can't see it, and it also can't detect a forged or mis-dated document.
-
-## Next steps
-
-- Get the museum's accession file for the 1982 gift.
-- Examine the field register and the catalogue, and check that their descriptions match the object.
-- Look for estate papers for the collector and for any Egyptian export or division-of-finds record from 1895–1921.
-- Check the policy of the venue where this will be published. The cut-off year differs: the AIA uses 1973 and ASOR is dated by 1970. Confirm the current rule on the venue's own page.
-- Ask a provenance specialist about the gaps before you publish.
-
-### Answer B
-
-The workspace was empty, so there was no checker to run. I wrote one myself, along with the record, so the results only reflect the rules I gave it:
-
-- `provenance_record.json` holds the three events, with what kind of evidence backs each one.
-- `check_provenance.py` flags gaps in the chain, broken links between owners, weak evidence, missing citations, unconfirmed matches to this object, and missing legal paperwork.
-
-**Result: 11 issues found, and the chain of ownership is not complete.**
-
-## What can be said
-- A field register records an excavation in 1895, and the register is a document.
-- An object was offered at auction in 1921 under a known lot number, and the catalogue is a document.
-- The collector's heirs say they gave the object to the museum in 1982. That rests on the oral account alone.
-
-## What cannot be said, yet
-1. **That these three records are the same object.** None of the sources has been checked against the object itself. Compare its description, size, inscriptions or excavation number with the register entry and the lot description. Until that's done, each step is only "an object."
-2. **Who had it from 1895 to 1921.** That's 26 years with no known owner, and nobody knows who sold it in 1921. This is the biggest gap.
-3. **That the collector bought it in 1921.** A lot number shows the object was offered, not who bought it, or even that it sold. You'd need an annotated copy of the catalogue, the auction house's sale records, or a receipt.
-4. **How it passed from the collector to the heirs.** There's no death date, will or estate inventory.
-5. **That the 1982 gift happened as told.** Spoken testimony is the weakest kind of evidence. Check the museum's own 1982 accession files first: a deed of gift, correspondence or a registrar's note would turn this step into a documented one.
-6. **That it left the excavation site legally.** Nothing records a permit, an official division of finds, or export papers. In practice this matters as much as the ownership gaps.
-
-## Wording you could use now
-> "Possibly the object recorded in the [register] in 1895 (identification unconfirmed); possibly offered at [sale], 1921, lot [n] (buyer undocumented); by family account, given to the museum by the heirs of [collector], 1982. Provenance 1895–1921 unknown."
-
-If you add the real names, citations and confirmed identifications to the JSON and run the checker again, the matching issues will clear. The 1895–1921 gap will stay until you find a document showing who had it.
-
----
-
 ## P03
 
 **Prompt:** Check this reference list for references that might be invented or wrong: (1) Gardiner, A. H. Egyptian Grammar, 3rd ed. Oxford: Griffith Institute, 1957. (2) Nobody, N. 2019. A new reading of the Tale of Sinuhe. Journal of Egyptian Archaeology 105: 1-20. doi:10.1177/0307513319999999. (3) Faulkner, R. O. A Concise Dictionary of Middle Egyptian. Oxford: Griffith Institute, 1962.. Mark each one read, seen or recalled, run the citation checker on any with a DOI, and tell me which entries a librarian must confirm.
@@ -197,7 +57,7 @@ None of the entries is **read** or **seen**: I didn't open any of the sources or
 
 ---
 
-## P05
+## P06
 
 **Prompt:** Design a small web app where students look up a hieroglyph by Gardiner code or by sound and see its Unicode character, readings and sources. Give me the data model, the rendering plan with fallbacks, and tests. Before we ship, check the licences of the data and fonts I plan to use: a Unicode hieroglyph web font and my own list of 86 signs checked against Gardiner's sign list.
 
@@ -455,7 +315,118 @@ Once you send the font name and the 86-sign file, I'll do the actual check and f
 
 ---
 
-## P07
+## P02
+
+**Prompt:** Check the brackets in this line and tell me what is wrong: `htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]`. Then draft the key the line would need.
+
+### Answer A
+
+## The bracket problem
+
+The line opens four brackets but closes only three:
+
+```
+htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]
+           [         ✓         (         ]
+                {  }  ✓        ✗ never closed
+```
+
+- `[ … ]` opens and closes correctly.
+- `{nb}` opens and closes correctly.
+- **`(` is never closed.** The `]` comes while `(` is still open, so the brackets overlap instead of nesting.
+
+There are two ways to fix it, and they mean different things:
+
+| Fix | Meaning |
+|---|---|
+| `[Wsjr {nb} Ddw (dj=f) prt-xrw]` | Only *dj=f* is added by the editor |
+| `[Wsjr {nb} Ddw (dj=f prt-xrw)]` | *dj=f prt-xrw* is all added by the editor |
+
+Only the source text can tell you which one is right.
+
+## Two other things to check
+
+1. **`{nb}` looks wrong.** *nb Ḏdw*, "lord of Busiris," is the standard epithet of Osiris in this formula. Marking *nb* as superfluous would be unusual. If the scribe left it out and you are supplying it, the usual sign is `⟨nb⟩`, not `{nb}`.
+2. **Capital letters.** In Manuel de Codage, `h` is ḥ and `H` is ḥ. The formula needs `Htp` (ḥtp). In the same way, `ddw` should be `Ddw` (Ḏdw). Right now the line reads as h-tp and d-dw.
+
+A corrected line, assuming only *dj=f* is supplied and *nb* is an omission:
+
+```
+Htp-dj-nsw [Wsjr ⟨nb⟩ Ddw (dj=f) prt-xrw]
+```
+
+## Draft key
+
+> **Sigla**
+>
+> `[ ]` Text lost in a lacuna and restored by the editor.
+> `⸢ ⸣` Text partly damaged but still readable.
+> `⟨ ⟩` Text the scribe left out by mistake, supplied by the editor.
+> `{ }` Text in the original that the editor judges superfluous or wrong. Read it as deleted.
+> `( )` Words not written in the original, added by the editor to complete the sense or to write out an abbreviation.
+> `…` A lacuna of unknown length that has not been restored.
+>
+> Brackets nest and must close in reverse order, so `[ ( ) ]` is valid and `[ ( ] )` is not.
+>
+> Transliteration follows the Manuel de Codage: `H` = ḥ, `x` = ḫ, `X` = ẖ, `S` = š, `T` = ṯ, `D` = ḏ, `A` = ꜣ, `a` = ꜥ, `j` = i̯/ꞽ.
+
+Bracket conventions vary between publications, especially for `( )` and `⟨ ⟩`. If you're following a particular house style (for example Leiden, *Wb.*, or a journal's own guidelines), check these definitions against it.
+
+### Answer B
+
+The line has one structural error and two problems with what the brackets mean.
+
+## What's wrong
+
+**1. The brackets cross. This is the structural error.**
+`[` opens before `Wsjr`, then `(` opens before `dj=f`. The `]` at the end closes the square bracket while the round one is still open, and `(` is never closed. The checker reports it as `]` closing `[` from col 12 while `(` from col 27 is still open. Every bracket has to close inside the one around it, so you need `[ … ( … ) … ]` or `[ … ] ( … )`.
+
+**2. The round brackets probably don't belong here.**
+In an edition line, `( )` usually marks letters you add to expand an abbreviation, such as `nsw` written short. `dj=f prt-xrw` is not an expansion. If you meant "words added for sense", that use belongs in the translation, not the edition line. If you meant "restored", the `[ ]` already says so. My guess is the `(` is left over from an earlier edit and should be deleted.
+
+**3. `{nb}` contradicts the restoration around it.**
+`{ }` means the scribe wrote something you are removing as superfluous. Inside `[ ]`, though, the signs are lost and you are restoring them, so you can't call a scribe's sign wrong if it isn't there to see. Also, *nb* is the expected word: *Wsjr nb Ḏdw*, "Osiris, lord of Djedu (Busiris)", is the standard epithet. If *nb* really is visible and you doubt it, mark it as a doubtful reading (`⸢nb⸣?`) and explain in a note. If it's lost, it is simply part of the restoration.
+
+**Not brackets, but worth checking:**
+- If this is Manuel de Codage (MdC) ASCII, the first word should be `Htp` (capital H = ḥ), and the place name should be `Ddw` (D = ḏ). Lowercase `htp` and `ddw` read as different sounds. Use one scheme throughout and name it.
+- The whole restoration looks like the offering formula. If it came from familiarity with the formula rather than a cited parallel, it needs a parallel in a note. Without one, leave the gap unrestored.
+
+## Corrected line
+
+Which version is right depends on which signs actually survive, and I can't tell that from here:
+
+- Everything after *nsw* is lost:
+  `Htp-dj-nsw [Wsjr nb Ddw dj=f prt-xrw]`
+- Only the god's name and epithet are lost:
+  `Htp-dj-nsw [Wsjr nb Ddw] dj=f prt-xrw`
+
+Both pass the bracket check once the stray `(` and `{ }` are gone.
+
+## Draft key
+
+If your publication has its own key, use that instead. Otherwise, print something like this above the text, listing only the marks the edition actually uses:
+
+> **Key to sigla**
+> `[abc]` lost text restored by the editor; the evidence for each restoration is given in the notes
+> `[...]` lost text not restored, extent unknown (if the number of signs was measured on the object or a scaled image, give the count)
+> `⸢abc⸣` damaged but legible signs
+> `⟨abc⟩` omitted by the scribe, supplied by the editor
+> `{abc}` written by the scribe but superfluous, removed by the editor
+> `⟦abc⟧` erased in antiquity
+> `a(bc)` abbreviation expanded by the editor (edition line only)
+> `?` after a sign or word: doubtful reading
+> In the translation, *(words)* are added by the translator for sense.
+> Transliteration: [name the scheme, e.g. MdC ASCII or the publication's standard].
+
+Two choices in this key are mine and need a decision from you:
+- I used round brackets only for expanding abbreviations in the edition line, and only for added words in the translation. That stops one mark having two meanings in the same layer.
+- I used the half-bracket style `⸢ ⸣`. Don't also use `⌈ ⌉` anywhere in the same text.
+
+The Egyptological uses of these marks come from general practice. Check them against the house style of the journal or series you're writing for.
+
+---
+
+## P08
 
 **Prompt:** Annotate this one-word text, given as Gardiner codes: G39 A1. Use the interlinear layout: word id, signs, transliteration, gloss, grammar, grade and notes, then a literal translation and a review list. No dictionary is supplied, so mark every gloss VERIFY.
 
@@ -515,6 +486,363 @@ Once you send the font name and the 86-sign file, I'll do the actual check and f
 - **Sign values:** the sign table's entries for G39 and A1 come from OCR text of the Gardiner list. Check them against the page images for pp. 442 and 471.
 
 If you plan to share or publish this, the next step is an `accuracy-review` pass. Publication would also need a facsimile or photograph of the original.
+
+---
+
+## P09
+
+**Prompt:** Transliterate this sequence of Gardiner codes: G39 A1. Classify each sign, say which transliteration convention you use, say where the word ends, and flag anything ambiguous.
+
+### Answer A
+
+**Transliteration: *sꜣ*** (G39 A1). Written right to left, as 𓅭𓀀 in the usual layout.
+
+**Convention:** I've used the current Egyptological letters (ꜣ, ꜥ, ḥ, ḫ, ẖ, š, q, ṯ, ḏ, …). I haven't checked these against the transliteration standard agreed at Leiden in 2023, so check them against whatever scheme your target publication follows. Gardiner's sign list prints some letters differently (for example ḳ where we now write q). This word doesn't use any of those letters, though.
+
+| # | Glyph | Code | Role | Value | Confidence | Alternatives |
+|---|---|---|---|---|---|---|
+| 1 | 𓅭 | G39 (pintail duck) | Biliteral | *sꜣ* | High | Older reading *zꜣ* (see below) |
+| 2 | 𓀀 | A1 (seated man) | Determinative (man, male person) | none | High | A1 can also be the first-person suffix *=ỉ* "I/my" (see below) |
+
+**Word boundary:** the word ends after A1. A1 is a classifier that closes the word and puts it in the category "man", so it adds no sound. G39 alone writes the whole consonant skeleton. Nothing is written twice, so there's no phonetic complement to worry about.
+
+**Things that are ambiguous:**
+
+1. **s or z.** Old Egyptian kept *s* and *z* apart, and this word was originally *zꜣ*. Gardiner's sign list prints it as s (z) for that reason. For Middle Egyptian, *sꜣ* is standard. In an Old Kingdom text you might want *zꜣ*.
+2. **Determinative or suffix pronoun.** After a noun, A1 can also stand for the first-person suffix, giving *sꜣ=ỉ* "my son". Here A1 is the last sign and nothing else is written, so the determinative reading is the more likely one. But the two signs can't settle it alone; the surrounding text decides. In many texts the determinative and the suffix are written as one sign, so a writing like this can sometimes mean "my son".
+3. **Which word it is.** I've read this as *sꜣ* "son", the standard example in the sign list. G39 is only ever read as *sꜣ*, so the alternatives come down to which *sꜣ* word this is. The man determinative points to "son", but I haven't checked other words spelled the same way. I haven't translated it, since you asked only for the transliteration.
+4. **Context.** I had only two sign codes, with no date, damage marks or surrounding text. If either sign is damaged or restored, these confidence grades no longer hold.
+
+**Needs expert review:** whether to write *s* or *z* for the date of your text, and whether A1 here is a determinative or a suffix pronoun.
+
+### Answer B
+
+**Transliteration: sꜣ, "son"** (the alternative reading is sꜣ=ꞽ, "my son"; see below)
+
+## Sign classification
+
+| Gardiner | Sign | Function here | Value |
+|---|---|---|---|
+| **G39** | pintail duck | Biliteral phonogram | **sꜣ** |
+| **A1** | seated man | Determinative (classifier) for "man, male person" | not pronounced |
+
+G39 gives the whole sound of the word. A1 marks it as a word about a male person, which tells it apart from the many other words spelled with sꜣ, such as sꜣ "back" or sꜣ "protection". G39 + A1 (often with the stroke Z1 as well) is the standard spelling of sꜣ "son".
+
+## Convention
+
+I use the standard Egyptological transliteration found in Gardiner and Allen, written in Unicode characters:
+- ꜣ (U+A723) for the aleph.
+- ꞽ for yod, needed for the alternative reading below.
+- `=` for the boundary between a noun and a suffix pronoun, following Leiden Unified Transliteration practice.
+
+In Manuel de Codage ASCII this would be `zA`.
+
+## Word boundary
+
+The word ends **after A1**. Determinatives close a word, so A1 is the last sign of the lexeme and anything after it would start a new word. Because the word ends there, the reading is **sꜣ** and not *sꜣꞽ*.
+
+## Ambiguities
+
+1. **A1: determinative or suffix pronoun?** A1 can also write the 1st person singular suffix pronoun **=ꞽ** ("my"). G39 + A1 could therefore be **sꜣ=ꞽ, "my son"**, with the noun ending after G39 and =ꞽ attached to it. The determinative reading is the default for an isolated pair. A suffix reading becomes more likely when a speaker is talking about their own son, especially if a second A1 appears (determinative + suffix), or in formulas such as *sꜣ=ꞽ mrꞽ=ꞽ* "my beloved son". Only context can settle this.
+2. **G39 vs G38.** G39 (pintail, sꜣ) is easily confused with **G38** (white-fronted goose, gb), especially in hieratic or worn inscriptions. If the sign is really G38, the reading changes completely, for example to the god Geb (gb). The sign identification is worth checking.
+3. **Absent Z1.** Many attestations of "son" add the stroke Z1 after the duck (G39-Z1-A1). Leaving it out is normal and doesn't change the reading.
+4. **Grammatical context.** Without surrounding text, sꜣ could stand alone, be the first part of a filiation formula (*sꜣ N* "son of N"), or be part of the royal title *sꜣ Rꜥ* "Son of Ra". The transliteration stays the same in each case, but how it is parsed and translated changes.
+
+---
+
+## P05
+
+**Prompt:** What is Gardiner sign G17? Give me the Unicode character and code point, the section, every role it has with its value and Gardiner page, and the status your table gives that row.
+
+### Answer A
+
+**G17: the owl**
+
+| Field | Value |
+|---|---|
+| Glyph | 𓅓 |
+| Code point | U+13153 (EGYPTIAN HIEROGLYPH G017) |
+| Section | G, Birds |
+| In Gardiner's printed list | Yes |
+
+**Roles in the curated table**
+
+| Role | Value | Gardiner page |
+|---|---|---|
+| Uniliteral | **m** | p. 469 |
+
+The table has only this one row for G17. It gives no ideogram or determinative use.
+
+**Status given for that row (quoted):**
+> "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+
+So the value *m* and page 469 match an OCR copy of Gardiner's sign list (*Egyptian Grammar*, 3rd ed., 1957), but nobody has checked them against the page image yet. For a plain *m* there are no diacritics for OCR to garble, so the risk is mainly that the page number is wrong. I got the glyph and code point from the Unicode character name, not from memory.
+
+You'll often see the owl on its own as the preposition *m* ("in, with, from"). That is the same *m* sound used as a word, but the table doesn't list it as a separate entry, so treat it as unverified here.
+
+### Answer B
+
+I couldn't find a table to check against. The working directory is empty, there are no project files that mention G17, and I have no saved memory from earlier work. So I can't tell you the status your table gives this row, and I can't confirm page numbers from your source.
+
+Here is what I know about G17 from general knowledge:
+
+- **Sign:** an owl (*Bubo ascalaphus*, the Pharaoh eagle-owl).
+- **Unicode:** 𓅓, code point **U+13153** (EGYPTIAN HIEROGLYPH G017).
+- **Section:** G, Birds.
+- **Roles:**
+  - **Phonogram, uniliteral *m*.** This is its main use. For example, it writes the preposition *m* ("in, with, from") and appears in many words with *m*.
+  - It is also used as part of composite signs such as G18 (two owls, *mm*) and G20 (owl with forearm, *m* + *ı͗*). Those are separate sign numbers, though, not other roles of G17.
+- **Gardiner page:** G17 is in the Birds section of the sign list in *Egyptian Grammar* (3rd ed.), around pp. 467–469. I can't confirm the exact page from memory.
+- **Status:** I can't give one because I don't have your table.
+
+If you send me the table (a file path, CSV or pasted rows), I'll give you the exact row, including its roles, page references and status.
+
+---
+
+## P04
+
+**Prompt:** Help me write up an unpublished Middle Kingdom stela in a regional museum for publication. I have photographs, my transliteration and translation, and two parallels. Outline the article and tell me what I must settle before I write.
+
+### Answer A
+
+I can outline the article now. Before drafting I'd need your transliteration, translation, the parallels and the museum details, and several things below that only you or the museum can settle.
+
+## What to settle before you write
+
+These are listed roughly in the order they would stop the article.
+
+1. **Permission to publish, in writing.**
+   - Confirm the museum is willing for you to publish the stela. Regional museums sometimes keep first-publication rights for a curator or a catalogue in preparation.
+   - Get written permission for each photograph: who took it, whether it can be printed and put online (most journals now publish both), and the exact credit line the museum wants.
+   - If your own photographs aren't cleared, ask whether the museum will supply official ones or allow a facsimile drawing.
+
+2. **Whether it really is unpublished.** Check:
+   - the *Topographical Bibliography* (Porter & Moss), especially volume VIII for objects of unknown provenance;
+   - the Online Egyptological Bibliography;
+   - the museum's own catalogues, old guidebooks and sale or auction catalogues if it came from a collector.
+
+   A stela that is "unpublished" often turns up as a line in an old catalogue. If you find one, cite it and say how your edition differs.
+
+3. **Provenance and acquisition history.** Find out how and when the museum acquired it, from whom, and whether a findspot is recorded or only suspected. Abydos is common for Middle Kingdom stelae, but don't assume it. This goes in the article as a documented history, with gaps stated as gaps. If the object has no documented findspot, decide how you will present that before you start.
+
+4. **Whether you can see the stone itself.** Find out if you can collate the original, or at least get raking-light photographs or RTI, before you fix the readings. Every damaged or doubtful sign needs a stated basis, such as "on the original" or "from photograph only". A reviewer who reads a sign differently from your published plate is the most likely objection.
+
+5. **What exactly the two parallels are for.** For each one, decide its role:
+   - **Restoring a lacuna:** say so and mark the restoration as restored from that parallel.
+   - **Dating:** the parallel needs a secure date of its own.
+   - **A family or prosopographical link:** check whether it is the same owner, a relative or a shared workshop. Simpson's offering-chapel groupings for Abydos are the usual starting point (*The Terrace of the Great God at Abydos*, 1974; verify before citing).
+
+   Also check whether each parallel's published reading still stands, and look for more parallels. Two is a starting point, not a corpus.
+
+6. **The basis for the date.** "Middle Kingdom" needs to be narrowed and argued. The usual evidence:
+   - the wording and spelling of the offering formula;
+   - epithets of Osiris and Anubis;
+   - titles and personal names, with their dated attestations (Ilin-Tomich's *Persons and Names of the Middle Kingdom* database, Franke, Ward, Fischer);
+   - layout, iconography and how the figures are carved.
+
+   Write down which criteria you rely on and how strong each one is. A date from style alone gets "probably".
+
+7. **The question.** What does the stela add? Possibilities include a new title or name, a rare formula variant, a family linked to known monuments, or evidence for a workshop or date. "A previously unpublished stela" is the occasion for the article, not its finding, and the title and introduction depend on settling this.
+
+8. **Journal.** Choose it before drafting, because length, plate count, the transliteration system and whether a facsimile is expected all come from its instructions for authors. The choice is between a philological journal, a museum or collections journal, and a regional or museum bulletin. Read two or three recent stela publications in your target journal and copy their structure.
+
+9. **Conventions.** Pick one transliteration system and one bracket key for lacunae, restorations, emendations and uncertain signs. Declare them once and use them throughout. Make sure your existing transliteration already matches the system you choose.
+
+10. **Authorship and acknowledgements.** Agree now whether a curator is a co-author or acknowledged, and who took the photographs and checked the readings. Everyone named should see the final text. If you used AI help with the draft, decide how you'll disclose it; check the journal's policy.
+
+## Outline
+
+**Title:** say what the stela is and its main finding, e.g. "A Late Twelfth Dynasty stela of [name], [title], in the [Museum] ([number])".
+
+**1. Introduction:** what the object is, in a sentence; why it matters (your answer to point 7); the question; any earlier mentions of it.
+
+**2. The object:** museum and inventory number; acquisition and provenance history; material, dimensions, condition and traces of pigment; layout and register divisions; description of the figures and iconography; how you recorded it (collation, photographs, RTI, facsimile).
+
+**3. Conventions:** the transliteration scheme and the bracket key.
+
+**4. Text:** line by line, with hieroglyphic transcription (or facsimile), transliteration and translation. Mark restorations and doubtful signs, and key notes to line numbers. The translation should contain no interpretation.
+
+**5. Commentary:** notes on individual signs, especially the damaged ones and the basis for each reading; grammar and spelling; titles and names with their attestations; the parallels, side by side where they restore or confirm a reading.
+
+**6. Discussion:** the argument for the date; any prosopographical links or attribution to a workshop; how the stela fits the questions you raised; what's still open and what would settle it, such as a collation or a newly identified monument.
+
+**7. Conclusion:** short, answering the question from the introduction.
+
+**Plates and figures:** an overall photograph, details of the damaged areas, a facsimile drawing if you make one, and a comparison figure with the parallels if permitted. Each needs its permission and the museum's credit line.
+
+**Abstract:** write it last, about 150 words, stating the finding.
+
+**Working document, not for publication:** a list of every claim about a reading, the date, an attribution or a meaning. For each, note the evidence and how certain it is, so the wording in the article matches the evidence.
+
+## Next steps
+
+Send me your transliteration and translation, the references for the two parallels, and the museum details. I can then:
+- check the reading sign by sign, flagging damaged or uncertain signs and points that need the original;
+- set the text out in your chosen conventions with an apparatus;
+- check the references to the parallels and look for others;
+- start the list of claims and evidence, and draft the presentation and commentary sections.
+
+The photographs help most for the damaged passages. Readings from photographs alone will be marked as such until you've seen the stone.
+
+### Answer B
+
+Here's an outline built on the usual conventions for publishing a single Middle Kingdom stela (as in JEA, SAK, GM, ZÄS, MDAIK, BIFAO or JARCE), followed by what you need to settle first. You know the object and I don't, so take the outline as a frame to adjust.
+
+## Article outline
+
+1. **Introduction.** One paragraph covering the museum, inventory number, a brief description and why the stela matters. The reason can be the prosopography, a rare title, a rare iconographic feature, a workshop link or an unusual formula. Acknowledge the museum's permission here.
+2. **Acquisition history and provenance.** Give the documented chain of custody: donor or dealer, dates, and old labels or numbers. Keep the documented history apart from any provenance you infer, and save the inferred provenance for section 8.
+3. **Description**
+   - Material, dimensions (H × W × D), shape (rectangular or round-topped), condition, any traces of pigment, and the back and sides.
+   - Technique: sunk or raised relief, or incised.
+   - Layout: lunette, registers and how the text field is organised.
+   - Iconography: figures, poses, offerings, furniture and dress. Cross-reference these to the figure.
+4. **Text**
+   - Facsimile line drawing (essential) plus a hieroglyphic transcription with numbered lines or columns.
+   - Transliteration and translation, line by line.
+   - Philological notes: offering-formula variants, epithets, unusual spellings and palaeographic points.
+5. **Prosopography.** List each person with their titles and relationships to the others. A family diagram helps if the stela shows several generations or relatives through the female line. Then search for the same individuals elsewhere.
+6. **Parallels.** Say what each of your two parallels actually is:
+   - the same person or family (prosopographic),
+   - the same workshop or hand (stylistic), or
+   - the same formula or composition (textual or typological).
+   
+   These support different conclusions, so present them under separate arguments.
+7. **Dating.** Use cumulative criteria and state the range you end up with, not a single point:
+   - offering-formula features (Bennett, Lapp, Franke, Ilin-Tomich),
+   - palaeography,
+   - personal names and their period distribution (Vernus, Ilin-Tomich),
+   - titles (Ward, Fischer, Quirke),
+   - stela shape and composition (Hölzl, Freed),
+   - iconography, including dress and wigs.
+8. **Provenance proposal.** If the findspot is unknown, argue for a likely site and context, for example the Abydos North Offering Chapels versus a tomb, based on formulae, deities and workshop links (Marée's work on Abydene and Theban workshops, Simpson's *Terrace of the Great God*).
+9. **Conclusion.** Explain what the stela adds to what is known.
+10. **Back matter**
+    - Bibliography.
+    - Figures: photographs (raking light, overall and details) and the facsimile.
+    - Optionally, a table of persons and titles.
+
+## What to settle before you write
+
+**Permissions and rights**
+- Get written permission from the museum to publish, and agree whether the curator is a co-author or acknowledged.
+- Clear the rights to the photographs: who took them, the licence, and whether the journal is open access and needs a CC licence.
+- Confirm the inventory number and how the museum wants to be credited.
+
+**Is it really unpublished?**
+- Check Porter & Moss vol. VIII (objects of unknown provenance, Middle Kingdom stelae) and the Griffith Institute's online updates.
+- Check old museum catalogues, sale catalogues if it came from a dealer, local or regional journals, and theses.
+- Check Ilin-Tomich's *Persons and Names of the Middle Kingdom* (PNM) database and Franke's *Personendaten*.
+- A short mention or photo in a guidebook still counts and must be cited.
+
+**Acquisition history and ethics**
+- Find out when and how the museum acquired the stela.
+- Many journals and societies now require stated provenance and decline objects that surfaced after 1970 without documentation. Check your target journal's policy before investing time.
+
+**Authenticity and physical examination**
+- Examine the stela in person if you haven't: tool marks, the back, any modern recutting or repainting, and fills.
+- Forged or "improved" Middle Kingdom stelae are common enough that reviewers will want a sentence on this.
+
+**Recording standard**
+- Decide how you'll produce the facsimile: tracing from photos, RTI, or photogrammetry.
+- Raking-light photographs from several angles will resolve doubtful signs better than any amount of commentary.
+- Choose a transcription font or tool (e.g. JSesh) and stick to one transliteration convention.
+
+**Your doubtful readings**
+- List every damaged or uncertain sign now and decide how you'll mark it (brackets, *sic*, ⌜ ⌝).
+- These are where reviewers will press you.
+
+**The role of the two parallels**
+- Decide whether the parallels show the same person, the same workshop or only the same type. This choice shapes sections 5 to 8 and limits how far you can push the dating and provenance.
+- Check whether the parallels are themselves securely dated and provenanced. If not, they can't anchor yours.
+
+**Your central claim**
+- Pick one main reason the stela matters. Without it the article is a catalogue entry, which may be fine for some venues, but you should choose that deliberately.
+
+**Target journal**
+- Choose it before you draft. It fixes the language, length, transliteration conventions, citation style, figure specifications and provenance policy.
+- A short note (GM, JEA "Brief Communications") and a full article are written differently.
+
+If you send me the transliteration, translation and details of the parallels, I can draft the description, the commentary notes and the dating argument.
+
+---
+
+## P07
+
+**Prompt:** An object was excavated in 1895 with a field register entry, sold in 1921 with a catalogue lot number, and given to a museum in 1982 by the collector's heirs, with only an oral account for that last step. Build the record, run the checker and tell me what can and cannot be said.
+
+### Answer A
+
+The workspace was empty, so there was no checker to run. I wrote one myself, along with the record, so the results only reflect the rules I gave it:
+
+- `provenance_record.json` holds the three events, with what kind of evidence backs each one.
+- `check_provenance.py` flags gaps in the chain, broken links between owners, weak evidence, missing citations, unconfirmed matches to this object, and missing legal paperwork.
+
+**Result: 11 issues found, and the chain of ownership is not complete.**
+
+## What can be said
+- A field register records an excavation in 1895, and the register is a document.
+- An object was offered at auction in 1921 under a known lot number, and the catalogue is a document.
+- The collector's heirs say they gave the object to the museum in 1982. That rests on the oral account alone.
+
+## What cannot be said, yet
+1. **That these three records are the same object.** None of the sources has been checked against the object itself. Compare its description, size, inscriptions or excavation number with the register entry and the lot description. Until that's done, each step is only "an object."
+2. **Who had it from 1895 to 1921.** That's 26 years with no known owner, and nobody knows who sold it in 1921. This is the biggest gap.
+3. **That the collector bought it in 1921.** A lot number shows the object was offered, not who bought it, or even that it sold. You'd need an annotated copy of the catalogue, the auction house's sale records, or a receipt.
+4. **How it passed from the collector to the heirs.** There's no death date, will or estate inventory.
+5. **That the 1982 gift happened as told.** Spoken testimony is the weakest kind of evidence. Check the museum's own 1982 accession files first: a deed of gift, correspondence or a registrar's note would turn this step into a documented one.
+6. **That it left the excavation site legally.** Nothing records a permit, an official division of finds, or export papers. In practice this matters as much as the ownership gaps.
+
+## Wording you could use now
+> "Possibly the object recorded in the [register] in 1895 (identification unconfirmed); possibly offered at [sale], 1921, lot [n] (buyer undocumented); by family account, given to the museum by the heirs of [collector], 1982. Provenance 1895–1921 unknown."
+
+If you add the real names, citations and confirmed identifications to the JSON and run the checker again, the matching issues will clear. The 1895–1921 gap will stay until you find a document showing who had it.
+
+### Answer B
+
+I built the record and ran the checker. The checker's self-test passed (27 checks). It returned **4 flags and 2 notes**. The record is at `scratchpad/record.json`. Names, the site, the entry number and the lot number are placeholders because you didn't give them.
+
+## The record
+
+| # | Date | Event | From → To | Evidence | Reference |
+|---|---|---|---|---|---|
+| 1 | 1895 | Excavation | — → Excavator A | Document | Field register, entry [no.] |
+| 2 | 1921 | Sale | Excavator A → Collector B | Publication | Sale catalogue, lot [no.] |
+| 3 | 1982 | Gift | Heirs of Collector B → Museum M | Oral | Oral account only |
+
+**One assumption to check:** I recorded the excavator as the 1921 seller. You didn't say who sold it. If the seller was someone else, the checker would also flag a break between 1895 and 1921.
+
+## Checker flags and what each means
+
+1. **Undocumented event (1982 gift):** the step into the museum rests only on an oral account. The museum should have an accession register entry, a deed of gift or correspondence. Ask for them. Until one is found, this step can only be called "claimed".
+2. **Broken chain (Collector B → heirs):** there is no record of the collector's death or of the object passing to the heirs, and the heirs aren't named. A will, probate inventory or estate papers would close this.
+3. **26-year gap (1895–1921):** nothing records how the object went from the excavation to the sale. In particular, there is no export record or division of finds with the Egyptian authorities, so nothing shows how or when it left Egypt.
+4. **61-year gap (1921–1982):** nothing records where the object was for six decades, including through the 1970 and 1973 benchmark years.
+
+**Notes:** the object was first documented in 1895, before both benchmarks: the UNESCO Convention (1970) and the Archaeological Institute of America's publication cut-off (30 Dec 1973). The checker itself warns that this **does not show the object left Egypt lawfully**. It only shows when the object was first recorded.
+
+## What can be said
+
+**I haven't seen any of the documents myself.** So for now every step is at most "reported". It becomes "documented" only once someone examines the register and the catalogue.
+
+- **Reported:** an object was recorded in the 1895 field register (entry no.) and in a 1921 sale catalogue (lot no.). This becomes "documented" once someone has examined both.
+- **Claimed:** the collector's heirs gave the object to Museum M in 1982. At present this rests on an oral account.
+- **Unknown:** how and when the object left Egypt, who held it between 1921 and 1982, and how ownership passed from the collector to the heirs.
+
+## What cannot be said
+
+- That the object left Egypt lawfully. The 1895 date doesn't establish this.
+- That it has a continuous or complete provenance. It has two long gaps and one undocumented step.
+- That Museum M acquired it lawfully or holds good title. Museum ownership doesn't prove that, and this is a question for counsel or the museum's provenance researcher, not for me.
+- That the register object, the catalogue lot and the museum object are the same object. Nothing in the record yet links them: you need matching descriptions, dimensions, marks or labels. **This is the most important thing for a specialist to check.** The checker can't see it, and it also can't detect a forged or mis-dated document.
+
+## Next steps
+
+- Get the museum's accession file for the 1982 gift.
+- Examine the field register and the catalogue, and check that their descriptions match the object.
+- Look for estate papers for the collector and for any Egyptian export or division-of-finds record from 1895–1921.
+- Check the policy of the venue where this will be published. The cut-off year differs: the AIA uses 1973 and ASOR is dated by 1970. Confirm the current rule on the venue's own page.
+- Ask a provenance specialist about the gaps before you publish.
 
 ---
 
@@ -655,164 +983,4 @@ I'm treating "Gardiner-era spelling" as the system in A. H. Gardiner, *Egyptian 
 - The text this spelling comes from. Without it I can't tell sꜣ from sꜣ=i, and I can't check for a G38 mix-up.
 - Whether "Gardiner-era" means Gardiner's own system or some other early-20th-century system, such as older Berlin-school spellings.
 - The homograph list in Note 3 and the z/s history in Note 1, which come from my memory and weren't looked up.
-
----
-
-## P04
-
-**Prompt:** What is Gardiner sign G17? Give me the Unicode character and code point, the section, every role it has with its value and Gardiner page, and the status your table gives that row.
-
-### Answer A
-
-**G17: the owl**
-
-| Field | Value |
-|---|---|
-| Glyph | 𓅓 |
-| Code point | U+13153 (EGYPTIAN HIEROGLYPH G017) |
-| Section | G, Birds |
-| In Gardiner's printed list | Yes |
-
-**Roles in the curated table**
-
-| Role | Value | Gardiner page |
-|---|---|---|
-| Uniliteral | **m** | p. 469 |
-
-The table has only this one row for G17. It gives no ideogram or determinative use.
-
-**Status given for that row (quoted):**
-> "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
-
-So the value *m* and page 469 match an OCR copy of Gardiner's sign list (*Egyptian Grammar*, 3rd ed., 1957), but nobody has checked them against the page image yet. For a plain *m* there are no diacritics for OCR to garble, so the risk is mainly that the page number is wrong. I got the glyph and code point from the Unicode character name, not from memory.
-
-You'll often see the owl on its own as the preposition *m* ("in, with, from"). That is the same *m* sound used as a word, but the table doesn't list it as a separate entry, so treat it as unverified here.
-
-### Answer B
-
-I couldn't find a table to check against. The working directory is empty, there are no project files that mention G17, and I have no saved memory from earlier work. So I can't tell you the status your table gives this row, and I can't confirm page numbers from your source.
-
-Here is what I know about G17 from general knowledge:
-
-- **Sign:** an owl (*Bubo ascalaphus*, the Pharaoh eagle-owl).
-- **Unicode:** 𓅓, code point **U+13153** (EGYPTIAN HIEROGLYPH G017).
-- **Section:** G, Birds.
-- **Roles:**
-  - **Phonogram, uniliteral *m*.** This is its main use. For example, it writes the preposition *m* ("in, with, from") and appears in many words with *m*.
-  - It is also used as part of composite signs such as G18 (two owls, *mm*) and G20 (owl with forearm, *m* + *ı͗*). Those are separate sign numbers, though, not other roles of G17.
-- **Gardiner page:** G17 is in the Birds section of the sign list in *Egyptian Grammar* (3rd ed.), around pp. 467–469. I can't confirm the exact page from memory.
-- **Status:** I can't give one because I don't have your table.
-
-If you send me the table (a file path, CSV or pasted rows), I'll give you the exact row, including its roles, page references and status.
-
----
-
-## P02
-
-**Prompt:** Check the brackets in this line and tell me what is wrong: `htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]`. Then draft the key the line would need.
-
-### Answer A
-
-## The bracket problem
-
-The line opens four brackets but closes only three:
-
-```
-htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]
-           [         ✓         (         ]
-                {  }  ✓        ✗ never closed
-```
-
-- `[ … ]` opens and closes correctly.
-- `{nb}` opens and closes correctly.
-- **`(` is never closed.** The `]` comes while `(` is still open, so the brackets overlap instead of nesting.
-
-There are two ways to fix it, and they mean different things:
-
-| Fix | Meaning |
-|---|---|
-| `[Wsjr {nb} Ddw (dj=f) prt-xrw]` | Only *dj=f* is added by the editor |
-| `[Wsjr {nb} Ddw (dj=f prt-xrw)]` | *dj=f prt-xrw* is all added by the editor |
-
-Only the source text can tell you which one is right.
-
-## Two other things to check
-
-1. **`{nb}` looks wrong.** *nb Ḏdw*, "lord of Busiris," is the standard epithet of Osiris in this formula. Marking *nb* as superfluous would be unusual. If the scribe left it out and you are supplying it, the usual sign is `⟨nb⟩`, not `{nb}`.
-2. **Capital letters.** In Manuel de Codage, `h` is ḥ and `H` is ḥ. The formula needs `Htp` (ḥtp). In the same way, `ddw` should be `Ddw` (Ḏdw). Right now the line reads as h-tp and d-dw.
-
-A corrected line, assuming only *dj=f* is supplied and *nb* is an omission:
-
-```
-Htp-dj-nsw [Wsjr ⟨nb⟩ Ddw (dj=f) prt-xrw]
-```
-
-## Draft key
-
-> **Sigla**
->
-> `[ ]` Text lost in a lacuna and restored by the editor.
-> `⸢ ⸣` Text partly damaged but still readable.
-> `⟨ ⟩` Text the scribe left out by mistake, supplied by the editor.
-> `{ }` Text in the original that the editor judges superfluous or wrong. Read it as deleted.
-> `( )` Words not written in the original, added by the editor to complete the sense or to write out an abbreviation.
-> `…` A lacuna of unknown length that has not been restored.
->
-> Brackets nest and must close in reverse order, so `[ ( ) ]` is valid and `[ ( ] )` is not.
->
-> Transliteration follows the Manuel de Codage: `H` = ḥ, `x` = ḫ, `X` = ẖ, `S` = š, `T` = ṯ, `D` = ḏ, `A` = ꜣ, `a` = ꜥ, `j` = i̯/ꞽ.
-
-Bracket conventions vary between publications, especially for `( )` and `⟨ ⟩`. If you're following a particular house style (for example Leiden, *Wb.*, or a journal's own guidelines), check these definitions against it.
-
-### Answer B
-
-The line has one structural error and two problems with what the brackets mean.
-
-## What's wrong
-
-**1. The brackets cross. This is the structural error.**
-`[` opens before `Wsjr`, then `(` opens before `dj=f`. The `]` at the end closes the square bracket while the round one is still open, and `(` is never closed. The checker reports it as `]` closing `[` from col 12 while `(` from col 27 is still open. Every bracket has to close inside the one around it, so you need `[ … ( … ) … ]` or `[ … ] ( … )`.
-
-**2. The round brackets probably don't belong here.**
-In an edition line, `( )` usually marks letters you add to expand an abbreviation, such as `nsw` written short. `dj=f prt-xrw` is not an expansion. If you meant "words added for sense", that use belongs in the translation, not the edition line. If you meant "restored", the `[ ]` already says so. My guess is the `(` is left over from an earlier edit and should be deleted.
-
-**3. `{nb}` contradicts the restoration around it.**
-`{ }` means the scribe wrote something you are removing as superfluous. Inside `[ ]`, though, the signs are lost and you are restoring them, so you can't call a scribe's sign wrong if it isn't there to see. Also, *nb* is the expected word: *Wsjr nb Ḏdw*, "Osiris, lord of Djedu (Busiris)", is the standard epithet. If *nb* really is visible and you doubt it, mark it as a doubtful reading (`⸢nb⸣?`) and explain in a note. If it's lost, it is simply part of the restoration.
-
-**Not brackets, but worth checking:**
-- If this is Manuel de Codage (MdC) ASCII, the first word should be `Htp` (capital H = ḥ), and the place name should be `Ddw` (D = ḏ). Lowercase `htp` and `ddw` read as different sounds. Use one scheme throughout and name it.
-- The whole restoration looks like the offering formula. If it came from familiarity with the formula rather than a cited parallel, it needs a parallel in a note. Without one, leave the gap unrestored.
-
-## Corrected line
-
-Which version is right depends on which signs actually survive, and I can't tell that from here:
-
-- Everything after *nsw* is lost:
-  `Htp-dj-nsw [Wsjr nb Ddw dj=f prt-xrw]`
-- Only the god's name and epithet are lost:
-  `Htp-dj-nsw [Wsjr nb Ddw] dj=f prt-xrw`
-
-Both pass the bracket check once the stray `(` and `{ }` are gone.
-
-## Draft key
-
-If your publication has its own key, use that instead. Otherwise, print something like this above the text, listing only the marks the edition actually uses:
-
-> **Key to sigla**
-> `[abc]` lost text restored by the editor; the evidence for each restoration is given in the notes
-> `[...]` lost text not restored, extent unknown (if the number of signs was measured on the object or a scaled image, give the count)
-> `⸢abc⸣` damaged but legible signs
-> `⟨abc⟩` omitted by the scribe, supplied by the editor
-> `{abc}` written by the scribe but superfluous, removed by the editor
-> `⟦abc⟧` erased in antiquity
-> `a(bc)` abbreviation expanded by the editor (edition line only)
-> `?` after a sign or word: doubtful reading
-> In the translation, *(words)* are added by the translator for sense.
-> Transliteration: [name the scheme, e.g. MdC ASCII or the publication's standard].
-
-Two choices in this key are mine and need a decision from you:
-- I used round brackets only for expanding abbreviations in the edition line, and only for added words in the translation. That stops one mark having two meanings in the same layer.
-- I used the half-bracket style `⸢ ⸣`. Don't also use `⌈ ⌉` anywhere in the same text.
-
-The Egyptological uses of these marks come from general practice. Check them against the house style of the journal or series you're writing for.
 

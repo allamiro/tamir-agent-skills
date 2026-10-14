@@ -14,5 +14,5 @@
     "MD041": false,
     "MD060": false
   },
-  "ignores": ["source/**", "node_modules/**", "system-design-skills/**", "egyptology-skills/**", "bioinformatics-skills/**"]
+  "ignores": ["source/**", "node_modules/**", "system-design-skills/**", "egyptology-skills/**", "bioinformatics-skills/**", "systems-biology-skills/**"]
 }

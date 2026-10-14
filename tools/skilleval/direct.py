@@ -245,6 +245,7 @@ def run_cases(collection, kind, runs=3, only=None, jobs=4, model=None, judge_mod
             rec["case"], rec["key"] = "outcome-" + case["skill"], case["skill"]
             graders, jcost = grade_outcome(case, prompt, rubric, rec, judge_model, votes, judge_runner)
             rec["graders"], rec["judge_cost"] = graders, jcost
+            rec["judge_votes"] = votes
             cost += jcost
         else:
             rec["case"], rec["key"] = "trigger-" + case["id"], case["id"]

@@ -16,7 +16,7 @@ A real answer from a Claude Code session, with the numbers behind it. The prompt
 | Cost, US dollars at list price | 0.602 | 0.521 |
 | Skills invoked in the sample run | none | `system-design` |
 
-Size of the skill by Claude Code's own estimate (`claude plugin details`): about 220 tokens for its name and description, which are in every session where the skill is installed, and about 2,800 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
+Size of the skill by Claude Code's own estimate (`claude plugin details`): about 220 tokens for its name and description, which are in every session where the skill is installed, and about 2,900 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
 
 ## Answer with the skill (excerpt)
 

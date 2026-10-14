@@ -4,7 +4,7 @@
 
 <p align="center">
   <img alt="License Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-096efb?style=flat-square&labelColor=15123d">
-  <img alt="51 skills" src="https://img.shields.io/badge/skills-51-6c64eb?style=flat-square&labelColor=15123d">
+  <img alt="73 skills" src="https://img.shields.io/badge/skills-73-6c64eb?style=flat-square&labelColor=15123d">
   <img alt="Agent Skills spec valid" src="https://img.shields.io/badge/Agent%20Skills%20spec-valid-9cc464?style=flat-square&labelColor=15123d">
   <img alt="Works with Claude Code, Codex and ChatGPT" src="https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20ChatGPT-fb6373?style=flat-square&labelColor=15123d">
 </p>
@@ -18,18 +18,19 @@ and Codex, and as zips for ChatGPT and the OpenAI Skills API.
 | Collection | What it covers | Skills |
 |---|---|---|
 | [**System Design Skills**](system-design-skills/) | Design, scale, secure, operate and review software systems: capacity, databases, consistency, caching, messaging, storage, reliability, observability, payments, geospatial, architecture review, plus reading papers, benchmarking and writing research | 20 |
-| [**Egyptology Skills**](egyptology-skills/) | Read and check Middle Egyptian hieroglyphic text: sign lookup by Gardiner code, transliteration, annotated layouts, tool building, accuracy review, plus literature and citations, editorial conventions, and provenance and ethics. Output is a draft for specialists | 8 |
+| [**Egyptology Skills**](egyptology-skills/) | Read and check Middle Egyptian hieroglyphic text: sign lookup by Gardiner code, transliteration, annotated layouts, tool building, accuracy review, plus literature and citations, editorial conventions, provenance and ethics, and writing up for publication. Output is a draft for specialists | 9 |
 | [**Bioinformatics Skills**](bioinformatics-skills/) | The whole of a bioinformatics project: study design, data and identifiers, privacy and ethics, file formats, sequencing pipelines, alignment, genes, proteins, trees, variants, omics, statistics, machine learning, programming, reproducibility, writing up, review, and learning the field, plus literature search, benchmarking methods and research planning. Output is a draft for review | 23 |
+| [**Systems Biology Skills**](systems-biology-skills/) | Modelling biological systems and the research around the models: formalism choice, assumptions, units and balances, network matrices and graphs, stoichiometric and flux balance analysis, ODE dynamics and stability, control and feedback, enzyme kinetics, pharmacokinetics, parameter estimation and model selection, stochastic and Boolean models, multivariate omics, measurement and quantitative methods, model files and code, literature, research planning, paper writing, model review, and learning the subject. Output is a draft for review | 21 |
 
 More collections can sit beside it. Each one is a self-contained folder.
 
 ## Which one is for my tool?
 
-| I use | System Design Skills | Egyptology Skills | Bioinformatics Skills |
-|---|---|---|---|
-| **Claude Code** | [guide](system-design-skills/claude/README.md) | [guide](egyptology-skills/claude/README.md) | [guide](bioinformatics-skills/claude/README.md) |
-| **OpenAI Codex** | [guide](system-design-skills/openai/README.md#codex) | [guide](egyptology-skills/openai/README.md#codex) | [guide](bioinformatics-skills/openai/README.md#codex) |
-| **ChatGPT and OpenAI Skills API** | [20 zips](system-design-skills/openai/chatgpt/) | [8 zips](egyptology-skills/openai/chatgpt/) | [23 zips](bioinformatics-skills/openai/chatgpt/) |
+| I use | System Design Skills | Egyptology Skills | Bioinformatics Skills | Systems Biology Skills |
+|---|---|---|---|---|
+| **Claude Code** | [guide](system-design-skills/claude/README.md) | [guide](egyptology-skills/claude/README.md) | [guide](bioinformatics-skills/claude/README.md) | [guide](systems-biology-skills/claude/README.md) |
+| **OpenAI Codex** | [guide](system-design-skills/openai/README.md#codex) | [guide](egyptology-skills/openai/README.md#codex) | [guide](bioinformatics-skills/openai/README.md#codex) | [guide](systems-biology-skills/openai/README.md#codex) |
+| **ChatGPT and OpenAI Skills API** | [20 zips](system-design-skills/openai/chatgpt/) | [9 zips](egyptology-skills/openai/chatgpt/) | [23 zips](bioinformatics-skills/openai/chatgpt/) | [21 zips](systems-biology-skills/openai/chatgpt/) |
 
 Claude Code and Codex read the same `skills/` folder in each collection. The zips for ChatGPT and the
 API are built from it and live in their own folder. Each collection has the same layout: `skills/`, `claude/`,
@@ -41,7 +42,7 @@ Clone once, then run the installer from the collection you want.
 
 ```bash
 git clone https://github.com/allamiro/tamir-agent-skills.git
-cd tamir-agent-skills/system-design-skills        # or egyptology-skills, or bioinformatics-skills
+cd tamir-agent-skills/system-design-skills        # or egyptology-skills, bioinformatics-skills, systems-biology-skills
 bash scripts/install.sh --claude --project /path/to/your/project   # Claude Code
 bash scripts/install.sh --codex --project /path/to/your/project    # OpenAI Codex
 ```
@@ -59,8 +60,9 @@ Then ask in plain language:
 
 Every skill has ready-to-paste prompts:
 [System Design](system-design-skills/prompts/README.md),
-[Egyptology](egyptology-skills/prompts/README.md) and
-[Bioinformatics](bioinformatics-skills/prompts/README.md), where each skill has its own file.
+[Egyptology](egyptology-skills/prompts/README.md),
+[Bioinformatics](bioinformatics-skills/prompts/README.md) and
+[Systems Biology](systems-biology-skills/prompts/README.md), where each skill has its own file.
 
 ## What you get
 

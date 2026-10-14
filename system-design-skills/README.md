@@ -119,15 +119,15 @@ Every skill has one real answer in [`examples/`](examples/), with the prompt tha
 | `messaging-streaming` | 4,299 to 3,470 | +21,943 | 0.15 to 0.20 | ~210 / ~3,500 | [answer](examples/messaging-streaming.md) |
 | `observability` | 15,370 to 11,691 | +17,840 | 0.55 to 0.52 | ~200 / ~3,400 | [answer](examples/observability.md) |
 | `payment-systems` | 3,404 to 3,404 | +43,402 | 0.13 to 0.20 | ~230 / ~4,300 | [answer](examples/payment-systems.md) |
-| `performance-evaluation-methodology` | 1,985 to 1,817 | +29,420 | 0.10 to 0.15 | ~270 / ~2,800 | [answer](examples/performance-evaluation-methodology.md) |
+| `performance-evaluation-methodology` | 1,839 to 1,912 | +42,130 | 0.10 to 0.16 | ~270 / ~2,900 | [answer](examples/performance-evaluation-methodology.md) |
 | `reliability-resilience` | 16,386 to 4,596 | -224,066 | 0.57 to 0.23 | ~220 / ~3,700 | [answer](examples/reliability-resilience.md) |
 | `requirements-capacity` | 1,254 to 1,752 | +41,375 | 0.08 to 0.16 | ~200 / ~2,100 | [answer](examples/requirements-capacity.md) |
 | `sharding-replication` | 2,926 to 3,164 | +42,475 | 0.12 to 0.19 | ~210 / ~3,400 | [answer](examples/sharding-replication.md) |
 | `storage-systems` | 5,659 to 6,845 | +83,297 | 0.17 to 0.29 | ~200 / ~3,800 | [answer](examples/storage-systems.md) |
-| `system-design` | 15,569 to 13,251 | -19,996 | 0.60 to 0.52 | ~220 / ~2,800 | [answer](examples/system-design.md) |
+| `system-design` | 15,569 to 13,251 | -19,996 | 0.60 to 0.52 | ~220 / ~2,900 | [answer](examples/system-design.md) |
 | `system-design-review` | 2,968 to 4,467 | +43,289 | 0.12 to 0.23 | ~210 / ~3,900 | [answer](examples/system-design-review.md) |
 | `systems-literature-reading` | 4,023 to 5,373 | +145,190 | 0.16 to 0.30 | ~270 / ~2,600 | [answer](examples/systems-literature-reading.md) |
-| `systems-research-writing` | 2,781 to 3,085 | +79,451 | 0.12 to 0.20 | ~290 / ~2,600 | [answer](examples/systems-research-writing.md) |
+| `systems-research-writing` | 2,676 to 2,981 | +80,186 | 0.11 to 0.20 | ~290 / ~2,900 | [answer](examples/systems-research-writing.md) |
 | `transactions-consistency` | 2,543 to 2,398 | +32,794 | 0.11 to 0.18 | ~210 / ~3,800 | [answer](examples/transactions-consistency.md) |
 
 ### One answer in full: `performance-evaluation-methodology`
@@ -139,34 +139,33 @@ Prompt:
 Answer with the skill (excerpt of a single run; the same prompt without the skill is on the [sample page](examples/performance-evaluation-methodology.md)):
 
 ````text
-**Not yet.** The arithmetic is right: (41 − 38) / 41 ≈ 7.3% lower mean latency. But two means from 5 runs each don't tell you whether that 3 ms gap is real or just run-to-run noise. Whether you can claim it depends on numbers you haven't shown: the spread of the 10 individual runs.
+**Short answer: not yet.** The 7% figure is just arithmetic: (41 − 38) / 41 = 7.3%. Whether it's a real speedup depends on how much the 5 runs varied, and you haven't said. Two means alone can't support any claim.
 
-## Why the spread decides it
+## The deciding check: run-to-run spread
 
-With n = 5 per build, here is how the 95% confidence interval on the 3 ms difference changes with the per-run standard deviation (SD):
+Take the 5 per-run means for each build and run a Welch t-test. With 5 runs each, a 3 ms gap only clears 95% confidence if the standard deviation between runs is **below about 2 ms** (roughly 5% of the mean):
 
-| Per-run SD | 95% CI on the difference | What you can say |
+| Run-to-run SD | 95% CI on the 3 ms gap (approx.) | Verdict |
 |---|---|---|
-| ~1 ms | ≈ 1.5 to 4.5 ms (about 4% to 11%) | It's a real improvement, but "7%" is only the midpoint of a wide range |
-| ~3 ms | ≈ −1.4 to 7.4 ms (includes 0) | You can't tell it apart from noise |
+| 1 ms | about 1.5 to 4.5 ms | Real, somewhere between 4% and 11% faster |
+| 2 ms | about 0.1 to 5.9 ms | Borderline, the low end is close to zero |
+| 3 ms | about −1.4 to 7.4 ms | Can't tell apart from noise |
 
-Even in the best case, "7% faster" claims more precision than you have.
+Even in the best case, the honest claim is a range ("4–11%"), not exactly "7%".
 
 ## What to check
 
-1. **The raw per-run numbers.** Compute the SD for each build and a CI on the difference using Welch's t-test or a bootstrap. This tells you right now which row of the table you're in.
-2. **"Faster" at what?** You measured lower mean latency. That isn't the same as throughput, and it isn't tail latency. Check p50 and p99 as well. A mean can improve while p99 gets worse.
-3. **Run order.** If you ran all the old runs and then all the new ones, drift (thermals, background jobs, caches, CPU frequency scaling) can produce a gap like this on its own.
-4. **Same conditions.** Confirm both builds used the same machine, inputs, build flags, warm-up and config, and that nothing else changed between runs.
-5. **Noise floor (A/A test).** Benchmark the old build against itself the same way. If two identical builds differ by 2–3 ms, a 3 ms gap means nothing.
-6. **Representativeness.** Check that the workload resembles production. If this is a load test, use an open-loop load generator so slow requests aren't hidden (coordinated omission).
+1. **Were the runs independent?** Each run should be a fresh process or instance. Five samples from one process don't count as five runs.
+2. **Were the builds interleaved?** If you ran all old runs and then all new ones, drift (thermal, background jobs, cloud neighbours, cache state) can look like a speedup. Rerun in alternating or random order.
+3. **A/A noise floor.** Benchmark the old build against itself the same way. If two copies of the same build differ by 2–3 ms, your 3 ms means nothing.
+4. **Did both builds get the same treatment?** Same hardware, config, data size and warm-up. A warm cache for one build and a cold one for the other is a classic accident.
+5. **Is the mean the right metric?** "Faster" to users usually means the median and p99. A lower mean can hide a worse tail. Compare percentiles, and make sure each percentile you quote has enough samples behind it (at least ~10 above it, so p99 needs about 1,000+ requests).
+6. **Resource use.** Check CPU and memory too, so you'd notice a speedup that just uses more cores.
+7. **Load model.** If the load generator waits for each reply before sending the next request, it under-reports latency spikes (coordinated omission). Make sure both builds were measured the same way, ideally at the load level you actually care about.
 
 ## What to run
 
-- **Interleave and randomise the order** (ABBA…), with warm-up runs discarded, and do at least 20–30 runs per build.
-  - For a CLI program: `hyperfine --warmup 3 --runs 30 './old ...' './new ...'` reports mean ± SD and the relative difference.
-- **Run an A/A test** with the same harness.
-- **Analyse the per-run results:**
+Put one value per line in files (per-run means, or raw per-request latencies):
 
 [... excerpt ends; the full answer is longer]
 ````
@@ -203,19 +202,19 @@ Share of runs passing each check, with Wilson 95% intervals; the last column is 
 
 | Collection | Skills | Runs per arm | Facts: skills / none | Rubric: skills / none | Rubric difference | Limits: skills / none | Expected skill invoked |
 |---|---|---|---|---|---|---|---|
-| system-design-skills | 20 | 60 / 60 | 98% (91-100) / 95% (86-98) | 100% (94-100) / 93% (84-97) | +7 (-1 to +16) | 52% (39-64) / 32% (21-44) | 97% (89-99) |
+| system-design-skills | 20 | 60 / 60 | 98% (91-100) / 97% (89-99) | 100% (94-100) / 93% (84-97) | +7 (-1 to +16) | 52% (39-64) / 30% (20-43) | 98% (91-100) |
 
 #### Tokens and cost per run (means)
 
 | Collection | Output tokens: skills / none | Input tokens read: skills / none | Cost, US dollars: skills / none | Runs with a denied tool call: skills / none |
 |---|---|---|---|---|
-| system-design-skills | 4,760 / 5,255 | 105,133 / 72,908 | 0.245 / 0.197 | 0 / 0 |
+| system-design-skills | 4,760 / 5,242 | 105,806 / 72,908 | 0.246 / 0.197 | 0 / 0 |
 
 #### Trigger runs: does the agent pick the right skill
 
 | Collection | Should-trigger runs hit (recall) | Near-miss runs correctly left alone (specificity) | Precision | Unrelated prompts that triggered a skill |
 |---|---|---|---|---|
-| system-design-skills | 62% (49-73) | 100% (94-100) | 100% (91-100) | 0 of 6 |
+| system-design-skills | 60% (47-71) | 100% (94-100) | 100% (90-100) | 0 of 6 |
 
 #### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
 

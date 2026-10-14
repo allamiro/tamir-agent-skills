@@ -1,6 +1,6 @@
 # Trigger results: bioinformatics-skills
 
-Engine direct. Agent model claude-opus-5-5, judge model claude-sonnet-5-5 (1 vote per verdict), 3 runs per case. Trigger runs stop at the first skill call, so their cost is not tallied.
+Engine direct. Agent model claude-opus-5-5, judge model default (1 vote per verdict), 3 runs per case. Trigger runs stop at the first skill call, so their cost is not tallied.
 
 Each skill has a should-trigger prompt (written without naming the skill) and a near-miss prompt that shares vocabulary but belongs elsewhere; there are also unrelated prompts that should trigger nothing. Every prompt was run several times with the skills installed and the first skill the agent invoked was recorded from its tool calls. A should-trigger run passes when the expected skill was invoked; a near-miss run passes when the named skill was not.
 

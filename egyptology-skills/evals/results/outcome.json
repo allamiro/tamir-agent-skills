@@ -3,19 +3,32 @@
   "engine": "direct",
   "agent_model": "claude-opus-5-5",
   "judge_model": "claude-sonnet-5-5",
-  "judge_votes": 3,
+  "judge_votes": 1,
   "runs_per_case": 3,
-  "costUsd": 10.6487,
+  "costUsd": 11.9778,
   "skipped_runs": 0,
   "partial": false,
   "claudeVersion": "2.1.296 (Claude Code)",
   "startedAt": "2026-10-14T12:09:49Z",
-  "_stamp": "2026-10-14",
+  "_stamp": "2026-10-15",
+  "previous_judge_votes": 3,
+  "previous_rejudge": {
+   "answers": 48,
+   "verdicts": 96,
+   "changed": 2
+  },
+  "merged_cases": [
+   "egyptology-research-writing"
+  ],
+  "label": "",
   "rejudge": {
    "answers": 48,
    "verdicts": 96,
    "changed": 2
-  }
+  },
+  "rerun_after_skill_change": [
+   "egyptology-research-writing"
+  ]
  },
  "summary": {
   "skills": {
@@ -119,6 +132,40 @@
      "in_tokens": 135084,
      "cost": 0.1181,
      "seconds": 20.3
+    }
+   },
+   "egyptology-research-writing": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 2,
+     "calibration": 2,
+     "fired": 3,
+     "script": 0,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 3003,
+     "in_tokens": 102876,
+     "cost": 0.1747,
+     "seconds": 43.2
+    },
+    "without": {
+     "runs": 3,
+     "facts": 1,
+     "rubric": 0,
+     "calibration": 1,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 3425.3333,
+     "in_tokens": 30381.3333,
+     "cost": 0.1282,
+     "seconds": 42.7667
     }
    },
    "gardiner-sign-lookup": {
@@ -294,31 +341,31 @@
   },
   "overall": {
    "with": {
-    "runs": 24,
-    "skills": 8,
-    "facts": 24,
-    "rubric": 24,
-    "calibration": 23,
-    "fired": 24,
+    "runs": 27,
+    "skills": 9,
+    "facts": 27,
+    "rubric": 26,
+    "calibration": 25,
+    "fired": 27,
     "script": 12,
-    "any_skill": 24,
+    "any_skill": 27,
     "errors": 0,
     "denied": 0,
     "has_script": 12,
     "runs_per_skill": 3,
     "pass_hat_all_facts": 1.0,
-    "pass_hat_rubric": 1.0,
-    "mean_out_tokens": 2820.0,
-    "mean_in_tokens": 152795.3,
-    "mean_cost": 0.1955,
-    "total_cost": 4.69
+    "pass_hat_rubric": 0.8889,
+    "mean_out_tokens": 2840.3,
+    "mean_in_tokens": 147248.7,
+    "mean_cost": 0.1932,
+    "total_cost": 5.22
    },
    "without": {
-    "runs": 24,
-    "skills": 8,
-    "facts": 23,
+    "runs": 27,
+    "skills": 9,
+    "facts": 24,
     "rubric": 8,
-    "calibration": 15,
+    "calibration": 16,
     "fired": 0,
     "script": 0,
     "any_skill": 0,
@@ -326,12 +373,12 @@
     "denied": 0,
     "has_script": 12,
     "runs_per_skill": 3,
-    "pass_hat_all_facts": 0.875,
-    "pass_hat_rubric": 0.125,
-    "mean_out_tokens": 2461.1,
-    "mean_in_tokens": 68532.8,
-    "mean_cost": 0.1222,
-    "total_cost": 2.93
+    "pass_hat_all_facts": 0.7778,
+    "pass_hat_rubric": 0.1111,
+    "mean_out_tokens": 2568.2,
+    "mean_in_tokens": 64293.7,
+    "mean_cost": 0.1229,
+    "total_cost": 3.32
    }
   },
   "flagged": [
@@ -340,18 +387,18 @@
   ],
   "neutral": {
    "with": {
-    "runs": 18,
-    "facts": 18,
-    "rubric": 18,
-    "calibration": 17,
-    "skills": 6
+    "runs": 21,
+    "facts": 21,
+    "rubric": 20,
+    "calibration": 19,
+    "skills": 7
    },
    "without": {
-    "runs": 18,
-    "facts": 18,
+    "runs": 21,
+    "facts": 19,
     "rubric": 7,
-    "calibration": 9,
-    "skills": 6
+    "calibration": 10,
+    "skills": 7
    }
   }
  }

@@ -1565,111 +1565,106 @@ That is the trade-off: **partial degradation instead of total outage**. Avoid de
 
 ### Answer A
 
-# Is "7% faster" supportable from 41 ms vs 38 ms over 5 runs?
+# Is "7% faster" supportable?
 
-**Not yet.** The arithmetic is right: (41 − 38) / 41 ≈ 7.3% lower mean latency. But two means from 5 runs each can't tell you whether that 3 ms is a real improvement or noise. It depends on how much the runs vary, and you haven't said yet.
+Not yet. The arithmetic is right: 3 ms out of 41 ms is a 7.3% drop. But two means from 5 runs each can't tell a real 3 ms improvement apart from run-to-run noise. Whether they can depends on the spread of the runs, and you haven't looked at that.
 
-## Why the spread decides it
+## Check first with the data you already have
 
-Here is what the same 41 vs 38 result means at different run-to-run standard deviations, using Welch's t-test with n = 5 per build:
+**1. The standard deviation of each set of 5 runs.** Run a Welch t-test on the means. With 5 runs per build and similar spread, roughly:
 
-| Run-to-run SD | Std. error of the 3 ms difference | t | Verdict |
+| SD per build | t | p (approx) | Verdict |
 |---|---|---|---|
-| ~0.5 ms | 0.32 ms | ~9.5 | Clearly real |
-| ~1 ms | 0.63 ms | ~4.7 | Real, but the 95% CI is roughly 1.5–4.5 ms, so "4–11% faster" |
-| ~3 ms | 1.9 ms | ~1.6 | Can't tell it apart from noise |
+| 1 ms | 4.7 | ~0.002 | Real difference |
+| 2 ms | 2.4 | ~0.045 | Borderline |
+| 3 ms | 1.6 | ~0.15 | Can't tell it from noise |
+| 4+ ms | <1.2 | >0.25 | Noise |
 
-Even in the best case, the precise figure "7%" overstates what you know. The honest claim is a range.
+Latency benchmarks often vary by more than 2 ms between runs. If yours do, you currently have nothing to claim.
 
-## What to check
+**2. Overlapping runs.** Look at the raw 10 numbers. If the slowest new run is slower than the fastest old run, be careful with any claim.
 
-1. **Raw numbers.** Look at all 10 values, not just the two means. Do the old and new runs overlap? Is there one outlier pulling a mean?
-2. **Run order.** Did you run all the old builds and then all the new ones? If so, warm caches, thermal throttling, CPU boost or background jobs can create a "speedup" by themselves. Interleave the runs (ABABAB, or a randomized order).
-3. **Same conditions.** Check that both builds ran on the same machine with the same config, input data, warmup and power settings, with no debug flags or logging differences.
-4. **What one "run" is.** If each run is many requests, the mean hides the shape of the distribution. Latency is usually skewed, so compare the **median and p95/p99**, not only the mean. A lower mean with a worse p99 is not a win you'd want to advertise.
-5. **Whether the workload is representative.** A microbenchmark speedup often doesn't carry over to production traffic.
-6. **The wording.** 7.3% less latency is not the same as 7.9% more throughput (41/38 ≈ 1.079). Pick one and label it.
+**3. Outliers.** One slow old run, such as a cold cache or a GC pause, can produce the whole 3 ms gap on its own. Compare medians as well as means.
+
+**4. Whether the comparison was fair.**
+- Same machine, same load, same input data.
+- Same build flags (release vs debug, LTO, PGO).
+- Warmup runs excluded.
+- CPU frequency scaling or turbo and thermal throttling under control.
+- Runs interleaved, not all old runs followed by all new runs. Running in blocks mixes up any drift (heat, background jobs) with the build change.
+
+**5. Which latency matters.** A lower mean can hide a worse p95/p99. If users or SLAs care about tail latency, measure that.
 
 ## What to run
 
-- **More interleaved runs:** 20–30 per build, with warmup discarded and the machine kept quiet.
-- **A statistical comparison:** compute a confidence interval for the ratio, not just a yes/no p-value. Off-the-shelf tools include `hyperfine` for CLI commands, `ministat` (BSD/macOS), `benchstat` (Go) and Criterion (Rust).
-- **A quick check in Python:**
-
-```python
-import numpy as np
-from scipy import stats
-old = np.array([...])  # your 5 (later 20+) values
-new = np.array([...])
-print(stats.ttest_ind(old, new, equal_var=False))
-# bootstrap 95% CI for % latency reduction
-rng = np.random.default_rng(0)
-b = [1 - rng.choice(new, len(new)).mean() / rng.choice(old, len(old)).mean()
-     for _ in range(10000)]
-print(np.percentile(b, [2.5, 97.5]))
-```
-
-If you paste your 10 raw numbers, I'll run this for you and tell you which row of the table you're in.
+1. **More runs, interleaved:** 20–30 per build in A/B/A/B order, with warmup runs thrown away. For a CLI or process-level benchmark, `hyperfine --warmup 3 --runs 30 'old' 'new'` does most of this and reports mean ± SD. For a service, use your load tool and collect p50/p95/p99 for each run.
+2. **A confidence interval on the difference,** not just a p-value. Bootstrap the difference in means (or medians), or use a Welch t-test. Mann-Whitney U is a reasonable check if the distributions are skewed.
+3. **A realistic workload,** if the benchmark is a microbenchmark. A 7% gain on the hot path can turn into 0.5% end to end.
+4. **The whole comparison again on a second machine, or on another day,** if this number is going into release notes or marketing.
 
 ## What you can honestly say today
 
-> "In an initial benchmark (5 runs per build, [machine/workload]), mean latency went from 41 ms to 38 ms, about 7% lower. We're confirming with a larger interleaved benchmark before quoting a figure."
+> "In a preliminary benchmark (5 runs each), mean latency went from 41 ms to 38 ms, about 7% lower. We're confirming with a larger run before quoting a figure."
 
-After the larger run, if the confidence interval excludes zero, say something like **"about 5–10% lower latency on [workload]"**, using whatever range the CI gives. If it doesn't exclude zero, say **"no measurable regression, possibly a small improvement."** That's still a useful thing to ship with.
+After the larger run, say it with an interval, for example: **"~7% lower mean latency (95% CI: 4–10%) on [benchmark], [hardware]."** If the interval includes 0, the honest wording is "no measurable regression, possibly slightly faster." If it's something like 1–13%, say "faster, by roughly 1–13%."
+
+## For your manager
+
+The bare "7% faster" claim is risky. If someone reproduces the test and gets 2%, or 0%, the claim, and the team's credibility, take the hit. Running 30 interleaved runs per build takes about an hour and either backs the number up or saves you from shipping a wrong one.
+
+If you paste the 10 raw numbers, I'll run the stats now.
 
 ### Answer B
 
-**Not yet.** The arithmetic is right: (41 − 38) / 41 ≈ 7.3% lower mean latency. But two means from 5 runs each don't tell you whether that 3 ms gap is real or just run-to-run noise. Whether you can claim it depends on numbers you haven't shown: the spread of the 10 individual runs.
+**Short answer: not yet.** The 7% figure is just arithmetic: (41 − 38) / 41 = 7.3%. Whether it's a real speedup depends on how much the 5 runs varied, and you haven't said. Two means alone can't support any claim.
 
-## Why the spread decides it
+## The deciding check: run-to-run spread
 
-With n = 5 per build, here is how the 95% confidence interval on the 3 ms difference changes with the per-run standard deviation (SD):
+Take the 5 per-run means for each build and run a Welch t-test. With 5 runs each, a 3 ms gap only clears 95% confidence if the standard deviation between runs is **below about 2 ms** (roughly 5% of the mean):
 
-| Per-run SD | 95% CI on the difference | What you can say |
+| Run-to-run SD | 95% CI on the 3 ms gap (approx.) | Verdict |
 |---|---|---|
-| ~1 ms | ≈ 1.5 to 4.5 ms (about 4% to 11%) | It's a real improvement, but "7%" is only the midpoint of a wide range |
-| ~3 ms | ≈ −1.4 to 7.4 ms (includes 0) | You can't tell it apart from noise |
+| 1 ms | about 1.5 to 4.5 ms | Real, somewhere between 4% and 11% faster |
+| 2 ms | about 0.1 to 5.9 ms | Borderline, the low end is close to zero |
+| 3 ms | about −1.4 to 7.4 ms | Can't tell apart from noise |
 
-Even in the best case, "7% faster" claims more precision than you have.
+Even in the best case, the honest claim is a range ("4–11%"), not exactly "7%".
 
 ## What to check
 
-1. **The raw per-run numbers.** Compute the SD for each build and a CI on the difference using Welch's t-test or a bootstrap. This tells you right now which row of the table you're in.
-2. **"Faster" at what?** You measured lower mean latency. That isn't the same as throughput, and it isn't tail latency. Check p50 and p99 as well. A mean can improve while p99 gets worse.
-3. **Run order.** If you ran all the old runs and then all the new ones, drift (thermals, background jobs, caches, CPU frequency scaling) can produce a gap like this on its own.
-4. **Same conditions.** Confirm both builds used the same machine, inputs, build flags, warm-up and config, and that nothing else changed between runs.
-5. **Noise floor (A/A test).** Benchmark the old build against itself the same way. If two identical builds differ by 2–3 ms, a 3 ms gap means nothing.
-6. **Representativeness.** Check that the workload resembles production. If this is a load test, use an open-loop load generator so slow requests aren't hidden (coordinated omission).
+1. **Were the runs independent?** Each run should be a fresh process or instance. Five samples from one process don't count as five runs.
+2. **Were the builds interleaved?** If you ran all old runs and then all new ones, drift (thermal, background jobs, cloud neighbours, cache state) can look like a speedup. Rerun in alternating or random order.
+3. **A/A noise floor.** Benchmark the old build against itself the same way. If two copies of the same build differ by 2–3 ms, your 3 ms means nothing.
+4. **Did both builds get the same treatment?** Same hardware, config, data size and warm-up. A warm cache for one build and a cold one for the other is a classic accident.
+5. **Is the mean the right metric?** "Faster" to users usually means the median and p99. A lower mean can hide a worse tail. Compare percentiles, and make sure each percentile you quote has enough samples behind it (at least ~10 above it, so p99 needs about 1,000+ requests).
+6. **Resource use.** Check CPU and memory too, so you'd notice a speedup that just uses more cores.
+7. **Load model.** If the load generator waits for each reply before sending the next request, it under-reports latency spikes (coordinated omission). Make sure both builds were measured the same way, ideally at the load level you actually care about.
 
 ## What to run
 
-- **Interleave and randomise the order** (ABBA…), with warm-up runs discarded, and do at least 20–30 runs per build.
-  - For a CLI program: `hyperfine --warmup 3 --runs 30 './old ...' './new ...'` reports mean ± SD and the relative difference.
-- **Run an A/A test** with the same harness.
-- **Analyse the per-run results:**
+Put one value per line in files (per-run means, or raw per-request latencies):
 
-```python
-import numpy as np
-from scipy import stats
-old = np.array([...]); new = np.array([...])   # per-run latencies (ms)
-print(stats.ttest_ind(old, new, equal_var=False))
-boot = [np.mean(np.random.choice(old, len(old))) - np.mean(np.random.choice(new, len(new)))
-        for _ in range(10000)]
-lo, hi = np.percentile(boot, [2.5, 97.5])
-print(f"diff CI: {lo:.2f}–{hi:.2f} ms ({lo/old.mean():.1%}–{hi/old.mean():.1%})")
+```bash
+S=.claude/skills/performance-evaluation-methodology/scripts/perfstats.py
+python3 $S compare old_runs.txt new_runs.txt --stat mean    # difference + CI + effect size + rank test
+python3 $S compare old_raw.txt  new_raw.txt  --stat p99     # check the tail too
+python3 $S runs --cv <your observed CV> --rel 0.07          # how many runs you need to resolve 7%
+python3 $S tail --q 0.99 --k 10                             # samples needed for a trustworthy p99
 ```
 
-- **Look at percentiles** (p50, p99) across all requests, not just the mean of per-run means.
+Plus the A/A run (old against old) through the same `compare` command.
+
+If the spread turns out to be around 5%, plan on **at least 8–10 interleaved runs per build**. With a spread of 3% or less, 5 runs is enough.
 
 ## What you can honestly say today
 
-> "In a preliminary benchmark (5 runs per build, [machine/workload]), mean latency dropped from 41 ms to 38 ms (~7%). We haven't yet confirmed that this is outside run-to-run noise; a larger interleaved run is in progress."
+> "In an initial benchmark (5 runs each), mean latency was 38 ms for the new build vs 41 ms for the old. We're confirming this with repeated, interleaved runs and a noise check before quoting a speedup figure."
 
-If the SD turns out to be small (about 1 ms or less), you can upgrade that to: "mean latency improved by roughly 4–11% (95% CI) on [workload]."
+Once the checks pass, quote the interval rather than a single number, and name the metric and setup: "Mean latency is 4–11% lower (95% CI) on [workload] at [load]; p99 is [unchanged or improved]."
 
-After a proper rerun, phrase the claim as **"X% lower mean (or p50/p99) latency on [workload], 95% CI [a–b]%"**, not "X% faster."
+If the interval includes zero, or the A/A test shows gaps as big as 3 ms, then today's data shows no difference. In that case, "7% faster" shouldn't ship.
 
-If you paste the 10 raw run times, I can tell you which case you're in.
+If you paste the 10 per-run numbers, I can work out the actual interval now.
 
 ---
 
@@ -2517,150 +2512,133 @@ Files are in the project directory:
 
 ### Answer A
 
-I don't know your mechanism, baseline, or workload yet, so this is a scaffold. Anything in **[brackets]** needs your real numbers. I also wrote the limits as strictly as a reviewer would. Right now "30% in our cluster" is a single result from one deployment, and reviewers at OSDI, NSDI or EuroSys will attack it unless the paper sets its own scope first.
+This is a draft with placeholders, because I don't yet know your mechanism, workload, or baseline. Anything in `[brackets]` needs your real numbers. Each spot where reviewers are likely to push back is marked ⚠.
 
 ---
 
-## 1. Central claim
+## 1. The central claim
 
-> **[SystemName]** reduces p99 job/request latency by **30%** relative to **[baseline, e.g., the cluster's production scheduler / Sparrow / Kubernetes default]** on **[workload: e.g., a production trace of N jobs over D days on an M-node cluster]**, by **[core mechanism, one phrase, e.g., "late-binding placement driven by per-node queue-delay estimates"]**, while keeping median latency and throughput within **[X]%** of the baseline.
+"Cuts tail latency by 30% in our cluster" can't be published as written. Reviewers will ask which percentile, compared with what, under what load, and at what cost. Here's a version that can be tested:
 
-Why it's worded this way:
-- **Name the percentile.** "Tail" can mean p95, p99 or p99.9, and reviewers will ask which one.
-- **Name the baseline.** A 30% gain over a weak or misconfigured baseline is worth little.
-- **State the mechanism.** That is what makes it a paper rather than a tuning report.
-- **Give the cost side.** If the median or throughput got worse, say so; reviewers will check either way.
+> **[System name] reduces p99 job/request latency by 30% relative to [strongest baseline, e.g., the Kubernetes default scheduler / Sparrow-style sampling], on [workload] at [X–Y]% cluster utilization, without reducing throughput or utilization by more than [Z]%. It does this by [one-sentence mechanism, e.g., "placing tasks using predicted queueing delay instead of instantaneous load"].**
+
+The claim needs to say all of the following:
+- **Which percentile.** p99 vs. p99.9 matters a lot.
+- **Which baseline.** If it's a strawman, reviewers will reject the paper.
+- **The operating range.** Tail gains usually disappear at low load and can reverse near saturation.
+- **What you didn't give up.** Throughput, utilization, and scheduler overhead.
+- **Why it works.** Without the mechanism, 30% is just a number.
 
 ## 2. Contributions (three)
 
-1. **Insight / characterization.** An analysis of **[trace/cluster]** showing that tail latency is dominated by **[root cause, e.g., head-of-line blocking from stale load information / straggler co-location]**, and that existing schedulers **[specific gap]**.
-2. **Design.** **[SystemName]**, a distributed scheduler that **[mechanism]**. It addresses the root cause with **[key technique]** at **[overhead, e.g., <1 ms decision latency, O(k) messages per task]**.
-3. **Evaluation.** A deployment on a **[M]-node** production cluster plus trace-driven simulation at **[larger scale]**. The 30% p99 reduction holds across **[workloads/loads]**, and we identify the conditions where the benefit disappears.
+1. **Insight / characterization.** A measurement study of [your production cluster or trace] showing that tail latency is driven by [specific cause, e.g., head-of-line blocking from stale load signals]. Existing schedulers miss it because [reason].
+2. **Design.** [System name], a distributed scheduler that addresses this cause through [mechanism], and [the property that makes it practical, e.g., decentralized decisions with O(1) messages per task].
+3. **Evaluation.** An implementation in [N] LoC deployed on [cluster size]. It reduces p99 latency by 30% vs. [baseline] across [workloads], with [overhead] scheduling cost. The paper also characterizes the regimes where the benefit shrinks.
 
-If the first item isn't actually new (the root cause is already well known), fold it into the motivation section and promote "deployment experience / lessons learned" to the third slot instead.
+⚠ If contribution 1 isn't real (meaning you didn't find a non-obvious cause), replace it with a clearly new mechanism. Don't pad the list to reach three.
 
 ## 3. Claims-evidence matrix
 
-| # | Claim | Evidence needed | Limit of the claim |
-|---|---|---|---|
-| C1 | Reduces p99 latency by 30% vs. [baseline] | Production A/B or interleaved runs. CDFs. Confidence intervals across ≥[N] runs or days. Absolute numbers (ms), not just percentages | Shown on one cluster and one workload mix. Varies with load. Applies to p99 only unless p99.9 is also shown |
-| C2 | The gain comes from [mechanism], not from incidental changes | Ablation: turn off each component. Show that the root-cause metric (e.g., queueing delay) drops in step with the latency | Ablations show what contributes in *this* setting. They don't prove the mechanism is the only explanation |
-| C3 | Median latency and throughput are not degraded | p50 and throughput alongside p99 in every experiment. Utilization numbers | "Not degraded" holds only for the load range tested. State how it behaves at saturation |
-| C4 | Overhead is low: decision latency, network and CPU cost | Microbenchmarks of scheduling-decision time and message counts as the cluster grows | Measured at [M] nodes. Beyond that, the argument rests on simulation or analysis |
-| C5 | Benefit generalizes beyond your cluster | Trace-driven simulation with public traces (Google Borg 2019, Alibaba, Azure). Sweep load, heterogeneity and task-duration distributions | Simulation isn't deployment. Report where the simulator's assumptions differ from reality |
-| C6 | Better than state-of-the-art schedulers | Head-to-head comparison against 2–3 SOTA systems, each tuned in good faith, on the same setup | Only covers the systems compared, and reimplementations may not match the originals. Say which ones you reimplemented |
-| C7 | Robust to failures and bad estimates (include only if you claim it) | Fault-injection runs. Sensitivity to estimate error or staleness | Covers only the fault models you tested |
+| # | Claim | Evidence needed | Status | Limit of the claim |
+|---|---|---|---|---|
+| C1 | Tail latency is dominated by [cause] | Breakdown of where p99 time goes (queueing vs. execution vs. scheduling) on a production trace | [have / need] | Holds for [cluster/workload type]. May not hold for clusters with different job-size distributions. |
+| C2 | [System] cuts p99 by 30% vs. [baseline] | p50/p99/p99.9 CDFs, ≥5 runs, confidence intervals, same hardware and workload | [have] (one cluster only?) | ⚠ One cluster and one workload is the biggest weakness. Report it as "up to" or as a range, and add a public trace (Google Borg 2019, Alibaba) replayed in a simulator. |
+| C3 | The gain comes from [mechanism], not tuning | Ablation: switch off each component; compare with baseline given equal tuning effort | [need] | The ablation only tests the components you isolate. Interactions between them can still confound the result. |
+| C4 | Gains hold across load levels | Sweep utilization from 30% to 95%; plot p99 vs. load | [need] | ⚠ State plainly where the gain goes to zero or turns negative. Reviewers trust a paper more when it shows this. |
+| C5 | No meaningful cost | Throughput, utilization, scheduler CPU/messages, decision latency, all at scale | [need] | Overhead measured up to [N] nodes. Scaling beyond that is extrapolated or simulated. |
+| C6 | Robust to [mispredictions / failures / bursts] | Fault and burst injection; sensitivity to wrong predictions | [optional] | Only the failure modes you injected are covered. |
 
-Experiments that should actually bound your claims:
-- **Where does the 30% go to zero?** Low load, very uniform tasks, or a single tenant. Showing the crossover makes the paper stronger, not weaker.
-- **Is the baseline well tuned?** Have someone outside the project review its configuration.
+C2, C3, and C4 together make the paper. If you only have C2, you have a result but not a paper yet.
 
-## 4. Outline (12-page systems paper, OSDI/NSDI/EuroSys style)
+## 4. Outline (OSDI / NSDI / EuroSys / SoCC, ~12 pages)
 
-1. **Introduction (1.5 pp)** – Why tail latency matters in [domain]. The gap in existing schedulers. Key insight. Contributions. Headline result with its scope stated.
-2. **Background & Motivation (1.5 pp)** – Cluster and workload characterization. Measurements showing the root cause. Why [baseline]/SOTA can't fix it (a small motivating experiment).
-3. **Design (2.5 pp)** – Goals and non-goals. Architecture figure. Core mechanism. Handling of stale information, failures and fairness. Design alternatives you rejected and why.
-4. **Analysis (optional, 0.5 pp)** – A simple model or bound explaining *why* the mechanism cuts the tail.
-5. **Implementation (0.5 pp)** – Lines of code, integration points, what changed in production.
-6. **Evaluation (3.5 pp)**
-   - 6.1 Setup: cluster, workloads, baselines and how they were tuned, metrics.
-   - 6.2 End-to-end: tail latency CDFs and the headline number (C1, C3).
-   - 6.3 Comparison with SOTA (C6).
-   - 6.4 Where the gains come from: ablations (C2).
-   - 6.5 Scalability and overhead (C4).
-   - 6.6 Sensitivity and generalization via simulation (C5, C7).
-   - 6.7 Limitations: where [SystemName] doesn't help.
-7. **Deployment Experience / Lessons (0.5 pp)** – Strong material for NSDI/EuroSys operational tracks.
-8. **Related Work (1 pp)** – Centralized (Borg, Quincy, Firmament), distributed/sampling (Sparrow, Tarcil), hybrid (Hawk, Eagle, Mercury), tail-aware (Tail at Scale, C3, Shinjuku/Shenango if latency is at µs scale). Give one sentence on how you differ from each.
-9. **Conclusion (0.25 pp)**
+1. **Introduction (1.5 pp).** Why tail latency matters → the claim → why existing schedulers fall short → the key insight → the three contributions → the headline result with its scope.
+2. **Background and motivation (1.5 pp).** Scheduler design space (centralized, distributed, hybrid; Borg, Sparrow, Firmament, etc.). Measurement study backing C1, with one strong motivating figure.
+3. **Design (2.5 pp).** Goals and non-goals. Architecture diagram, the core mechanism, and how it handles staleness, failures, and scale.
+4. **Implementation (0.5 pp).** LoC, integration points, practical details.
+5. **Evaluation (3.5 pp).** Setup, workloads, and baselines (and why they're fair). Then headline results (C2), the breakdown and ablation (C3), the load sweep (C4), overhead and scale (C5), robustness (C6), and a short "when it doesn't help" subsection.
+6. **Discussion and limitations (0.5 pp).** Generality beyond your cluster, assumptions, deployment lessons.
+7. **Related work (1 pp).** Organize by idea, not by paper, and say specifically how yours differs.
+8. **Conclusion (0.25 pp).**
+
+## What would most improve acceptance odds
+
+1. **A second environment.** Replaying a public trace in a simulator or on a testbed answers "it only works on your cluster."
+2. **A strong, well-tuned baseline.** Reviewers will ask whether you tuned the baseline as carefully as your own system.
+3. **Variance.** Tail metrics are noisy, so show confidence intervals or the spread across runs.
 
 ---
 
-I need the following to replace the brackets with real wording:
-1. What the mechanism is, in one sentence.
-2. The baseline and which percentile improved by 30%.
-3. Whether the result comes from production A/B, a testbed, or simulation.
-4. Cluster scale and workload type: batch, latency-critical, or mixed.
-
-I can also turn this into a shareable page for your co-authors if that would help.
+If you send me the mechanism, the baseline, the workload, and the measurements you have now, I'll fill in the placeholders, tighten the claim, and mark which matrix cells are actually still missing.
 
 ### Answer B
 
-I don't know yet how your scheduler works, so `[brackets]` mark the parts only you can fill in. The structure, the limits and the checks are ready to use.
+I don't yet know how your scheduler works or how you measured the 30%, so below is a structured draft. Anything in `[brackets]` is a gap you need to fill. I wrote it so you can see exactly what a reviewer will ask for.
 
-The biggest gap: "30% lower tail latency in our cluster" isn't a claim a reviewer can check yet. It needs five things:
-- **Which percentile:** p99, p99.9, or something else.
-- **Compared to what:** which scheduler, and whether it was tuned.
-- **Under which workload and at what load:** a fixed load level or a range.
-- **How many runs, with what variance:** the spread across runs.
-- **Why it works:** the mechanism behind the result.
+## The claim (one sentence)
 
-Until those are pinned down, the matrix below shows which experiment supplies each one.
+> **[Scheduler name] cuts p[99] job/request latency by 30% relative to [baseline, e.g. the cluster's tuned production scheduler] on [workload] in a [N]-node production cluster, by [the one insight, e.g. "placing tasks using predicted queueing delay instead of current load"], at a cost of [overhead: CPU, decision latency, throughput].**
 
----
+There are four places a reviewer will push on this:
+- **"Tail latency" must name a percentile** (p99, p99.9) and the unit: per request, per task or per job.
+- **"30%" needs a baseline.** Compared with what, and was that baseline tuned? An untuned default is the most common reason reviewers reject this kind of paper.
+- **"Our cluster" is a single environment.** The headline holds for that environment. Generalising needs trace replay or a second workload (see contribution 3).
+- **The insight is the paper.** "We built a scheduler" is a component, not a contribution. You need the reason existing schedulers lose at the tail and the idea that fixes it.
 
-## 1. The claim (one sentence)
+## Contributions (at most three, each falsifiable)
 
-> **[System] cuts p99 [job/request] latency by [30% ± CI] compared with [tuned baseline scheduler] on [workload], at [X–Y]% cluster utilization, by [one mechanism, e.g., "placing tasks using predicted queueing delay instead of current load"], and costs at most [Z]% in throughput.**
+1. **Problem analysis.** A measurement study of [cluster] showing that [X% of tail latency comes from cause Y, e.g. head-of-line blocking or stale load information], which [existing schedulers A, B] do not address because [assumption].
+2. **Design.** [Scheduler], which uses [mechanism] to [effect], with decision latency of [Z µs] at [N] nodes.
+3. **Evaluation.** On [production workload] and [K replayed or public traces], [Scheduler] reduces p99 latency by [30% ± CI] compared with [tuned baselines], keeps throughput within [x%] of the baseline, and the ablation attributes [most] of the gain to [mechanism].
 
-Tests for this sentence:
-- If you can't fill in "by [mechanism]", the paper doesn't have an insight yet, only a result. Systems reviewers reject results that have no explanation.
-- The throughput (or utilization, or fairness) clause is there on purpose. Tail-latency gains often come from keeping spare capacity idle, and reviewers will ask about that first.
+## Claims-evidence matrix
 
-## 2. Contributions (at most three, each falsifiable)
-
-1. **Insight from measurement.** In [cluster/trace], [X]% of tail latency comes from [cause, e.g., stale load information, head-of-line blocking, stragglers]. Current schedulers ([A], [B]) can't avoid it because they [assumption that fails].
-   *Falsifiable:* a breakdown of the tail by cause could show some other factor dominates.
-2. **Design.** [Mechanism] removes that cause. It needs [O(·)] scheduling work per decision and [N] bytes of state per node. It still works when [information is stale, nodes fail, load spikes].
-   *Falsifiable:* an ablation that turns off the mechanism should erase most of the gain.
-3. **Evaluation.** On [production cluster, N nodes] and [public trace replay, e.g., a published cluster trace], [system] reduces p99 by [30%] (p99.9 by [·]%) against [tuned baselines]. Throughput stays within [Z]%, and decision overhead is [·] µs.
-   *Falsifiable:* the gain could vanish at some loads or on the public trace.
-
-"We built a scheduler" isn't on the list because it's a component, not a claim.
-
-## 3. Claims-evidence matrix
-
-| # | Contribution | Evidence (experiment or argument) | Figure / table | Limit of the claim |
+| # | Contribution | Evidence | Fig/Table | Limit of the claim |
 |---|---|---|---|---|
-| 1 | Tail latency is dominated by [cause], and existing schedulers can't avoid it | Break down p99 requests by cause (instrumented queueing, service and placement delay) on the production trace, plus a short argument about why baseline [A]'s assumption fails | Fig. 2 (tail CDF split by cause), Table 1 (baseline assumptions) | Measured only on [your cluster/workload]. The cause may not dominate on clusters with different job sizes, heterogeneity or load |
-| 2 | [Mechanism] removes that cause at low cost | **Ablation** (each mechanism on/off). **Sensitivity** to staleness, prediction error and cluster size. **Overhead** measured as decision latency, CPU and network. **Failure** tests killing nodes, killing the scheduler and injecting load spikes | Fig. 5 (ablation), Fig. 6 (sensitivity), Table 3 (overhead) | Holds within the parameter ranges you tested, [·] to [·]. State the point where it breaks, e.g., when prediction error goes above [·]% |
-| 3 | 30% lower p99 vs. tuned baselines with throughput within Z% | Load sweep from [low] to [high] utilization with an **open-loop** load generator (so coordinated omission doesn't hide the tail). ≥[5–10] runs with confidence intervals. An A/A run to find the noise floor. Baselines tuned and their settings listed. Run on both the production cluster and the public trace | Fig. 3 (p99 vs. load, all systems), Fig. 4 (p50/p99/p99.9), Table 2 (throughput/utilization) | Report 30% only at the load where you measured it, and show the whole curve. The gain probably shrinks at low load (no queueing) and may shrink near saturation. One cluster plus one trace is not "all clusters" |
+| 1 | Tail latency in [cluster] is dominated by [cause Y], which current schedulers ignore | Latency breakdown from production traces; counterfactual analysis or a targeted microbenchmark that isolates Y | Fig 1 (motivation), Fig 2 (breakdown) | Measured in one cluster over [time window]. Other clusters with a different workload mix may have a different dominant cause. |
+| 2 | [Mechanism] removes [cause Y] at low overhead | Design argument; microbenchmark of decision latency and scheduler CPU while varying cluster size; **ablation** with each component removed | Fig 5 (ablation), Table 3 (overhead) | Tested up to [N] nodes and [R] decisions/s. Behaviour beyond that is extrapolated. Assumes [e.g. predictable task durations, accurate telemetry]. |
+| 3 | 30% lower p99 than tuned baselines with no throughput loss | End-to-end runs: production A/B or shadow test, plus trace replay against [baseline 1, baseline 2 (a published research scheduler)]. ≥[5] runs, confidence intervals, open-loop load generation, A/A noise floor. Load sweep and sensitivity to [key parameter]. | Fig 3 (CDF), Fig 4 (p99 vs load), Fig 6 (sensitivity) | The gain applies at [load range]. It may shrink at low utilisation (no queueing) or under overload. Reported only for [workload types]. Production numbers can't be reproduced by outsiders, so the artifact uses traces. |
 
-**Checks before submitting:**
-- [ ] Is "30%" the same number, at the same load and percentile, in the abstract, the intro and Fig. 3?
-- [ ] Is the baseline your *current production* scheduler? That's fine as a motivating fact, but also compare against at least one published scheduler, tuned.
-- [ ] Is the 30% gap bigger than run-to-run variance (from the A/A run)?
-- [ ] Is every figure cited in the text, and does every contribution point to a figure?
+**Before you trust the 30% yourself, check:**
+- Was the comparison concurrent (an A/B test) or before/after? Before/after mixes in workload drift.
+- Is the improvement larger than the A/A noise floor?
+- Did the load generator suffer from coordinated omission? Closed-loop generators underreport the tail.
+- Did throughput, utilisation, or median latency get worse as the price of the tail gain? If so, report it.
+- What happens when the scheduler fails or its inputs are stale?
 
-## 4. Threats to validity (draft the limitations section now)
+The `performance-evaluation-methodology` skill can plan these experiments in detail if you want that.
 
-- **Internal (could something else explain the result?):** Did a deployment change, a workload shift or time of day line up with the before/after comparison? Prefer A/B runs side by side, or alternating runs, over before/after. Is the baseline misconfigured? Is the improvement just the result of leaving some capacity idle?
-- **External (does it generalize?):** One cluster, one workload mix, one hardware generation. The public-trace replay is your main defense here. If you can't publish the production workload, say so.
-- **Construct (does the metric measure what you claim?):** Are you measuring latency at the scheduler or end to end as users see it? Is p99 taken per job or per task? Is it pooled across runs or computed per run? Choose one definition and state it.
+## Outline (12-page systems venue, e.g. OSDI/SOSP/NSDI/EuroSys)
 
-## 5. Outline (OSDI/SOSP/NSDI/EuroSys/ATC style, ~12 pages)
-
-1. **Abstract (~200 words):** problem, insight, mechanism, headline numbers with their conditions, and the throughput cost.
-2. **Introduction (1.5 pp):** why tail latency matters in [setting]; why current schedulers fail, backed by one number from §2; the insight; the contribution list; headline results.
-3. **Background and motivation (1.5 pp):** the measurement study (Contribution 1, Fig. 2). Show the failure, don't just assert it.
-4. **Design (2.5–3 pp):** goals and non-goals, assumptions, the mechanism, how it handles stale information and failures, and what it deliberately doesn't do.
-5. **Implementation (0.5–1 pp):** lines of code, how it plugs into [your cluster manager], and the engineering details that affect results.
-6. **Evaluation (3–3.5 pp), written as questions:**
-   - Q1: Does it reduce tail latency, and at which loads? (Fig. 3, 4)
-   - Q2: What does it cost in throughput, utilization and overhead? (Table 2, 3)
-   - Q3: Which part of the design causes the gain? (ablation, Fig. 5)
-   - Q4: How sensitive is it to [staleness, error, scale]? (Fig. 6)
-   - Q5: How does it behave when things fail and when load spikes?
-   - Q6 (optional): How has it behaved in production over [weeks]? A deployment experience report adds a lot of credibility.
-7. **Related work (1 pp):** a comparison along the axes that matter, not a list. For example, centralized vs. distributed decisions, what information each design uses and how stale it is, the guarantees each gives, and their overheads. Include the closest competitor even if it's uncomfortable. Check every citation; I haven't verified any specific ones here.
-8. **Limitations and discussion (0.5 pp):** the threats from §4 above, and when someone should *not* use your system.
+1. **Abstract** (~200 words): problem, insight, mechanism, headline number with its baseline and setting.
+2. **Introduction** (1.5 pp): why tail latency matters here; why current schedulers fail (preview Fig 1); the insight; the three contributions; headline results; artifact availability.
+3. **Background and motivation** (1.5 pp): cluster and workload characteristics; measurement study (contribution 1); requirements the design must meet.
+4. **Design** (2.5 pp): overview figure; core mechanism; how it handles [heterogeneity, failures, stale information]; design alternatives and why you rejected them.
+5. **Implementation** (0.5–1 pp): lines of code, integration points (e.g. Kubernetes or a custom scheduler), deployment experience in production.
+6. **Evaluation** (3.5 pp), written as questions:
+   - Q1: Does it cut tail latency at production load, and by how much? (A/B test, CDFs)
+   - Q2: How does it compare with tuned and research baselines across load levels? (trace replay)
+   - Q3: Which component causes the gain? (ablation)
+   - Q4: What does it cost? (decision latency, CPU, throughput, median latency)
+   - Q5: How sensitive is it to parameters, scale and workload shift?
+   - Q6: How does it behave under failures or misprediction?
+7. **Related work** (1 pp): a comparison table across centralized, distributed and hybrid schedulers, and load-aware and prediction-based placement. Axes: information used, decision latency, tail-latency goal, assumptions. Name the closest competitor and state exactly how you differ.
+8. **Limitations and discussion** (0.5 pp):
+   - **Internal validity:** workload drift during the A/B test, interference from other tenants.
+   - **External validity:** one cluster and one workload class.
+   - **Construct validity:** does the p99 you measured match the user-perceived tail, e.g. per job or per request?
 9. **Conclusion.**
+10. **Artifact appendix:** code, configs, anonymized traces, one-command reproduction of Figs 3–6.
 
-Also plan for: artifact appendix (code, configurations, trace-replay scripts and raw data, runnable with one command, in a permanent archive like Zenodo if you're going for the "available" badge); anonymization if the venue is double-blind (no cluster or company names); author contributions and AI-use disclosure according to the venue's current policy.
+## What I need from you to fill this in
 
----
+1. The mechanism: what the scheduler does differently, in 2–3 sentences.
+2. How you measured the 30%: percentile, baseline, workload, duration, number of runs, A/B or before/after.
+3. Cluster size and workload type (latency-critical services, batch, mixed).
+4. Target venue and deadline. Page limits and double-blind rules change the outline.
+5. Whether you can release traces or code. Many venues weigh artifacts.
 
-**Next steps that would help most:** send me (1) what the scheduler does differently in one paragraph, (2) how the 30% was measured (percentile, baseline, load, runs), and (3) your target venue. With those I can fill in the brackets, tighten the claim, and point out which experiments in the matrix you still need to run.
+With those answers I can draft the abstract and introduction and replace the placeholders.
 
 ---
 

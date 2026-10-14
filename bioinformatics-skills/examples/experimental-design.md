@@ -10,75 +10,64 @@ A real answer from a Claude Code session, with the numbers behind it. The prompt
 
 | | Without the skill | With the skill |
 |---|---|---|
-| Output tokens (what the model wrote, including its reasoning) | 2,113 | 2,149 |
-| Input tokens read across all turns (including cached context) | 72,557 | 151,375 |
-| Extra input tokens when the skill is installed | | +78,818 |
-| Cost, US dollars at list price | 0.118 | 0.194 |
+| Output tokens (what the model wrote, including its reasoning) | 1,877 | 1,532 |
+| Input tokens read across all turns (including cached context) | 30,373 | 138,320 |
+| Extra input tokens when the skill is installed | | +107,947 |
+| Cost, US dollars at list price | 0.097 | 0.178 |
 | Skills invoked in the sample run | none | `experimental-design` |
 
-Size of the skill by Claude Code's own estimate (`claude plugin details`): about 190 tokens for its name and description, which are in every session where the skill is installed, and about 2,000 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
+Size of the skill by Claude Code's own estimate (`claude plugin details`): about 190 tokens for its name and description, which are in every session where the skill is installed, and about 2,100 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
 
 ## Answer with the skill (excerpt)
 
 ````text
-For one test you need **64 independent samples per group (128 in all)**. If you test 20,000 genes with a Bonferroni correction, you need **about 252 per group (504 in all)**. If you control the false discovery rate instead, which is what most expression studies do, the number falls somewhere in between.
+For one comparison you need **about 64 samples per group (128 in total)**. Across 20,000 genes with Bonferroni correction, that rises to **about 252 per group (504 in total)**.
 
-## One comparison
+These figures assume a two-sided test, α = 0.05, 80% power and an effect of d = 0.5 (the difference in means divided by the standard deviation). I calculated them with the normal approximation plus a small-sample correction.
 
-These assumptions give 64 per group:
-- standardized difference d = 0.5
-- two-sided α = 0.05
-- 80% power
-- a two-sample t-test
+### One test
+- **64 per group.** This matches the standard table value for d = 0.5.
 
-## 20,000 genes
+### 20,000 genes
+- **Bonferroni:** the per-gene threshold becomes 0.05 / 20,000 = 2.5 × 10⁻⁶. That needs **about 252 per group**, roughly four times as many.
+- **If you stay at 64 per group:** a gene with a true 0.5-SD difference would be detected only about **3% of the time** after correction (my hand calculation). Nearly every real effect would be missed.
+- **False discovery rate (Benjamini–Hochberg):** this is what most expression studies use, and it is less strict. The required n depends on how many genes truly change. If about 1% (200 genes) do, you need very roughly **150 per group** (also a hand estimate). The fewer real changes there are, the closer you get to the Bonferroni number.
 
-With 20,000 tests, a 5% threshold per gene would give about 1,000 false positives by chance alone. You have to correct for this, and the correction raises the bar each gene must clear.
+### Things that change the answer more than the formula does
+1. **Count what an independent sample is.** If "cells" means single cells or wells from one culture, those are not independent samples. The unit should be the biological replicate: separate cultures, passages or donors. Pseudoreplication is the most common way a study like this goes wrong.
+2. **Check whether d = 0.5 is realistic.** In expression data the size of the change varies a lot from gene to gene. A d of 0.5 is modest, and an estimate taken from a small pilot that looked significant is usually too large.
+3. **RNA-seq counts aren't normally distributed.** For counts, treat these numbers as a rough guide. Confirm with a count-based power tool such as RNASeqPower, PROPER or ssizeRNA, which models depth and dispersion.
+4. **Pairing helps.** If each treated sample has a matched control (same donor or same passage), a paired design can cut the required n a lot.
+5. **Balance batches.** Put treated and control samples in every extraction and sequencing batch, never one condition per batch. Add a margin of 10–20% for samples lost to QC.
 
-| Correction | Per-gene threshold | n per group for 80% power at d = 0.5 |
-|---|---|---|
-| None (one test) | 0.05 | 64 |
-| Bonferroni, family-wise error 5% | 0.05 / 20,000 = 2.5 × 10⁻⁶ | ~252 |
-| Benjamini–Hochberg, FDR 5% | depends on how many genes truly change | roughly 100–150 (rough estimate) |
-
-- **If you keep 64 per group,** power per gene under Bonferroni drops to about **3%**. You would miss almost every real effect of that size.
-- **FDR control is the usual choice for genome-wide screens.** Its effective threshold depends on what fraction of genes truly change and on power, so there is no single formula for it. As a rough guide, if about 5% of genes change by d = 0.5, the threshold works out to around 10⁻³, which needs about 125 per group.
-- **The trade-off:** with a fixed budget you either accept lower power per gene, or you target larger effects. At d = 1.0 the Bonferroni case needs only about 70 per group.
-
-## Before you rely on these numbers
-
-1. **Count independent samples, not cells.** A replicate is an independent culture, passage, donor or animal, meaning something that could have turned out differently by chance. Many cells or wells from one culture are technical replicates. Counting them as samples is pseudoreplication, and it makes the study look much more powerful than it is.
-2. **For RNA-seq, check the number with a count-based tool.** These figures assume a t-test on continuous data. Read counts are usually planned in terms of fold change, dispersion and sequencing depth, with tools such as RNASeqPower, PROPER or ssizeRNA. Effect sizes also differ from gene to gene, so a single d is a simplification.
-3. **Find a source for d = 0.5.** Use a pilot or published data. An effect taken from a small pilot that happened to look significant is usually an overestimate.
-4. **Avoid confounding with batch.** Put treated and untreated samples into every processing batch and sequencing lane. Never run one condition per day or per lane.
-5. **Allow for dropout.** Add 10–20% for samples that fail quality control.
-
-The 64 and 252 figures come from a normal approximation with a small-sample correction; the script's self-test passed. The FDR figures and the 3% and ~70 figures are my own back-of-envelope estimates. If you tell me your assay (bulk RNA-seq, qPCR, etc.), expected fold change, number of batches and budget, I can work out a concrete design and batch layout.
+A practical approach: decide on FDR control in advance and estimate the dispersion from a small pilot. Then size the study with a count-based tool, using these numbers as bounds: 64 per group for one test and about 252 under Bonferroni.
 ````
 
 ## Answer without the skill (excerpt)
 
 ````text
-For a single comparison you need **64 samples per group**. If you test 20,000 genes, that rises to roughly **110–250 per group**, depending on how you correct for multiple testing.
+# Sample size for d = 0.5 at 80% power, with and without 20,000 genes
 
-## One test (two-sample t-test, d = 0.5, two-sided α = 0.05, 80% power)
+**For one comparison, you need about 64 samples per group.** That assumes a two-sample t-test, a two-sided α of 0.05, and an effect size d = 0.5.
 
-**n = 64 per group**, or 128 in total. This is the standard Cohen value: the normal approximation gives 62.8, and the t-distribution correction rounds it up to 64.
+The approximate formula is n per group ≈ 2(z₁₋α/₂ + z₁₋β)² / d² = 2(1.96 + 0.84)² / 0.25 ≈ 63. A small correction for using the t distribution brings it to 64.
 
 ## Testing 20,000 genes
 
-If you use α = 0.05 for every gene, you would expect about 1,000 false positives by chance alone. You need to correct for that, and the correction you choose sets the sample size:
+When you test 20,000 genes, about 1,000 would be "significant" at p < 0.05 by chance alone. You have to correct for this, and the correction lowers the p-value cutoff each gene must pass. That raises the sample size a lot.
 
-| Correction | Per-gene α | n per group |
+| Multiple-testing approach | Per-gene α | n per group |
 |---|---|---|
-| None | 0.05 | 64 |
-| FDR 5%, about 10% of genes truly change | ≈ 0.0047 | **≈ 110** |
-| FDR 5%, about 1% of genes truly change | ≈ 0.0004 | **≈ 155** |
-| Bonferroni / family-wise error rate (FWER) 5% | 2.5 × 10⁻⁶ | **≈ 250** |
+| None (single test) | 0.05 | ~64 |
+| FDR 5%, ~10% of genes truly changed | ~0.005 | ~109 |
+| FDR 5%, ~1% of genes truly changed | ~0.0004 | ~153 |
+| Bonferroni (family-wise error rate 5%) | 2.5 × 10⁻⁶ | ~248 |
 
-- **Bonferroni:** this controls the chance of even one false positive, so it is very strict. It roughly quadruples the sample size.
-- **FDR (Benjamini–Hochberg):** this is the usual choice for genomics. The per-gene α it implies depends on how many genes really change, so the sample size does too. I used the approximation α* ≈ q·π₁·power / ((1−q)·π₀). Here q is the FDR level, π₁ is the fraction of genes that truly change and π₀ = 1 − π₁. The more genes that truly change, the cheaper the correction.
-- **80% power now means something different:** it is the average proportion of truly changed genes that you detect. It no longer means the chance of detecting one particular effect.
+- **Bonferroni** keeps the chance of even one false positive at 5%. It is very strict, and it needs about 4 times as many samples as a single test.
+- **FDR (Benjamini–Hochberg)** is the usual choice for genomics. It accepts that about 5% of your hits may be false. The cutoff it uses depends on what fraction of genes are truly changed (π₁). I estimated that cutoff from α ≈ q·π₁·power / ((1−q)(1−π₁)), with q = 0.05. The fewer genes that truly change, the more samples you need.
+- "80% power" now means you detect about 80% of the truly changed genes that have d = 0.5. It is no longer about one specific gene.
+
+## Practical caveats
 
 [... excerpt ends; the full answer is longer]
 ````

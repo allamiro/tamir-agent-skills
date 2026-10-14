@@ -660,76 +660,95 @@ To get **seen**-level evidence, approve the network calls and I'll resolve the D
 
 ### Answer A
 
-# Methods
+## Methods (draft)
 
-## Read alignment and quantification
+**Read alignment.** Sequencing reads (SRA accession SRR1234567; three treated and three control samples) were aligned to the human reference genome GRCh38 using tool A v1.2 [ALIGNMENT PARAMETERS].
 
-Sequencing reads (SRA accession SRR1234567 **[see note 1]**) from six samples, three treated and three control, were aligned to the human reference genome GRCh38 **[patch release, e.g. GRCh38.p14; source, e.g. GENCODE/Ensembl; annotation release]** with [Tool A] v1.2 **[parameters]**. Gene-level read counts were produced with [Tool B] v3.1 **[parameters, e.g. strandedness, feature type, multimapping handling]**.
+**Read quantification.** Gene-level read counts were generated using tool B v3.1 [ANNOTATION SOURCE AND RELEASE; COUNTING PARAMETERS].
 
-## Differential expression analysis
-
-Differential expression between treated and control samples was tested with **[test/package name and version]** **[model/design formula; normalization method; any filtering of low-count genes]**. P-values were adjusted for multiple testing with the Benjamini–Hochberg procedure, and genes with an adjusted p-value (FDR) < 0.05 were called differentially expressed **[add a fold-change threshold if one was used]**. The random seed was set to 42 **[state which step used it]**.
+**Differential expression analysis.** Differential expression between treated and control samples was tested using [TEST/TOOL AND VERSION]. P-values were adjusted for multiple testing using the Benjamini–Hochberg procedure, and features with an adjusted p-value below 0.05 were considered significant. The random seed was set to 42 [STEP(S) THE SEED APPLIES TO].
 
 ---
 
-## What the record doesn't include
+## Missing from your record (please fill in)
 
-1. **Accession conflict.** SRR1234567 is one SRA *run*, but the record says six samples. You need either six SRR run IDs or the BioProject/GEO series (SRP/PRJNA/GSE) that contains all six.
-2. **Tool names.** "Tool A" and "Tool B" are placeholders. Replace them with the real software names and give citations.
-3. **Reference details.** GRCh38 patch level, where it came from (Ensembl, GENCODE, UCSC), and the gene annotation (GTF) version used for counting.
-4. **Alignment and counting parameters.** The record only says "exact versions and parameters" without listing any parameters. You need the command-line options, or a statement that defaults were used.
-5. **Differential test.** Which test or package was used (for example DESeq2, edgeR or limma-voom) and its version, the design formula, the normalization method, and any covariates.
-6. **Filtering.** Whether low-count genes were removed before testing, and the threshold if so.
-7. **Significance criteria.** Whether a log2 fold-change cutoff was applied on top of FDR < 0.05.
-8. **Seed scope.** Which step the seed 42 controlled. Most standard DE tests are deterministic, so name the step (aligner multithreading, subsampling, permutation, etc.) or drop the sentence.
-9. **Upstream processing.** Sequencing platform, read length, single- or paired-end, library prep or strandedness, and any adapter trimming or QC tools with their versions.
-10. **Software environment.** R/Python version and the code or data availability statement.
+**Things to check first:**
+1. **Accession mismatch.** SRR1234567 is a single SRA *run* accession, but you describe six samples. You probably need the six SRR IDs, or the BioProject (PRJNA…) / GEO series (GSE…) accession.
+2. **Tool names.** "tool A" and "tool B" look like placeholders. I kept them as written. Please give the real names (for example STAR, HISAT2, featureCounts, HTSeq).
+3. **Differential test.** The record gives the correction method and threshold but not the test or software (for example DESeq2 Wald test, edgeR QL F-test, limma-voom), its version, or the R/Python version.
 
-The bold brackets in the draft show where each of these belongs.
+**Alignment:**
+- Reference build details: primary assembly or full, source (Ensembl/GENCODE/UCSC), and release
+- Non-default aligner parameters, or a note that defaults were used
+- Read pre-processing such as adapter or quality trimming, with tool and version
+- Library type: single- or paired-end, read length, strandedness
+
+**Quantification:**
+- Gene annotation (GTF) source and release, for example GENCODE v44
+- Counting level (gene or transcript) and how multi-mapping and overlapping reads were handled
+- Strandedness setting
+
+**Differential analysis:**
+- Design formula and covariates, if any (batch, pairing)
+- Pre-filtering of low-count genes
+- Normalization method
+- Whether a fold-change threshold or shrinkage was used (for example lfcShrink with apeglm)
+- Which step the seed of 42 controls. Many DE tools are deterministic, so name the step it affects.
+
+**Reproducibility (often required):**
+- Sequencing platform
+- Where the code is available (repository or DOI)
+- Compute environment (container or conda environment)
+
+If you send me these details, I'll replace the bracketed placeholders and finish the section.
 
 ### Answer B
 
-Here is a draft built only from your record. Anything the record doesn't state is in **[brackets]**, so nothing has been made up.
+Here's a draft that uses only what your record gives. Anything in **[brackets]** is missing from the record and you'll need to fill it in. I haven't added any defaults.
 
 ---
 
 ### Methods
 
-**Data.** Sequencing reads were obtained from [database, e.g. NCBI SRA] under accession SRR1234567 [accessed DATE]. The study comprised six samples, three treated and three control [state what a sample is: e.g. independent biological replicates / cultures / animals]. [Library type: e.g. poly(A) RNA-seq, stranded/unstranded; read layout: single- or paired-end, read length; sequencing platform.]
+**Data.** RNA-seq reads were obtained from [repository, e.g. NCBI SRA] under accession SRR1234567 [see problem 1 below; list the run accession for each sample], retrieved on [date]. The study had six samples: three treated and three control. [Organism, tissue or cell line, and what the treatment was (agent, dose, duration).] [Library type: single- or paired-end, read length, strandedness.]
 
-**Read processing and alignment.** [Quality control and trimming: tool, version, parameters, or "reads were not trimmed".] Reads were aligned to the human reference genome GRCh38 [assembly accession and patch level, e.g. GCA_000001405.15 / GRCh38.p14; source, e.g. Ensembl release N or GENCODE vN; primary assembly or including alt contigs] using [Tool A name] v1.2 with [parameters, including the defaults that were used, and the index-building command].
+**Read processing and alignment.** [Quality control and trimming tool, its version and parameters, or a statement that reads were not trimmed.] Reads were aligned to the human reference genome GRCh38 [assembly accession and patch, e.g. GCA_000001405.15 / p14; source such as Ensembl or GENCODE, and release; primary assembly or with alt contigs] using [real name of tool A] v1.2 with [all parameters, including any left at default]. [Mapping rate per sample.] [Duplicate handling.] [Excluded samples and the reason, or "No samples were excluded."]
 
-**Read counting.** Reads were assigned to [genes / transcripts / exons] using [Tool B name] v3.1 with [annotation file and release, e.g. GENCODE v44 GTF], [strandedness setting], [multi-mapping and overlap handling], and [other parameters].
+**Quantification.** Reads per gene were counted with [real name of tool B] v3.1 against the [annotation source and release, e.g. GENCODE v44 GTF] annotation, with [counting parameters: feature type, how multimapping and overlapping reads were handled, strandedness setting].
 
-**Differential testing.** [Filtering of low-count features: rule and threshold; number of features tested.] Differences between treated (n = 3) and control (n = 3) were tested using [test, tool and version, e.g. DESeq2 v1.x Wald test], with [normalisation method], [model design, e.g. ~ condition, plus any batch term], and [fold-change shrinkage, if used]. P-values were adjusted for multiple testing with the Benjamini–Hochberg procedure, and features with an adjusted P < 0.05 were called differentially expressed [state any fold-change threshold, or "with no fold-change threshold"].
+**Differential expression.** Treated samples (n = 3) were compared with control samples (n = 3) using [test, tool and version, e.g. a negative binomial Wald test]. [Normalisation method.] [Model formula, including any covariates or batch term.] [Pre-filtering of low-count genes, and the number of genes tested.] P-values were adjusted with the Benjamini–Hochberg procedure. Genes with an adjusted p-value below 0.05 were called differentially expressed. [Effect size measure, e.g. log2 fold change, any shrinkage, and any fold-change threshold.] The random seed was set to 42 [say which step uses randomness].
 
-**Software and reproducibility.** Analyses were run in [language and version, e.g. R 4.x], with [environment: conda/renv lockfile or container image digest]. The random seed was set to 42 for [the step it applies to]. Code is available at [repository URL, commit, and DOI of an archived snapshot].
+**Software and code availability.** [Language and version, such as R or Python; environment file or container.] Code is available at [URL], version [tag or commit], archived at [DOI].
 
 ---
 
-### Gaps to fill
+### Problems in the record
 
-**Fix these first. They are inconsistencies, not just missing details:**
+1. **The accession can't be right as written.** SRR1234567 is a single run accession, and one run is normally one sequencing run of one library. It can't hold six samples by itself. You probably need either six SRR accessions (one per sample) or a study or project accession (SRP or PRJNA) plus a table mapping each sample to its run. Please check this before submitting.
+2. **"Tool A" and "tool B" are placeholders, not tool names.** I kept the versions (v1.2 and v3.1) exactly as recorded, but the real names are needed. Each tool should also be cited.
+3. **The differential test isn't named.** The record gives the correction (BH at 0.05) but not the test, the tool that ran it, or its version.
 
-1. **One accession for six samples.** An SRR is a single sequencing run. For three treated and three control samples you'd normally expect six runs (SRR…), or a study/project accession (SRP/PRJNA/GSE). Check which accession maps to which sample and condition, and give each one (a table in the supplement is fine).
-2. **"Tool A" and "tool B" aren't names.** Give the real tool names and cite them.
-3. **No test is named.** "Differential test" could mean DESeq2, edgeR, limma-voom, or a t-test, and with n = 3 per group the choice matters. Name the tool, its version and the model.
-4. **The seed has no step attached.** Alignment, counting, and DESeq2/edgeR are usually deterministic. Say what used the seed (for example subsampling, a permutation, or a multithreaded aligner). If nothing used it, leave it out rather than suggest a random step that didn't happen.
+### Missing from the record (fill-in checklist)
 
-**Missing from the record:**
+| Item | Missing |
+|---|---|
+| Data | Repository, run accession for each sample, retrieval date, organism and sample type, treatment details |
+| Library | Single- or paired-end, read length, strandedness, sequencing platform |
+| Reference | GRCh38 patch and source, primary assembly or with alts |
+| Annotation | Source and release (none is given, but counting needs one) |
+| QC and trimming | Tool, version, parameters |
+| Alignment | Real tool name, all parameters, mapping rates |
+| Duplicates | Marked or removed? |
+| Counting | Real tool name, parameters, multimapping and strandedness settings |
+| Test | Method, tool and version, normalisation, model or design formula, covariates or batch |
+| Filtering | Low-count filter and the number of genes tested |
+| Effect size | Measure, any shrinkage, any fold-change cutoff |
+| Exclusions | Samples dropped and why (or "none") |
+| Seed | Which step the seed of 42 applies to |
+| Environment | Language and version, environment or container file |
+| Code | Repository URL, tag or commit, archive DOI |
 
-5. Database and access date for the reads.
-6. Library prep, strandedness, read length, single- or paired-end, and platform.
-7. Exact GRCh38 version (patch, source, primary assembly or with alt contigs).
-8. Annotation (GTF) source and release. Counts depend on this as much as on the genome.
-9. Parameters for Tool A and Tool B. Write out the defaults too, because defaults change between versions.
-10. QC and trimming steps, or a statement that there were none.
-11. Pre-filtering rule and the number of features tested (BH depends on that number).
-12. Normalisation method, design formula, batch terms, and any fold-change threshold or shrinkage.
-13. What a replicate is (biological or technical), and any excluded samples with the reason.
-14. Language and package versions, how the environment is pinned, and the code location and commit.
-
-Once you have the real tool names and the answers to items 1–4, send them and I'll replace the brackets and add the citations.
+One more point for the write-up: with three samples per group, statistical power is limited. When you write the results, report effect sizes alongside the adjusted p-values, and don't read a gene that isn't significant as evidence that it has no effect.
 
 ---
 
@@ -1865,66 +1884,58 @@ Send me the files and I'll run the script, go through the actual tables and plot
 
 ### Answer A
 
-For a single comparison you need about **64 per group**. If you test 20,000 genes, that rises to roughly **110–250 per group**, depending on how you correct for multiple testing.
+# Sample size per group: effect size d = 0.5, 80% power, two-sided test
 
-These numbers assume a two-sided, two-sample t-test with effect size d = 0.5 and 80% power. scipy and statsmodels weren't installed, so I used the normal approximation with a small-sample t correction. It matches the textbook value of 64 for the single test.
+## One comparison at α = 0.05
 
-### One test (α = 0.05)
-**n = 64 per group** (63.8, rounded up).
+You need **64 samples per group** (two-sample t-test).
 
-### 20,000 genes
-Testing many genes forces a much stricter cutoff for each one, so the required n grows a lot:
+The formula is n ≈ 2(z₁₋α/₂ + z₁₋β)² / d² = 2(1.96 + 0.84)² / 0.25 ≈ 63. The t-distribution correction adds about one more, which gives 64.
 
-| Correction | Effective per-gene α | n per group |
+## Testing 20,000 genes
+
+Testing 20,000 genes forces a much stricter per-gene α, so the sample size goes up. How much depends on how you control errors:
+
+| Error control | Per-gene α | n per group |
 |---|---|---|
-| None (not valid) | 0.05 | 64 |
-| Bonferroni (controls family-wise error) | 0.05 / 20,000 = 2.5×10⁻⁶ | **~252** |
-| FDR 5%, ~10% of genes truly change | ≈ 0.005 | ~110 |
-| FDR 5%, ~1% of genes truly change | ≈ 4×10⁻⁴ | ~155 |
-| Fixed α = 0.001 | 0.001 | ~140 |
-| Fixed α = 0.0001 | 0.0001 | ~183 |
+| Single test | 0.05 | **64** |
+| FDR 5%, about 5% of genes truly changed (1,000) | ≈ 0.0022 | **~123** |
+| FDR 5%, about 1% of genes truly changed (200) | ≈ 0.0004 | **~152** |
+| Bonferroni (FWER 5%) | 0.05/20,000 = 2.5×10⁻⁶ | **~248** |
 
-The FDR rows use the approximation α ≈ q·power·π₁ / ((1−q)·π₀), where π₁ is the share of genes that truly change and π₀ = 1 − π₁. The fewer genes that truly change, the stricter the per-gene cutoff becomes and the more samples you need.
+- **Bonferroni** guarantees no false positives across all genes. It is very conservative and roughly quadruples the sample size.
+- **FDR (Benjamini–Hochberg)** is what genomics studies normally use. The per-gene α it implies is about α* ≈ m₁·(power)·q / (m₀·(1−q)), where m₁ is the number of truly changed genes, m₀ the unchanged ones, and q the FDR level (Jung 2005). The fewer genes that truly change, the stricter α* gets and the more samples you need. Plan for **roughly 120–150 per group**.
 
-### What this means in practice
-- **Bonferroni is too conservative for genomics.** Most expression studies use Benjamini–Hochberg FDR instead, which puts you around 110–160 per group for d = 0.5.
-- **d = 0.5 is a small effect**, and the "SD" here is the variation between biological replicates, not technical noise. Most expression studies use 3–10 replicates, so they are powered only for large effects. They find the genes that change a lot and miss modest ones.
-- **With your expected effect and a realistic budget, it's worth deciding what to aim for:**
-  - Detect larger effects (for example, a fold change of 2 or more) in all genes.
-  - Pre-specify a small set of candidate genes. Fewer tests means a looser correction.
-  - Accept finding only some of the true positives rather than 80% of them.
-- **If this is RNA-seq, use a count-based power tool** such as RNASeqPower, PROPER or ssizeRNA instead of a t-test calculation. Power then depends on sequencing depth and per-gene dispersion, and is usually lower for genes with low expression. Pilot data or a similar public dataset gives the best dispersion estimates.
+## Caveats for gene expression data
+
+1. **What counts as a sample.** n means independent biological replicates, such as separate cultures, animals or donors. Single cells from the same culture are not independent replicates. Treating them as replicates is pseudoreplication and inflates false positives. For single-cell data, aggregate to pseudobulk per replicate.
+2. **d = 0.5 is a small effect** for expression data. Many real treatment effects are larger, often a log₂ fold change of 1 or more relative to the biological coefficient of variation. A pilot study or published data will give a better estimate of effect size and variance.
+3. **Variance differs between genes.** RNA-seq counts are overdispersed, and power depends on read depth and on each gene's mean and dispersion. A single d won't capture that. RNA-seq-specific tools give more realistic numbers:
+   - R packages: `ssizeRNA`, `RNASeqPower`, `PROPER`
+   - Simulations with DESeq2 or edgeR, using dispersions from pilot data
+   - These tools usually show that well-designed bulk RNA-seq experiments detect moderate fold changes with far fewer replicates than the d = 0.5 numbers above suggest. Those numbers are for a small effect in every gene.
+
+**Short answer:** about 64 per group for one test. With 20,000 genes, about 120–150 per group under FDR control, or about 250 per group under Bonferroni. Before you commit, get realistic effect sizes and dispersions from pilot data and use an RNA-seq power tool.
 
 ### Answer B
 
-You need **64 cells-or-samples per group for a single test, but about 250 per group if all 20,000 genes are corrected with Bonferroni.** Under false discovery rate (FDR) control, which is what most expression studies use, you need roughly **125 to 170 per group**.
+For one comparison you need **64 samples per group (128 total)**. If you test 20,000 genes with Bonferroni correction, that rises to **about 252 per group (504 total)**. Both numbers come from a two-sided t-test with α = 0.05 and 80% power. I ran them through the skill's sample-size script, which checks against the standard table values and passed its self-test.
 
-### One test
-Comparing two groups, with an effect of d = 0.5, a two-sided α of 0.05 and 80% power, takes **64 per group (128 in total)**. That gives 80.7% power. This matches the standard textbook value.
+**One test, effect size d = 0.5**
+- 64 per group.
 
-### 20,000 genes
-Testing 20,000 genes at once means the cutoff for each gene has to be much stricter, so the 64-per-group design stops working.
+**20,000 genes**
+- With Bonferroni, each gene is tested at α = 0.05 / 20,000 = 2.5 × 10⁻⁶. To keep 80% power per gene at that threshold you need about 252 per group.
+- If you stay at 64 per group, the chance of detecting any one real d = 0.5 effect falls to about **3%**. Most true differences would be missed.
 
-| How you correct for 20,000 tests | Cutoff per gene (about) | n per group for 80% power |
-|---|---|---|
-| None (not acceptable) | 0.05 | 64 |
-| FDR 5%, about 1,000 genes truly changed (5%) | ~0.002 | ~125 |
-| FDR 5%, about 100 genes truly changed (0.5%) | ~0.0002 | ~165–170 |
-| Bonferroni (family-wise error 5%) | 2.5 × 10⁻⁶ | **252** |
+**What to do about it**
+1. **Control the false discovery rate instead of using Bonferroni.** Benjamini–Hochberg is the usual choice for gene-level tests. The sample size you need then falls somewhere between 64 and 252, depending on how many genes really change. If many genes change, it's closer to 64. If only a handful do, it's closer to 252. To get an actual number, use an RNA-seq power tool that models FDR and the fraction of changing genes, such as `ssizeRNA`, `PROPER` or `RNASeqPower`.
+2. **For count data, d = 0.5 is only a rough guide.** Power for read counts depends on sequencing depth, how highly a gene is expressed, and the dispersion. Low-count genes need more samples to reach the same power.
+3. **Ask whether d = 0.5 is realistic for your genes.** In well-controlled cell-line experiments the variation between replicates is often small. Then a given fold change becomes a large d, and far fewer samples are needed. Estimate the variability from a pilot or published data rather than assuming it.
+4. **Count independent units, not cells.** Each replicate must be an independent culture, passage or treatment run. Many cells from one dish count as one sample, not many. The exception is single-cell data analysed as pseudobulk, where the replicates are still the cultures or donors.
+5. **Spread both conditions across every processing and sequencing batch.** Never put treated samples in one batch and untreated in another. Also add 10–15% extra samples to cover ones that fail quality checks.
 
-- **At 64 per group under Bonferroni, power falls to about 3%.** You would find almost none of the genes that really change by d = 0.5.
-- **FDR (Benjamini–Hochberg) is the usual choice for expression data.** The cutoff it ends up using depends on how many genes truly change, so the sample size does too: the more true effects, the more lenient the cutoff. The FDR rows above use a rough approximation (cutoff ≈ q·π₁·power / ((1−π₁)(1−q))) with assumed proportions of changed genes (π₁). Treat them as ballpark figures.
-- **Your alternative is to keep n and accept less.** You can accept lower power for each gene, or power the study only for larger effects. For example, d = 1.0 needs 17 per group for a single test, and far fewer than 252 under Bonferroni.
-
-### Things that will move these numbers more than the formula does
-1. **What counts as one sample.** Do "cells" mean independent cultures, passages or donors, or individual cells from one dish? Many cells from one culture are **pseudoreplicates**, so n is the number of independent cultures. With single-cell data, combine each culture's cells into one profile ("pseudobulk") and count the cultures.
-2. **Count data.** RNA-seq reads are counts, and their variability depends on expression level. Treat these numbers as a guide and check them with a count-based power tool such as RNASeqPower, PROPER or ssizeRNA. Use the gene-wise dispersion from a pilot or a public dataset of the same cell type.
-3. **Where d = 0.5 came from.** If it came from a small pilot that looked significant, the real effect is probably smaller and you will need more samples.
-4. **Pairing.** If treated and untreated samples come from the same culture, line or donor, a paired design needs considerably fewer samples. The tool I used doesn't model pairing.
-5. **Batches.** Spread treated and untreated samples evenly across every extraction day and sequencing lane. Never put one condition in one batch.
-6. **Dropout.** Add about 10–15% for samples that fail quality control.
-
-All numbers come from the normal approximation with a small-sample correction; the calculator passed its self-test. If you tell me what a "sample" is in your experiment, whether the design can be paired, and what assay you're using, I can narrow this down and lay out a batch-balanced plan.
+If you can share expected fold changes and dispersions from a pilot or a similar dataset, I can work out a count-based sample size.
 
 ---
 

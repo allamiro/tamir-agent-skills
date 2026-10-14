@@ -2,15 +2,23 @@
  "meta": {
   "engine": "direct",
   "agent_model": "claude-opus-5-5",
-  "judge_model": "claude-sonnet-5-5",
+  "judge_model": "default",
   "judge_votes": 1,
   "runs_per_case": 3,
-  "costUsd": 7.1578,
+  "costUsd": 8.457,
   "skipped_runs": 0,
   "partial": false,
   "claudeVersion": "2.1.296 (Claude Code)",
   "startedAt": "2026-10-14T12:33:40Z",
-  "_stamp": "2026-10-14"
+  "_stamp": "2026-10-15",
+  "previous_judge_votes": 1,
+  "merged_cases": [
+   "sd-perf-neg",
+   "sd-perf-pos",
+   "sd-write-neg",
+   "sd-write-pos"
+  ],
+  "label": ""
  },
  "summary": {
   "skills": {
@@ -124,7 +132,7 @@
    },
    "performance-evaluation-methodology": {
     "pos_runs": 3,
-    "pos_hit": 2,
+    "pos_hit": 1,
     "neg_runs": 3,
     "neg_false": 0
    },
@@ -140,7 +148,7 @@
   "confusions": [],
   "by_kind": {
    "implicit": [
-    33,
+    32,
     54
    ],
    "near-miss": [
@@ -156,8 +164,8 @@
     6
    ]
   },
-  "tp": 37,
-  "fn": 23,
+  "tp": 36,
+  "fn": 24,
   "fp": 0,
   "tn": 60
  }

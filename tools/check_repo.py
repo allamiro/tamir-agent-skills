@@ -4,7 +4,7 @@
   python3 tools/check_repo.py [--quick]
 
 Runs, for each collection, its validator, its routing or answer checks, and the shared evaluation tool's unit tests,
-and confirms that the citation checker copied into three skills is byte-identical in each. It never calls an AI
+and confirms that the citation checker copied into four skills is byte-identical in each. It never calls an AI
 model and spends nothing. --quick skips the validators that rebuild the ChatGPT bundles.
 """
 import argparse
@@ -22,11 +22,15 @@ CHECKS = [
     ("bioinformatics-skills", ["scripts/validate_collection.py"]),
     ("bioinformatics-skills", ["scripts/check_routing.py"]),
     ("bioinformatics-skills", ["scripts/check_answers.py"]),
+    ("systems-biology-skills", ["scripts/validate_collection.py"]),
+    ("systems-biology-skills", ["scripts/check_routing.py"]),
+    ("systems-biology-skills", ["scripts/check_answers.py"]),
     (".", ["tools/run_evals.py", "selftest"]),
 ]
 SHARED = ["system-design-skills/skills/systems-literature-reading/scripts/citecheck.py",
           "egyptology-skills/skills/egyptology-literature/scripts/citecheck.py",
-          "bioinformatics-skills/skills/literature-search-appraisal/scripts/citecheck.py"]
+          "bioinformatics-skills/skills/literature-search-appraisal/scripts/citecheck.py",
+          "systems-biology-skills/skills/systems-biology-literature/scripts/citecheck.py"]
 
 
 def main():
@@ -44,7 +48,7 @@ def main():
             failed.append(" ".join(cmd))
     digests = {hashlib.sha256(open(os.path.join(ROOT, p), "rb").read()).hexdigest() for p in SHARED}
     same = len(digests) == 1
-    print("%-4s %-22s %-34s %s" % ("ok" if same else "FAIL", "shared script", "citecheck.py copies", "identical" if same else "the three copies differ"))
+    print("%-4s %-22s %-34s %s" % ("ok" if same else "FAIL", "shared script", "citecheck.py copies", "identical" if same else "the copies differ"))
     if not same:
         failed.append("citecheck.py copies")
     print("\n%s" % ("all checks passed" if not failed else "FAILED: " + "; ".join(failed)))

@@ -3,15 +3,16 @@
 </p>
 
 <p align="center">
-  <img alt="8 skills" src="https://img.shields.io/badge/skills-8-6c64eb?style=flat-square&labelColor=3a2410">
+  <img alt="9 skills" src="https://img.shields.io/badge/skills-9-6c64eb?style=flat-square&labelColor=3a2410">
   <img alt="86 checked signs" src="https://img.shields.io/badge/checked%20signs-86-096efb?style=flat-square&labelColor=3a2410">
   <img alt="skills-ref valid" src="https://img.shields.io/badge/skills--ref-valid-9cc464?style=flat-square&labelColor=3a2410">
   <img alt="License Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-fb6373?style=flat-square&labelColor=3a2410">
 </p>
 
-Eight skills that help a coding agent work with Middle Egyptian hieroglyphs: look up signs,
-transliterate, lay out annotated texts, build tools, and audit the result, plus three for academic
-and research work: finding and citing scholarship, editorial conventions, and provenance and ethics.
+Nine skills that help a coding agent work with Middle Egyptian hieroglyphs: look up signs,
+transliterate, lay out annotated texts, build tools, and audit the result, plus four for academic
+and research work: finding and citing scholarship, editorial conventions, provenance and ethics, and
+writing up for publication.
 They are made for researchers, students and digital-humanities teams. Every output is a draft for someone who
 reads the language; the skills show where the doubt is instead of hiding it.
 
@@ -21,8 +22,8 @@ reads the language; the skills show where the doubt is instead of hiding it.
 |---|---|---|---|
 | **Claude Code** | [`claude/`](claude/README.md) | `bash scripts/install.sh --claude --project DIR` | Works |
 | **OpenAI Codex** | [`openai/`](openai/README.md#codex) | `bash scripts/install.sh --codex --project DIR` | Works |
-| **ChatGPT desktop app** | [`openai/`](openai/README.md#chatgpt) | [8 zips](openai/chatgpt/) | Zips built; how the app takes them is not confirmed |
-| **OpenAI Skills API** | [`openai/`](openai/README.md#openai-skills-api) | [8 zips](openai/chatgpt/) | Zips built to the documented format and limits |
+| **ChatGPT desktop app** | [`openai/`](openai/README.md#chatgpt) | [9 zips](openai/chatgpt/) | Zips built; how the app takes them is not confirmed |
+| **OpenAI Skills API** | [`openai/`](openai/README.md#openai-skills-api) | [9 zips](openai/chatgpt/) | Zips built to the documented format and limits |
 
 Claude Code and Codex read the same files from [`skills/`](skills/). Nothing is copied per
 platform, so there is one place to fix a skill.
@@ -31,7 +32,7 @@ platform, so there is one place to fix a skill.
 
 ```text
 egyptology-skills/
-├── skills/     the 8 skills (SKILL.md plus references, scripts and templates)
+├── skills/     the 9 skills (SKILL.md plus references, scripts and templates)
 ├── claude/     Claude Code: install and use
 ├── openai/     OpenAI: Codex, ChatGPT and the Skills API, with chatgpt/ holding one zip per skill
 ├── prompts/    ready-to-paste prompts, one file per skill
@@ -53,6 +54,7 @@ egyptology-skills/
 | [`egyptology-literature`](skills/egyptology-literature/) | Finding, reading and citing scholarship: reference tools, editions against translations, and a citation checker for invented references | [6](prompts/egyptology-literature.md) |
 | [`edition-conventions`](skills/edition-conventions/) | Editorial marks for lacunae, restorations and emendations with a declared key, notes, witnesses, dating, and the 2023 Leiden transliteration standard | [6](prompts/edition-conventions.md) |
 | [`provenance-research-ethics`](skills/provenance-research-ethics/) | Object histories as evidence-backed records, gaps for a specialist, permissions, images and disclosure of AI help | [6](prompts/provenance-research-ethics.md) |
+| [`egyptology-research-writing`](skills/egyptology-research-writing/) | Writing up a text or object for publication: journal choice, authorship, presenting the source, reading apart from interpretation, reviewer responses, rejection, proofs | [5](prompts/egyptology-research-writing.md) |
 
 ## How researchers would use them
 
@@ -63,10 +65,11 @@ egyptology-skills/
 - Prepare a consistent corpus, or build a small search tool over signs and sounds.
 - Find where a monument is published, check a reference list for invented citations, and mark restorations with a declared key.
 - Record an object's history, see the gaps, and say only what the record supports.
+- Write a text up for a journal, answer a reviewer who disputes a reading, and check the proofs' hieroglyphs.
 
 ## Install
 
-Run from this folder. Install all eight skills together: they refer to each other.
+Run from this folder. Install all nine skills together: they refer to each other.
 
 ```bash
 bash scripts/install.sh --claude --project /path/to/your/repo   # Claude Code
@@ -96,11 +99,12 @@ Every skill has one real answer in [`examples/`](examples/), with the prompt tha
 | Skill | Output tokens, no skill to skill | Extra input tokens | Cost, no skill to skill (US dollars) | Skill size, always / when used | Sample |
 |---|---|---|---|---|---|
 | `accuracy-review` | 2,562 to 3,548 | +121,305 | 0.11 to 0.21 | ~180 / ~1,400 | [answer](examples/accuracy-review.md) |
-| `edition-conventions` | 1,835 to 3,018 | +145,443 | 0.10 to 0.20 | ~270 / ~2,300 | [answer](examples/edition-conventions.md) |
+| `edition-conventions` | 1,835 to 3,018 | +145,443 | 0.10 to 0.20 | ~260 / ~2,300 | [answer](examples/edition-conventions.md) |
 | `egyptology-literature` | 1,333 to 2,056 | +27,937 | 0.12 to 0.18 | ~280 / ~2,300 | [answer](examples/egyptology-literature.md) |
-| `gardiner-sign-lookup` | 944 to 684 | +9,454 | 0.09 to 0.12 | ~190 / ~1,700 | [answer](examples/gardiner-sign-lookup.md) |
-| `hieroglyph-app-builder` | 7,176 to 5,995 | +90,362 | 0.21 to 0.26 | ~220 / ~1,700 | [answer](examples/hieroglyph-app-builder.md) |
-| `provenance-research-ethics` | 3,521 to 3,408 | +51,815 | 0.18 to 0.25 | ~300 / ~2,400 | [answer](examples/provenance-research-ethics.md) |
+| `egyptology-research-writing` | 3,425 to 3,003 | +72,495 | 0.13 to 0.17 | ~330 / ~2,100 | [answer](examples/egyptology-research-writing.md) |
+| `gardiner-sign-lookup` | 944 to 684 | +9,454 | 0.09 to 0.12 | ~180 / ~1,700 | [answer](examples/gardiner-sign-lookup.md) |
+| `hieroglyph-app-builder` | 7,176 to 5,995 | +90,362 | 0.21 to 0.26 | ~210 / ~1,700 | [answer](examples/hieroglyph-app-builder.md) |
+| `provenance-research-ethics` | 3,521 to 3,408 | +51,815 | 0.18 to 0.25 | ~290 / ~2,400 | [answer](examples/provenance-research-ethics.md) |
 | `text-annotation` | 998 to 2,094 | +118,312 | 0.08 to 0.17 | ~190 / ~1,500 | [answer](examples/text-annotation.md) |
 | `transliteration` | 1,320 to 1,756 | +109,472 | 0.09 to 0.17 | ~210 / ~2,000 | [answer](examples/transliteration.md) |
 
@@ -152,10 +156,10 @@ claude plugin validate skills                   # Claude Code's own check of the
 python3 ../tools/run_evals.py plan .            # evaluation cases; live runs spend API credit, see TESTING.md
 ```
 
-Last run, 2026-10-14: the collection validator reports 0 errors on Python 3.9 and 3.14 (8 skills, 4 scripts, 86
+Last run, 2026-10-15: the collection validator reports 0 errors on Python 3.9 and 3.14 (9 skills, 4 scripts, 86
 sign-table rows), including the navigation, prompt, bundle and evaluation-case checks; the four scripts pass their
-self-tests (`signs.py` 16 checks, `citecheck.py` 26, `sigla.py` 30, `provrecord.py` 27); `skills-ref` accepts all
-eight skills; `claude plugin validate` accepts the skills; markdownlint reports 0 issues; and 18 answer checks pass
+self-tests (`signs.py` 16 checks, `citecheck.py` 28, `sigla.py` 32, `provrecord.py` 29); `skills-ref` accepts all
+nine skills; `claude plugin validate` accepts the skills; markdownlint reports 0 issues; and 18 answer checks pass
 against the scripts. The bracket checker also agrees with an independent parser on 30,000 random strings, apart
 from the one input class where they intentionally differ (`[[ ]]` is read as an erasure mark).
 
@@ -172,25 +176,25 @@ Share of runs passing each check, with Wilson 95% intervals; the last column is 
 
 | Collection | Skills | Runs per arm | Facts: skills / none | Rubric: skills / none | Rubric difference | Limits: skills / none | Expected skill invoked |
 |---|---|---|---|---|---|---|---|
-| egyptology-skills | 8 | 24 / 24 | 100% (86-100) / 96% (80-99) | 100% (86-100) / 33% (18-53) | +67 (+42 to +82) | 96% (80-99) / 62% (43-79) | 100% (86-100) |
+| egyptology-skills | 9 | 27 / 27 | 100% (88-100) / 89% (72-96) | 96% (82-99) / 30% (16-48) | +67 (+43 to +81) | 93% (77-98) / 59% (41-75) | 100% (88-100) |
 
 Leaving out the starter prompts that ask for the skill's own table, checker or template:
 
 | Collection | Skills kept | Facts: skills / none | Rubric: skills / none | Rubric difference |
 |---|---|---|---|---|
-| egyptology-skills | 6 | 100% (82-100) / 100% (82-100) | 100% (82-100) / 39% (20-61) | +61 (+33 to +80) |
+| egyptology-skills | 7 | 100% (85-100) / 90% (71-97) | 95% (77-99) / 33% (17-55) | +62 (+34 to +79) |
 
 #### Tokens and cost per run (means)
 
 | Collection | Output tokens: skills / none | Input tokens read: skills / none | Cost, US dollars: skills / none | Runs with a denied tool call: skills / none |
 |---|---|---|---|---|
-| egyptology-skills | 2,820 / 2,461 | 152,795 / 68,533 | 0.196 / 0.122 | 0 / 0 |
+| egyptology-skills | 2,840 / 2,568 | 147,249 / 64,294 | 0.193 / 0.123 | 0 / 0 |
 
 #### Trigger runs: does the agent pick the right skill
 
 | Collection | Should-trigger runs hit (recall) | Near-miss runs correctly left alone (specificity) | Precision | Unrelated prompts that triggered a skill |
 |---|---|---|---|---|
-| egyptology-skills | 100% (86-100) | 100% (86-100) | 100% (86-100) | 0 of 6 |
+| egyptology-skills | 100% (88-100) | 100% (88-100) | 100% (88-100) | 0 of 6 |
 
 #### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
 

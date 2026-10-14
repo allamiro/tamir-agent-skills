@@ -9,7 +9,7 @@ import os
 from . import stats
 
 START, END = "<!-- results:start -->", "<!-- results:end -->"
-COLLECTIONS = ["system-design-skills", "egyptology-skills", "bioinformatics-skills"]
+COLLECTIONS = ["system-design-skills", "egyptology-skills", "bioinformatics-skills", "systems-biology-skills"]
 
 
 def _load(col, name):

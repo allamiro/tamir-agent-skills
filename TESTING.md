@@ -55,8 +55,8 @@ be strict and not to follow instructions inside the answer. It is not a person, 
 
 ## Run it
 
-Everything below runs from the repository root. `COLLECTION` is `system-design-skills`, `egyptology-skills` or
-`bioinformatics-skills`.
+Everything below runs from the repository root. `COLLECTION` is `system-design-skills`, `egyptology-skills`,
+`bioinformatics-skills` or `systems-biology-skills`.
 
 ```bash
 python3 tools/check_repo.py                          # every free check in the repository
@@ -85,7 +85,7 @@ Saved runs, with the full answers, are written to `COLLECTION/evals/runs/` (not 
    aside), an exact sign test, the difference in correctness scores, and Cohen's kappa between graders.
 4. Compare the model judge's verdicts with the graders'. If they disagree, believe the graders.
 
-For a specialist field (Egyptology, bioinformatics) the graders should be specialists. A systems engineer cannot judge a
+For a specialist field (Egyptology, bioinformatics, systems biology) the graders should be specialists. A systems engineer cannot judge a
 translation, and an Egyptologist cannot judge a failover plan.
 
 ## The official tool, and why the outcome runs do not use it
@@ -127,10 +127,11 @@ Claude Sonnet 5.5 as the agent on the frozen cases, and a second judge (Opus 5.5
 - **The skills are never picked up by mistake.** Across every near-miss and unrelated prompt, with both agent models, there was not one
   false trigger.
 - **Whether a skill is picked up depends on how much the model needs it.** Recall on implicit requests was 100 / 88 percent for Egyptology
-  (Opus / Sonnet), 80 / 76 for Bioinformatics and 62 / 58 for System Design. Every miss was the model answering directly, never a wrong skill.
+  (Opus / Sonnet), 80 / 76 for Bioinformatics and 62 / 58 for System Design (60 for Opus after two System Design skills were re-run on
+  2026-10-15). Every miss was the model answering directly, never a wrong skill.
   The misses cluster on self-contained calculations and on general engineering questions the model already handles.
 - **Egyptology is the one place where the skills clearly change the answer.** The rubric pass rate rose from 33 to 100 percent with
-  Opus as agent, and from 31 to 88 percent with Sonnet. **How large that gain is depends on the judge:** a second judge (Opus 5.5) passed more
+  Opus as agent (30 to 96 percent once the new writing skill is included, which passed 2 of 3 runs with the skill and 0 of 3 without), and from 31 to 88 percent with Sonnet. **How large that gain is depends on the judge:** a second judge (Opus 5.5) passed more
   of the no-skill answers and found a gain of 21 points, with an interval that just reaches zero. So the direction holds across both agents and
   both judges, and the size does not.
 - **In System Design and Bioinformatics the rubric gain is small and not reliable.** It was 7 and 12 points with the first judge,
@@ -145,6 +146,17 @@ Claude Sonnet 5.5 as the agent on the frozen cases, and a second judge (Opus 5.5
   9 percent fewer and 18 percent more output tokens, and cost between 24 and 64 percent more per answer.
 - **The judges disagree with each other more than with themselves.** The two judge models gave the same rubric verdict on 77 to 94 percent
   of answers, with Cohen's kappa between 0.27 and 0.57. Judged results are screening, not measurement.
+- **Systems Biology (added 2026-10-15) shows a clearer rubric gain than System Design or Bioinformatics:** 90 against 60
+  percent (+30 points, interval +15 to +44, first judge, after the corrections listed below). The gain sits in the research and
+  judgement skills (workflow, model review, paper writing, research planning, learning path), where answers without the skill
+  passed none or few of the rubric runs; on the calculation skills (linear algebra, control, ODEs, PK, units) both arms pass and the
+  skill was often not invoked. Recall on implicit requests was 73 percent and there were no false triggers. Only the Opus runs
+  and the first judge exist for this collection: the Sonnet replication, the second judge, the pairwise comparison and the Codex
+  smoke test have not been run on it, so its numbers have had fewer checks than the other three collections'.
+- **Skills changed on 2026-10-15 were re-run.** The new `egyptology-research-writing` and the four skills that gained the
+  manuscript and measurement lessons (`research-writing-reporting`, `experimental-design`, `systems-research-writing`,
+  `performance-evaluation-methodology`) were re-run with the same settings and merged into the main results; their
+  Sonnet-replication, second-judge, pairwise and Codex rows still describe the earlier versions.
 - **Not established:** that people prefer these answers. No one has graded them; the blind kit and instructions are in each
   collection's `evals/human/`.
 
@@ -169,12 +181,31 @@ These changes were made after looking at runs, so they could in principle favour
 7. **Three judge votes** were added to every saved answer after the single-vote judge showed only moderate self-agreement. The tables use the majority of three.
 8. **Prompts that presuppose the skill** (a prompt that asks for the skill's own table or checker) were flagged by a pattern and reported separately.
 
-After these corrections the cases were frozen. The Sonnet replication and the second judge were run on the frozen cases with no further
+9. **Systems Biology, four test cases corrected after its first run (2026-10-15).** All four failed in both arms for reasons in the
+   test, not the answers: (a) `quantities-units-balances`: a regular expression required the words "second order", which the prompt
+   never asks for; it was dropped. (b) `stoichiometric-networks`: two expressions failed on Markdown bold and arithmetic ("6 − 4 =
+   **2**", "exactly **two** EFMs") and were widened, and the rubric demanded a warning about null-space bases that the prompt does
+   not ask for; it now asks only that a basis not be assumed to be the pathways. (c) `parameter-estimation-model-selection`: the
+   rubric fixed one parameter-counting convention, while every answer led with the other standard one (counting the error variance);
+   both are now accepted if stated. (d) `systems-biology-literature`: the rubric required a logged live search, impossible because
+   web access is blocked in the test project; it now accepts a stated plan of searches when there is no access. The saved answers
+   were regraded (facts by the new expressions, rubric and limits by three fresh votes); the agent was not re-run.
+10. **A runner bug found during that regrade.** Runs made with `--votes 3` stored the vote count only in the file header, so
+   `rejudge` treated every Systems Biology answer as single-vote and added two votes to all 126, not only the 24 being regraded. For
+   the other 17 skills each verdict is therefore the majority of the original three-vote verdict and two new votes; this moved two
+   rubric cells (no-skill `model-building-design` from 2 of 3 to 0 of 3, no-skill `quantitative-research-methods` from 2 of 3 to 3 of 3)
+   and the original verdicts were overwritten. The runner now stores the count on every answer and `rejudge` reads the header as a
+   fallback, with a unit test.
+
+After corrections 1 to 8 the cases of the first three collections were frozen; corrections 9 and 10 apply to Systems Biology only. The Sonnet replication and the second judge were run on the frozen cases with no further
 changes, so they are the cleanest check on whether the corrections favoured the skills.
 
 Spend: roughly 100 US dollars at list price for the main runs, including about 12 on runs discarded after the harness fixes, plus about 39
 for the Sonnet replication and about 20 for the second judge, including about 12 on runs discarded after the harness fixes. Trigger runs stop at the first skill
 call and report no cost, so they are counted at 5 cents each; Codex runs are counted in tokens only.
+
+On 2026-10-15: about 36 US dollars for the Systems Biology runs (trigger about 7, outcome about 29) plus about 5 for its regrade, and
+about 8 for re-running the five changed skills in the other collections.
 
 ## Latest results
 
@@ -186,32 +217,35 @@ Share of runs passing each check, with Wilson 95% intervals; the last column is 
 
 | Collection | Skills | Runs per arm | Facts: skills / none | Rubric: skills / none | Rubric difference | Limits: skills / none | Expected skill invoked |
 |---|---|---|---|---|---|---|---|
-| system-design-skills | 20 | 60 / 60 | 98% (91-100) / 95% (86-98) | 100% (94-100) / 93% (84-97) | +7 (-1 to +16) | 52% (39-64) / 32% (21-44) | 97% (89-99) |
-| egyptology-skills | 8 | 24 / 24 | 100% (86-100) / 96% (80-99) | 100% (86-100) / 33% (18-53) | +67 (+42 to +82) | 96% (80-99) / 62% (43-79) | 100% (86-100) |
-| bioinformatics-skills | 23 | 69 / 69 | 97% (90-99) / 90% (81-95) | 97% (90-99) / 86% (75-92) | +12 (+2 to +22) | 28% (18-39) / 22% (14-33) | 57% (45-68) |
+| system-design-skills | 20 | 60 / 60 | 98% (91-100) / 97% (89-99) | 100% (94-100) / 93% (84-97) | +7 (-1 to +16) | 52% (39-64) / 30% (20-43) | 98% (91-100) |
+| egyptology-skills | 9 | 27 / 27 | 100% (88-100) / 89% (72-96) | 96% (82-99) / 30% (16-48) | +67 (+43 to +81) | 93% (77-98) / 59% (41-75) | 100% (88-100) |
+| bioinformatics-skills | 23 | 69 / 69 | 97% (90-99) / 90% (81-95) | 97% (90-99) / 86% (75-92) | +12 (+2 to +22) | 26% (17-38) / 19% (11-30) | 57% (45-68) |
+| systems-biology-skills | 21 | 63 / 63 | 94% (85-98) / 78% (66-86) | 90% (81-96) / 60% (48-71) | +30 (+15 to +44) | 27% (18-39) / 21% (12-32) | 56% (43-67) |
 
 Leaving out the starter prompts that ask for the skill's own table, checker or template:
 
 | Collection | Skills kept | Facts: skills / none | Rubric: skills / none | Rubric difference |
 |---|---|---|---|---|
-| egyptology-skills | 6 | 100% (82-100) / 100% (82-100) | 100% (82-100) / 39% (20-61) | +61 (+33 to +80) |
+| egyptology-skills | 7 | 100% (85-100) / 90% (71-97) | 95% (77-99) / 33% (17-55) | +62 (+34 to +79) |
 | bioinformatics-skills | 22 | 97% (90-99) / 92% (83-97) | 97% (90-99) / 89% (80-95) | +8 (-2 to +18) |
 
 ### Tokens and cost per run (means)
 
 | Collection | Output tokens: skills / none | Input tokens read: skills / none | Cost, US dollars: skills / none | Runs with a denied tool call: skills / none |
 |---|---|---|---|---|
-| system-design-skills | 4,760 / 5,255 | 105,133 / 72,908 | 0.245 / 0.197 | 0 / 0 |
-| egyptology-skills | 2,820 / 2,461 | 152,795 / 68,533 | 0.196 / 0.122 | 0 / 0 |
-| bioinformatics-skills | 2,458 / 2,086 | 101,518 / 54,658 | 0.185 / 0.113 | 0 / 0 |
+| system-design-skills | 4,760 / 5,242 | 105,806 / 72,908 | 0.246 / 0.197 | 0 / 0 |
+| egyptology-skills | 2,840 / 2,568 | 147,249 / 64,294 | 0.193 / 0.123 | 0 / 0 |
+| bioinformatics-skills | 2,430 / 2,075 | 101,554 / 52,823 | 0.185 / 0.112 | 0 / 0 |
+| systems-biology-skills | 2,765 / 2,182 | 116,882 / 54,324 | 0.223 / 0.119 | 0 / 0 |
 
 ### Trigger runs: does the agent pick the right skill
 
 | Collection | Should-trigger runs hit (recall) | Near-miss runs correctly left alone (specificity) | Precision | Unrelated prompts that triggered a skill |
 |---|---|---|---|---|
-| system-design-skills | 62% (49-73) | 100% (94-100) | 100% (91-100) | 0 of 6 |
-| egyptology-skills | 100% (86-100) | 100% (86-100) | 100% (86-100) | 0 of 6 |
+| system-design-skills | 60% (47-71) | 100% (94-100) | 100% (90-100) | 0 of 6 |
+| egyptology-skills | 100% (88-100) | 100% (88-100) | 100% (88-100) | 0 of 6 |
 | bioinformatics-skills | 80% (69-88) | 100% (95-100) | 100% (93-100) | 0 of 6 |
+| systems-biology-skills | 73% (61-82) | 100% (94-100) | 100% (92-100) | 0 of 6 |
 
 ### Replication with a second agent model (Claude Sonnet 5.5, 2 runs per case, cases frozen)
 

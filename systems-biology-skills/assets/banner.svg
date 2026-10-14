@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="t d">
+  <title id="t">Systems Biology Skills</title>
+  <desc id="d">Twenty-one agent skills for modelling biological networks, dynamics and kinetics, and for research planning, measurement, writing and review. Twenty-one colored tiles stand for the skills.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c3b3a"/>
+      <stop offset="1" stop-color="#1d4f73"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#cfe6fb"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6c64eb" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#6c64eb" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="280" rx="20" fill="url(#bg)"/>
+  <circle cx="960" cy="40" r="240" fill="url(#glowA)"/>
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="132" font-size="62" font-weight="800" fill="url(#word)" letter-spacing="-1.2">Systems Biology Skills</text>
+    <rect x="66" y="154" width="120" height="6" rx="3" fill="#f5eb89"/>
+    <text x="64" y="208" font-size="25" fill="#d8eafb">Networks, dynamics, kinetics, research and writing</text>
+    <text x="64" y="244" font-size="20" font-weight="600" fill="#a9d2f5">21 skills  ·  16 tested scripts  ·  output is a draft for review</text>
+  </g>
+  <g>
+    <rect x="800" y="50" width="40" height="40" rx="10" fill="#096efb"/>
+    <rect x="856" y="50" width="40" height="40" rx="10" fill="#9cc464"/>
+    <rect x="912" y="50" width="40" height="40" rx="10" fill="#f5eb89"/>
+    <rect x="968" y="50" width="40" height="40" rx="10" fill="#fb6373"/>
+    <rect x="1024" y="50" width="40" height="40" rx="10" fill="#6c64eb"/>
+    <rect x="1080" y="50" width="40" height="40" rx="10" fill="#096efb"/>
+    <rect x="800" y="102" width="40" height="40" rx="10" fill="#9cc464"/>
+    <rect x="856" y="102" width="40" height="40" rx="10" fill="#f5eb89"/>
+    <rect x="912" y="102" width="40" height="40" rx="10" fill="#fb6373"/>
+    <rect x="968" y="102" width="40" height="40" rx="10" fill="#6c64eb"/>
+    <rect x="1024" y="102" width="40" height="40" rx="10" fill="#096efb"/>
+    <rect x="1080" y="102" width="40" height="40" rx="10" fill="#9cc464"/>
+    <rect x="800" y="154" width="40" height="40" rx="10" fill="#f5eb89"/>
+    <rect x="856" y="154" width="40" height="40" rx="10" fill="#fb6373"/>
+    <rect x="912" y="154" width="40" height="40" rx="10" fill="#6c64eb"/>
+    <rect x="968" y="154" width="40" height="40" rx="10" fill="#096efb"/>
+    <rect x="1024" y="154" width="40" height="40" rx="10" fill="#9cc464"/>
+    <rect x="1080" y="154" width="40" height="40" rx="10" fill="#f5eb89"/>
+    <rect x="800" y="206" width="40" height="40" rx="10" fill="#fb6373"/>
+    <rect x="856" y="206" width="40" height="40" rx="10" fill="#6c64eb"/>
+    <rect x="912" y="206" width="40" height="40" rx="10" fill="#096efb"/>
+  </g>
+</svg>

@@ -13,6 +13,7 @@ replace the `<angle-bracket>` parts with your own signs, text and sources.
 | `egyptology-literature` | [6 prompts](egyptology-literature.md) | Find, read and cite scholarship, and check a reference list for invented citations |
 | `edition-conventions` | [6 prompts](edition-conventions.md) | Mark lacunae and restorations with a declared key, and set out notes and witnesses |
 | `provenance-research-ethics` | [6 prompts](provenance-research-ethics.md) | Build an object's history, flag the gaps, and say only what the record supports |
+| `egyptology-research-writing` | [5 prompts](egyptology-research-writing.md) | Write up, submit and revise an article or text publication, answer reviewers, check proofs |
 
 ## Which tool are these for
 
@@ -33,8 +34,9 @@ gardiner-sign-lookup  ->  transliteration  ->  text-annotation  ->  accuracy-rev
 supplies and uses `accuracy-review` to design its data checks.
 
 The academic and research skills sit around the chain. `egyptology-literature` finds the editions and
-parallels, `edition-conventions` marks what is restored, and `provenance-research-ethics` covers where the
-object has been and what may be said or shown.
+parallels, `edition-conventions` marks what is restored, `provenance-research-ethics` covers where the
+object has been and what may be said or shown, and `egyptology-research-writing` turns the result into a
+publication and takes it through review and proofs.
 
 Every prompt here uses signs from the collection's checked table, except where a prompt tests what
 happens with a sign that is not in it.

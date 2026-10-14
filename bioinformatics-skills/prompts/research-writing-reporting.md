@@ -52,3 +52,14 @@ transformation, or an axis that exaggerates a difference.
 
 A good answer: a claim at the right evidence level, one sentence on what supports it, and one caveat
 taken from the review findings.
+
+## 7. From journal choice to proofs
+
+> This is my first paper: a differential expression study of a drug response in mouse liver. Which journal should I aim for, who should be an author, and what happens after I submit, including if it is rejected?
+
+A good answer: choose the journal before writing, because its audience decides the emphasis (a methods
+journal, a biology journal or a pharmacology journal), and read its instructions for authors. Agree
+authorship early by the venue's criteria, with access or sample providers acknowledged rather than listed
+as authors. Write the abstract last, and send a cover letter once all co-authors have approved. Answer
+reviews point by point; after a rejection, revise on the constructive comments and resubmit to the planned
+next journal. At proofs, correct errors only.

@@ -1,0 +1,471 @@
+{
+ "_note": "Source of the evaluation cases. See ../../TESTING.md. outcome cases run with and without the skills; trigger cases run with the skills only.",
+ "outcome": [
+  {
+   "skill": "systems-biology-workflow",
+   "facts": [
+    "stoichiometric|constraint-based|flux balance|FBA",
+    "kinetic parameters|no kinetic|without kinetic|parameter-free",
+    "ODE|kinetic model"
+   ]
+  },
+  {
+   "skill": "model-building-design",
+   "facts": [
+    "state variable",
+    "quasi-steady|quasi steady|QSSA|QSS",
+    "conserv|S \\+ P"
+   ]
+  },
+  {
+   "skill": "quantities-units-balances",
+   "facts": [
+    "\\b1,?000\\b|1e3|10\\^3|10³",
+    "µM|uM|micromolar|μM"
+   ],
+   "script": "units.py"
+  },
+  {
+   "skill": "linear-algebra-networks",
+   "facts": [
+    "rank (of |is |= )?1\\b|rank 1|rank\\(A\\) = 1",
+    "infinitely many",
+    "Rouch"
+   ],
+   "script": "linalg.py"
+  },
+  {
+   "skill": "network-analysis",
+   "facts": [
+    "(one|1|single|exactly one) feed-forward",
+    "random|null model|degree-preserving|shuffl"
+   ],
+   "script": "graphs.py"
+  },
+  {
+   "skill": "stoichiometric-networks",
+   "facts": [
+    "rank[^.\\n]{0,15}\\b4\\b",
+    "(two|2)\\**\\s+(elementary|EFMs?)|exactly \\**two",
+    "6 ?[−-] ?4 ?= ?\\**2|dimension[^.\\n]{0,30}\\b2\\b|two-dimensional|2-dimensional|2-D"
+   ],
+   "script": "stoich.py"
+  },
+  {
+   "skill": "flux-balance-analysis",
+   "facts": [
+    "\\b20\\b",
+    "R1 and R6|R1, R6|R6 and R1|R1 \\(|R6 \\(",
+    "\\b3(\\.0+)?\\b"
+   ],
+   "script": "fba.py"
+  },
+  {
+   "skill": "ode-dynamics",
+   "facts": [
+    "0\\.5",
+    "stable",
+    "v0|v₀"
+   ],
+   "script": "ode.py"
+  },
+  {
+   "skill": "control-systems-feedback",
+   "facts": [
+    "controllable",
+    "observable",
+    "0\\.5"
+   ],
+   "script": "control.py"
+  },
+  {
+   "skill": "enzyme-kinetics",
+   "facts": [
+    "10\\.0\\d?|10\\.1\\b|≈ ?10\\b",
+    "1\\.0[0-2]",
+    "reciprocal|Lineweaver"
+   ],
+   "script": "kinetics.py"
+  },
+  {
+   "skill": "pharmacokinetic-modeling",
+   "facts": [
+    "2\\.77|2\\.8 ?h",
+    "3\\.03",
+    "\\b20\\b"
+   ],
+   "script": "pk.py"
+  },
+  {
+   "skill": "parameter-estimation-model-selection",
+   "facts": [
+    "0\\.60|0\\.6\\b|60 ?%|0\\.77|77 ?%",
+    "1\\.45|1\\.5\\b|3\\.0\\d?\\b",
+    "error variance|σ²|σ\\^2|sigma|K ?= ?p ?\\+ ?1|convention"
+   ],
+   "script": "fitstats.py"
+  },
+  {
+   "skill": "stochastic-discrete-models",
+   "facts": [
+    "\\b20\\b",
+    "Poisson|Fano|variance (equals|≈|=|is about|is close to|near|matches) (the )?mean"
+   ],
+   "script": "discrete.py"
+  },
+  {
+   "skill": "multivariate-omics",
+   "facts": [
+    "scal",
+    "66\\.7|67 ?%|two[- ]thirds|2/3",
+    "g2"
+   ],
+   "script": "multivar.py"
+  },
+  {
+   "skill": "quantitative-research-methods",
+   "facts": [
+    "0\\.71",
+    "i2",
+    "validity|valid"
+   ],
+   "script": "measure.py"
+  },
+  {
+   "skill": "systems-biology-programming",
+   "facts": [
+    "R2",
+    "proton|H\\+|\\bh\\b",
+    "exchange"
+   ],
+   "script": "balance.py"
+  },
+  {
+   "skill": "systems-biology-literature",
+   "facts": [
+    "BioModels",
+    "BRENDA|SABIO",
+    "quer|search string|search terms"
+   ]
+  },
+  {
+   "skill": "modeling-paper-writing",
+   "facts": [
+    "parameter table|table of parameters|parameters table",
+    "SBML|model file",
+    "unit"
+   ]
+  },
+  {
+   "skill": "modeling-research-planning",
+   "facts": [
+    "hypothes",
+    "risk|alternative|fallback",
+    "experiment"
+   ]
+  },
+  {
+   "skill": "model-review",
+   "facts": [
+    "identifiab",
+    "unit",
+    "validat|independent data|held[- ]out"
+   ]
+  },
+  {
+   "skill": "systems-biology-learning-path",
+   "facts": [
+    "eigenvalue|matri",
+    "stoichiometric|steady state",
+    "practi[cs]e|problems"
+   ]
+  }
+ ],
+ "trigger": [
+  {
+   "id": "sb-work-pos",
+   "prompt": "I have reaction lists and some secretion rates for my bacterium but no rate constants. Where do I even begin modelling this, and what kind of model makes sense?",
+   "expect": "systems-biology-workflow",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-work-neg",
+   "prompt": "How did systems biology start as a field? A short history, please.",
+   "expect": null,
+   "avoid": "systems-biology-workflow",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-design-pos",
+   "prompt": "Before I write any equations for my apoptosis model, help me pin down what I'm assuming and what is a state versus a constant.",
+   "expect": "model-building-design",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-design-neg",
+   "prompt": "Write a haiku about mathematical models.",
+   "expect": null,
+   "avoid": "model-building-design",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-units-pos",
+   "prompt": "My rate constant from the literature is 3.2e5 per molar per second but my concentrations are in µM and time in minutes. What number goes into my model?",
+   "expect": "quantities-units-balances",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-units-neg",
+   "prompt": "How many seconds are in a day?",
+   "expect": null,
+   "avoid": "quantities-units-balances",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-linalg-pos",
+   "prompt": "Is the system 2x + y = 1, 4x + 2y = 3 solvable? Show the elimination and the rank argument.",
+   "expect": "linear-algebra-networks",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-linalg-neg",
+   "prompt": "What does the word 'matrix' mean in biology, like extracellular matrix?",
+   "expect": null,
+   "avoid": "linear-algebra-networks",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-net-pos",
+   "prompt": "I have 300 protein interactions from STRING. Which proteins sit between modules, and is the triangle pattern I see over-represented?",
+   "expect": "network-analysis",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-net-neg",
+   "prompt": "What is a social network? Give a one-paragraph definition.",
+   "expect": null,
+   "avoid": "network-analysis",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-stoich-pos",
+   "prompt": "Given these reactions R1: -> X, R2: X -> Y, R3: Y ->, R4: X -> Z, R5: Z -> Y, what flux patterns are possible at steady state and which pathways exist?",
+   "expect": "stoichiometric-networks",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-stoich-neg",
+   "prompt": "What is stoichiometry? Balance H2 + O2 -> H2O for my chemistry homework.",
+   "expect": null,
+   "avoid": "stoichiometric-networks",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-fba-pos",
+   "prompt": "With glucose uptake capped at 10 mmol per gram per hour, what's the most biomass my metabolic network can make, and which reactions can't be removed?",
+   "expect": "flux-balance-analysis",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-fba-neg",
+   "prompt": "What does the word metabolism mean? Explain for a 10-year-old.",
+   "expect": null,
+   "avoid": "flux-balance-analysis",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-ode-pos",
+   "prompt": "Here is my model: dX/dt = 2 - X - X*Y, dY/dt = X*Y - Y. Where does it settle and is that point stable?",
+   "expect": "ode-dynamics",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-ode-neg",
+   "prompt": "What is a differential equation? One sentence.",
+   "expect": null,
+   "avoid": "ode-dynamics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-control-pos",
+   "prompt": "Can I steer both states of x' = Ax + Bu with A = [[0,1],[-1,0]] and B = [1,0]? And what happens to the response if I close a negative feedback loop?",
+   "expect": "control-systems-feedback",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-control-neg",
+   "prompt": "Who invented the thermostat?",
+   "expect": null,
+   "avoid": "control-systems-feedback",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-kin-pos",
+   "prompt": "My initial-rate data level off around 9 µM/min. How do I get Km and Vmax properly, and is the inhibitor I added competitive?",
+   "expect": "enzyme-kinetics",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-kin-neg",
+   "prompt": "What do enzymes do in the stomach?",
+   "expect": null,
+   "avoid": "enzyme-kinetics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-pk-pos",
+   "prompt": "A 200 mg tablet, F 0.5, V 40 L, clearance 8 L/h, absorption 1 per hour: when is the peak and how much builds up with twice-daily dosing?",
+   "expect": "pharmacokinetic-modeling",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-pk-neg",
+   "prompt": "What is the brand name of paracetamol in the US?",
+   "expect": null,
+   "avoid": "pharmacokinetic-modeling",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-fit-pos",
+   "prompt": "I fitted two versions of my signalling model to the same data. One has two more parameters and a slightly lower residual. Which should I keep, and can I trust the parameter values?",
+   "expect": "parameter-estimation-model-selection",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-fit-neg",
+   "prompt": "What does 'model' mean in fashion?",
+   "expect": null,
+   "avoid": "parameter-estimation-model-selection",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-stoch-pos",
+   "prompt": "Only about 15 copies of my repressor exist per cell. Simulate the noise and tell me whether cells can flip between states.",
+   "expect": "stochastic-discrete-models",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-stoch-neg",
+   "prompt": "Explain what randomness is in plain words.",
+   "expect": null,
+   "avoid": "stochastic-discrete-models",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-multi-pos",
+   "prompt": "I have 40 samples by 3,000 metabolites from two diets. How do I find which metabolites separate the diets without fooling myself?",
+   "expect": "multivariate-omics",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-multi-neg",
+   "prompt": "What is the omics revolution? A short paragraph.",
+   "expect": null,
+   "avoid": "multivariate-omics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-quant-pos",
+   "prompt": "I built a 10-item questionnaire on students' confidence with ODEs. How do I show it measures confidence and not something else, and how reliable is it?",
+   "expect": "quantitative-research-methods",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-quant-neg",
+   "prompt": "What is a questionnaire? Define it.",
+   "expect": null,
+   "avoid": "quantitative-research-methods",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-prog-pos",
+   "prompt": "Convert my Python ODE model into SBML with proper annotations so others can load it in COPASI.",
+   "expect": "systems-biology-programming",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-prog-neg",
+   "prompt": "How do I install Python on Windows?",
+   "expect": null,
+   "avoid": "systems-biology-programming",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-lit-pos",
+   "prompt": "Is there already a curated kinetic model of yeast glycolysis I can reuse, and where would I get parameter values with their conditions?",
+   "expect": "systems-biology-literature",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-lit-neg",
+   "prompt": "Recommend a popular science book about biology for my holiday.",
+   "expect": null,
+   "avoid": "systems-biology-literature",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-write-pos",
+   "prompt": "Draft the methods paragraph describing my FBA model and the cover letter to the editor for a computational biology journal.",
+   "expect": "modeling-paper-writing",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-write-neg",
+   "prompt": "Fix the grammar in this sentence: 'me and him goes to the lab'.",
+   "expect": null,
+   "avoid": "modeling-paper-writing",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-plan-pos",
+   "prompt": "I'm applying for a three-year grant to model inflammation with experiments in mice. Help me lay out aims, risks and which time points to measure.",
+   "expect": "modeling-research-planning",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-plan-neg",
+   "prompt": "What is a grant? One sentence.",
+   "expect": null,
+   "avoid": "modeling-research-planning",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-review-pos",
+   "prompt": "As a referee I received a manuscript with a 40-parameter ODE model fitted to one dataset. What should my report focus on?",
+   "expect": "model-review",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-review-neg",
+   "prompt": "What is peer review? Explain briefly.",
+   "expect": null,
+   "avoid": "model-review",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-learn-pos",
+   "prompt": "I'm a biologist starting a master's in systems biology next month. What maths should I practise first and how?",
+   "expect": "systems-biology-learning-path",
+   "kind": "implicit"
+  },
+  {
+   "id": "sb-learn-neg",
+   "prompt": "Which university is best for biology?",
+   "expect": null,
+   "avoid": "systems-biology-learning-path",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sb-none-1",
+   "prompt": "Write a SQL query that returns the ten most recent orders.",
+   "expect": null,
+   "kind": "unrelated"
+  },
+  {
+   "id": "sb-none-2",
+   "prompt": "Suggest a name for a small coffee shop.",
+   "expect": null,
+   "kind": "unrelated"
+  }
+ ]
+}

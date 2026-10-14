@@ -2,27 +2,29 @@
  "meta": {
   "engine": "direct",
   "agent_model": "claude-opus-5-5",
-  "judge_model": "claude-sonnet-5-5",
+  "judge_model": "default",
   "judge_votes": 1,
   "runs_per_case": 3,
-  "costUsd": 7.6227,
+  "costUsd": 8.2227,
   "skipped_runs": 0,
   "partial": false,
   "claudeVersion": "2.1.296 (Claude Code)",
   "startedAt": "2026-10-14T12:48:49Z",
-  "_stamp": "2026-10-14"
+  "_stamp": "2026-10-15",
+  "previous_judge_votes": 1,
+  "merged_cases": [
+   "bi-design-neg",
+   "bi-design-pos",
+   "bi-write-neg",
+   "bi-write-pos"
+  ],
+  "label": ""
  },
  "summary": {
   "skills": {
    "bioinformatics-workflow": {
     "pos_runs": 3,
     "pos_hit": 2,
-    "neg_runs": 3,
-    "neg_false": 0
-   },
-   "experimental-design": {
-    "pos_runs": 3,
-    "pos_hit": 3,
     "neg_runs": 3,
     "neg_false": 0
    },
@@ -116,12 +118,6 @@
     "neg_runs": 3,
     "neg_false": 0
    },
-   "research-writing-reporting": {
-    "pos_runs": 3,
-    "pos_hit": 3,
-    "neg_runs": 3,
-    "neg_false": 0
-   },
    "bioinformatics-review": {
     "pos_runs": 3,
     "pos_hit": 0,
@@ -147,6 +143,18 @@
     "neg_false": 0
    },
    "research-proposal-planning": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "experimental-design": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "research-writing-reporting": {
     "pos_runs": 3,
     "pos_hit": 3,
     "neg_runs": 3,

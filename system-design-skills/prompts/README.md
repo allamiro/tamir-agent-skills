@@ -174,6 +174,7 @@ More prompts:
 - Reviewer 3 says our baseline is untuned and our results come from one run. Draft a response that does not promise results we do not have.
 - What do I need to prepare an artifact for the "available" and "functional" badges, and which claims should I narrow?
 - My co-author used an AI tool to draft related work. What should we disclose, and how do we make sure its references are real?
+- This is my first systems paper and it was rejected from a top conference. How do I decide where to send it next, what to change, and who should be on the author list?
 
 A good answer: falsifiable contributions each tied to evidence and a limit; a rebuttal that separates
 what will be changed from what is only argued; a note to check the venue's current badge and AI rules

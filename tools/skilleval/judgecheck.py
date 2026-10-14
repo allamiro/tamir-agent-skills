@@ -50,7 +50,7 @@ def combine(first, extra):
     return sum(votes) * 2 > len(votes)
 
 
-def rejudge(records, info, judge_model, extra=2, runner=None, jobs=4, fresh=()):
+def rejudge(records, info, judge_model, extra=2, runner=None, jobs=4, fresh=(), default_votes=1):
     """Add `extra` more judge votes to every saved outcome answer and keep the majority. For skills in `fresh` the earlier verdict
     is discarded and replaced by the majority of `extra + 1` new votes (use it after a rubric was corrected). Returns (records, cost, changed)."""
     todo = [r for r in records if r.get("kind") == "outcome" and r.get("text") and "rubric" in r.get("graders", {})]
@@ -58,7 +58,7 @@ def rejudge(records, info, judge_model, extra=2, runner=None, jobs=4, fresh=()):
     changed = [0]
 
     def work(r):
-        if r.get("judge_votes", 1) > 1 and r["key"] not in fresh:
+        if r.get("judge_votes", default_votes) > 1 and r["key"] not in fresh:
             return   # already has several votes
         prompt, rubric = info[r["key"]]
         extra_r, extra_l = [], []
@@ -98,7 +98,8 @@ def main_rejudge(args):
         info[c["skill"]] = (prompt, cases_mod.RUBRIC_TEMPLATE % (c.get("rubric") or good))
     model = args.judge_model or saved["meta"].get("judge_model") or "claude-sonnet-5-5"
     fresh = set(args.only or [])
-    recs, cost, changed = rejudge(saved["records"], info, model, extra=2, fresh=fresh)
+    recs, cost, changed = rejudge(saved["records"], info, model, extra=2, fresh=fresh,
+                                  default_votes=saved.get("meta", {}).get("judge_votes", 1))
     if fresh:
         saved["meta"]["regraded_after_rubric_correction"] = sorted(fresh)
     saved["meta"]["judge_votes"] = 3
@@ -259,4 +260,8 @@ def selftest():
     done = [{"kind": "outcome", "text": "t", "key": "a", "judge_votes": 3, "graders": {"rubric": {"passed": True}, "calibration": {"passed": True}}}]
     out, cost, changed = rejudge(done, {"a": ("p", "r")}, None, extra=2, runner=lambda body: ({"rubric": False, "limits": False}, {}, 0.01), jobs=1)
     eq("records that already have several votes are skipped", (out[0]["graders"]["rubric"]["passed"], cost, changed), (True, 0.0, 0))
+    legacy = [{"kind": "outcome", "text": "t", "key": "a", "graders": {"rubric": {"passed": True}, "calibration": {"passed": True}}}]
+    out, cost, changed = rejudge(legacy, {"a": ("p", "r")}, None, extra=2, runner=lambda body: ({"rubric": False, "limits": False}, {}, 0.01),
+                                 jobs=1, default_votes=3)
+    eq("a run saved with several votes but no per-record count is skipped", (out[0]["graders"]["rubric"]["passed"], cost), (True, 0.0))
     return fails, count[0]

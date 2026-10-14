@@ -1,0 +1,107 @@
+{
+ "P01": {
+  "skill": "control-systems-feedback",
+  "a": "with",
+  "b": "without"
+ },
+ "P02": {
+  "skill": "enzyme-kinetics",
+  "a": "without",
+  "b": "with"
+ },
+ "P03": {
+  "skill": "flux-balance-analysis",
+  "a": "without",
+  "b": "with"
+ },
+ "P04": {
+  "skill": "linear-algebra-networks",
+  "a": "with",
+  "b": "without"
+ },
+ "P05": {
+  "skill": "model-building-design",
+  "a": "with",
+  "b": "without"
+ },
+ "P06": {
+  "skill": "model-review",
+  "a": "with",
+  "b": "without"
+ },
+ "P07": {
+  "skill": "modeling-paper-writing",
+  "a": "without",
+  "b": "with"
+ },
+ "P08": {
+  "skill": "modeling-research-planning",
+  "a": "without",
+  "b": "with"
+ },
+ "P09": {
+  "skill": "multivariate-omics",
+  "a": "with",
+  "b": "without"
+ },
+ "P10": {
+  "skill": "network-analysis",
+  "a": "with",
+  "b": "without"
+ },
+ "P11": {
+  "skill": "ode-dynamics",
+  "a": "without",
+  "b": "with"
+ },
+ "P12": {
+  "skill": "parameter-estimation-model-selection",
+  "a": "with",
+  "b": "without"
+ },
+ "P13": {
+  "skill": "pharmacokinetic-modeling",
+  "a": "without",
+  "b": "with"
+ },
+ "P14": {
+  "skill": "quantitative-research-methods",
+  "a": "with",
+  "b": "without"
+ },
+ "P15": {
+  "skill": "quantities-units-balances",
+  "a": "with",
+  "b": "without"
+ },
+ "P16": {
+  "skill": "stochastic-discrete-models",
+  "a": "without",
+  "b": "with"
+ },
+ "P17": {
+  "skill": "stoichiometric-networks",
+  "a": "with",
+  "b": "without"
+ },
+ "P18": {
+  "skill": "systems-biology-learning-path",
+  "a": "without",
+  "b": "with"
+ },
+ "P19": {
+  "skill": "systems-biology-literature",
+  "a": "without",
+  "b": "with"
+ },
+ "P20": {
+  "skill": "systems-biology-programming",
+  "a": "with",
+  "b": "without"
+ },
+ "P21": {
+  "skill": "systems-biology-workflow",
+  "a": "with",
+  "b": "without"
+ }
+}

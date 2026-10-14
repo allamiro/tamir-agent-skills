@@ -10,41 +10,36 @@ A real answer from a Claude Code session, with the numbers behind it. The prompt
 
 | | Without the skill | With the skill |
 |---|---|---|
-| Output tokens (what the model wrote, including its reasoning) | 2,781 | 3,085 |
-| Input tokens read across all turns (including cached context) | 30,394 | 109,845 |
-| Extra input tokens when the skill is installed | | +79,451 |
-| Cost, US dollars at list price | 0.115 | 0.195 |
+| Output tokens (what the model wrote, including its reasoning) | 2,676 | 2,981 |
+| Input tokens read across all turns (including cached context) | 30,396 | 110,582 |
+| Extra input tokens when the skill is installed | | +80,186 |
+| Cost, US dollars at list price | 0.113 | 0.196 |
 | Skills invoked in the sample run | none | `systems-research-writing` |
 
-Size of the skill by Claude Code's own estimate (`claude plugin details`): about 290 tokens for its name and description, which are in every session where the skill is installed, and about 2,600 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
+Size of the skill by Claude Code's own estimate (`claude plugin details`): about 290 tokens for its name and description, which are in every session where the skill is installed, and about 2,900 tokens when the skill is used and its instructions are loaded. The estimate is not a measurement.
 
 ## Answer with the skill (excerpt)
 
 ````text
-I don't know yet how your scheduler gets its win, so I've written the draft with **[bracketed placeholders]** for the mechanism and the numbers. The structure won't change; you fill in your facts.
+I don't yet know how your scheduler works or how you measured the 30%, so below is a structured draft. Anything in `[brackets]` is a gap you need to fill. I wrote it so you can see exactly what a reviewer will ask for.
 
-One thing to fix first: "Cuts tail latency by 30% in our cluster" is a result, not a claim. Reviewers will ask why it works and whether it works anywhere else. The paper has to rest on the idea that produces the 30%, and the 30% is one piece of evidence for it.
+## The claim (one sentence)
 
----
+> **[Scheduler name] cuts p[99] job/request latency by 30% relative to [baseline, e.g. the cluster's tuned production scheduler] on [workload] in a [N]-node production cluster, by [the one insight, e.g. "placing tasks using predicted queueing delay instead of current load"], at a cost of [overhead: CPU, decision latency, throughput].**
 
-## 1. The claim (one sentence)
+There are four places a reviewer will push on this:
+- **"Tail latency" must name a percentile** (p99, p99.9) and the unit: per request, per task or per job.
+- **"30%" needs a baseline.** Compared with what, and was that baseline tuned? An untuned default is the most common reason reviewers reject this kind of paper.
+- **"Our cluster" is a single environment.** The headline holds for that environment. Generalising needs trace replay or a second workload (see contribution 3).
+- **The insight is the paper.** "We built a scheduler" is a component, not a contribution. You need the reason existing schedulers lose at the tail and the idea that fixes it.
 
-> **[Existing schedulers] inflate tail latency because they [root cause, e.g. place work using stale or averaged load signals and ignore per-request service-time variance]; a scheduler that [key insight, e.g. uses cheap, fresh per-node queue estimates to place work] reduces p99 latency by [X]% ([CI]) versus [strongest baseline] on [workload class], with [overhead] scheduling overhead.**
+## Contributions (at most three, each falsifiable)
 
-Test it: someone outside your sub-area should be able to say *what was broken*, *what the idea is*, and *how much it helped* after reading only this sentence.
+1. **Problem analysis.** A measurement study of [cluster] showing that [X% of tail latency comes from cause Y, e.g. head-of-line blocking or stale load information], which [existing schedulers A, B] do not address because [assumption].
+2. **Design.** [Scheduler], which uses [mechanism] to [effect], with decision latency of [Z µs] at [N] nodes.
+3. **Evaluation.** On [production workload] and [K replayed or public traces], [Scheduler] reduces p99 latency by [30% ± CI] compared with [tuned baselines], keeps throughput within [x%] of the baseline, and the ablation attributes [most] of the gain to [mechanism].
 
-## 2. Contributions (at most three, each one testable)
-
-1. **Diagnosis.** Measurements on [cluster/trace] show that [Y]% of tail-latency events come from [root cause]. Current schedulers ([A], [B]) cannot avoid this because [structural reason].
-   *Falsified if:* removing the root cause does not move the tail, or the tail comes mainly from something else (GC, network, stragglers).
-2. **Mechanism.** [Name], a scheduler that [insight in one clause]. Its design lets it [property, e.g. decide in O(1) without global coordination].
-   *Falsified if:* the ablation shows the gain comes from some other part (for example simply more replicas, or more retries).
-3. **Evaluation.** On [production cluster + N public traces/benchmarks], [Name] reduces p99 by [X]% and p99.9 by [Z]% versus [tuned baselines], with throughput, cost and median latency staying within [bound].
-   *Falsified if:* a properly tuned baseline closes the gap, or the gain disappears at different load or with a different workload mix.
-
-"We built a distributed scheduler" is deliberately left off the list. A component is not a contribution.
-
-## 3. Claims and evidence matrix
+## Claims-evidence matrix
 
 [... excerpt ends; the full answer is longer]
 ````
@@ -52,22 +47,18 @@ Test it: someone outside your sub-area should be able to say *what was broken*, 
 ## Answer without the skill (excerpt)
 
 ````text
-Your 30% number is a result. A reviewer at OSDI, SOSP, NSDI, EuroSys or ATC will ask why it happens and whether it carries over to other clusters. So the draft below is built around the mechanism, and the 30% serves as evidence for it.
+# Turning the scheduler into a systems paper
 
-I don't know your design yet. Anything in **[brackets]** is a placeholder for you to fill in. I wrote it assuming a common pattern: the scheduler cuts tail latency by placing work based on queueing delay it predicts, not on CPU or memory use alone. If your mechanism is different, the structure still works; swap in the right insight.
+I don't know how your scheduler works yet, so I've written everything below as a template. Brackets mark what you need to fill in, and I've put an example in italics where it helps. Most of the work is in the claim: reviewers at OSDI, NSDI, EuroSys, SoCC or ATC won't accept "our scheduler cuts tail latency by 30%" as a contribution on its own. They want to know **why** it works and **when** it stops working.
 
 ---
 
-## 1. The claim (one sentence)
+## 1. The central claim
 
-> In clusters running [latency-critical services alongside batch jobs], most of the tail latency comes from **[short-lived queueing interference that utilization-based schedulers can't see]**. A scheduler that **[estimates per-node queueing delay online and places and migrates work on that estimate]** cuts P99 latency by **~30%** compared with **[baseline, e.g. the Kubernetes default scheduler or your previous production scheduler]**, at **[≤X% throughput or utilization cost]**.
+**Template:**
+> Tail latency in [setting] is driven by [root cause] that existing schedulers can't see because [blind spot]. [System name] [mechanism], which reduces P[99/99.9] latency by [X]% compared with [strongest baseline] at [load level], with [cost] overhead.
 
-What a reviewer will check in this sentence:
-- **Which tail:** P99 or P99.9, measured end to end or per service.
-- **Which baseline:** "30% better than our old scheduler" only carries weight if the old one is a strong, well-known system.
-- **What it cost:** a tail improvement with no stated throughput or utilization cost will be treated as suspect.
-
-## 2. Contributions (three)
+*Example:* "Tail latency in multi-tenant clusters running microservices comes mainly from head-of-line blocking behind short-lived interference bursts. Centralized schedulers react to these bursts too slowly to help. Bolt makes placement decisions on each node using sub-millisecond interference signals. On production traces it cuts P99 latency by 30% compared with [baseline], with under 2% throughput loss."
 
 [... excerpt ends; the full answer is longer]
 ````

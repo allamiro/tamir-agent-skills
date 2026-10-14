@@ -15,28 +15,33 @@
   "b": "with"
  },
  "P04": {
-  "skill": "gardiner-sign-lookup",
+  "skill": "egyptology-research-writing",
   "a": "with",
   "b": "without"
  },
  "P05": {
-  "skill": "hieroglyph-app-builder",
+  "skill": "gardiner-sign-lookup",
   "a": "with",
   "b": "without"
  },
  "P06": {
-  "skill": "provenance-research-ethics",
+  "skill": "hieroglyph-app-builder",
   "a": "with",
   "b": "without"
  },
  "P07": {
-  "skill": "text-annotation",
+  "skill": "provenance-research-ethics",
   "a": "without",
   "b": "with"
  },
  "P08": {
-  "skill": "transliteration",
+  "skill": "text-annotation",
   "a": "without",
   "b": "with"
+ },
+ "P09": {
+  "skill": "transliteration",
+  "a": "with",
+  "b": "without"
  }
 }

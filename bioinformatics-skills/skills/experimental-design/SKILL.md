@@ -67,6 +67,8 @@ available, how many can go on one run or batch); and any pairing or time structu
   reproduces the usual table values (64, 26 and 17 per group for d = 0.5, 0.8 and 1.0). The power
   function is optimistic at small n.
 - `references/design-principles.md` covers replicate types, batches, power and common designs.
+- `references/measurement-and-interpretation.md` covers defining what a readout measures, reliability
+  against validity, missing values, nested designs and interpreting with consequences in view.
 
 ## Failure and edge cases
 
@@ -102,4 +104,7 @@ fixed in advance, and the pilot plan.
   the final number with a tool that matches your test
 - Replicate types, batch practice, controls, count-data caveats: general practice from author
   knowledge, VERIFY against your field's guidelines
+- Measurement and interpretation lessons: Teo (Ed.), *Handbook of Quantitative Methods for Educational
+  Research*, Sense 2013, doi:10.1007/978-94-6209-404-8 (foreword and chapter 1 supplied, paraphrased, carried
+  over to biology by analogy: VERIFY)
 - Not covered: adaptive and sequential designs, mixed models, clinical trial design, time series

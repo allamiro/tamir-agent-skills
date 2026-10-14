@@ -1,6 +1,6 @@
 ---
 name: research-writing-reporting
-description: Writes up bioinformatics research so it can be checked and reused, covering methods sections, figure and table practice, claim wording matched to the evidence, data and code availability statements, citing software and databases, preprints and reviewer responses, and reporting checklists. Use for "write my methods section", "how should I phrase this result", "data availability statement", "respond to a reviewer comment on the statistics", "what must I report for a sequencing study", "make this figure honest", "summarise this analysis for a non-specialist". Use bioinformatics-review to audit the work first, reproducible-research-code for the methods record, and biological-databases for citing data.
+description: Writes up bioinformatics research so it can be checked and reused, covering methods sections, figure and table practice, claim wording matched to the evidence, data and code availability statements, citing software and databases, preprints, journal choice, authorship, cover letters, reviewer responses, rejection and proofs, and reporting checklists. Use for "write my methods section", "how should I phrase this result", "data availability statement", "respond to a reviewer comment on the statistics", "what must I report for a sequencing study", "make this figure honest", "summarise this analysis for a non-specialist", "which journal should I submit to", "my paper was rejected". Use bioinformatics-review to audit the work first, reproducible-research-code for the methods record, and biological-databases for citing data.
 license: Apache-2.0
 metadata:
   library: bioinformatics-skills
@@ -24,26 +24,32 @@ statistics); the figures and tables; reviewer comments, if any; and the journal'
 
 ## Workflow
 
-1. **Build a claims ledger.** One row per claim: the sentence, the figure or table it rests on, the
+1. **Choose the journal and settle authorship first.** The journal decides the audience and emphasis; read
+   its instructions for authors, agree who is an author and who is acknowledged, and plan the next journal in
+   case of rejection (`references/manuscript-craft.md` takes a paper from that decision to the proofs).
+2. **Build a claims ledger.** One row per claim: the sentence, the figure or table it rests on, the
    script that produced it, the data, and the evidence level. A claim without a row is not ready to
    be written.
-2. **Write the methods from the record,** not from memory: data sources with accessions and versions,
+3. **Write the methods from the record,** not from memory: data sources with accessions and versions,
    reference build, software with versions and parameters, the statistical tests and the correction
    for many tests, exclusions and why (`assets/templates/methods-section.md`).
-3. **Match the wording to the evidence** with the ladder in `references/claim-wording.md`. A candidate
+4. **Match the wording to the evidence** with the ladder in `references/claim-wording.md`. A candidate
    gene is not a gene, a correlation is not an interaction, and a significant difference is not a
    large one.
-4. **Make the figures honest:** label axes with units, show individual points when the sample is
+5. **Make the figures honest:** label axes with units, show individual points when the sample is
    small, show uncertainty, state n and what it counts, and say what any transformation or
    clipping did.
-5. **Write the availability statements:** where the data are, under what access terms, where the
+6. **Write the availability statements:** where the data are, under what access terms, where the
    code is, which version, and a permanent identifier for a snapshot (`assets/templates/data-availability.md`).
-6. **Cite what was used:** the datasets by accession and version, the software by name and version,
+7. **Cite what was used:** the datasets by accession and version, the software by name and version,
    the databases by release, and the methods papers.
-7. **State limits** in the discussion, from the review findings, not in a generic closing line.
-8. **Answer reviewers** by conceding what is right, rerunning what is in doubt, and showing the new
-   result, not by restating the original text.
-9. **Check the text against the ledger** one last time.
+8. **State limits** in the discussion, from the review findings, not in a generic closing line.
+9. **Write the abstract last** in the journal's format, and send a short cover letter once every co-author
+   has approved the final version.
+10. **Answer reviewers** by conceding what is right, rerunning what is in doubt, and showing the new
+   result, not by restating the original text. After a rejection, revise on the constructive points and
+   resubmit elsewhere.
+11. **Check the text against the ledger** one last time, and again at the proofs, where only corrections are allowed.
 
 ## Decision framework
 
@@ -56,6 +62,8 @@ statistics); the figures and tables; reviewer comments, if any; and the journal'
 | Data cannot be shared | Say why, state the access route, and share code and summary statistics if allowed |
 | Software has no paper | Cite the repository, version and date |
 | Non-specialist audience | State the claim, the evidence and the main caveat in plain words |
+| Someone only provided samples, access or routine help | Acknowledgement, unless they meet the venue's authorship criteria |
+| Paper rejected | Revise on the constructive comments, agree the next journal with co-authors, resubmit |
 
 ## Implementation guidance
 
@@ -76,6 +84,7 @@ statistics); the figures and tables; reviewer comments, if any; and the journal'
 - **A reviewer's point answered rhetorically,** not with an analysis.
 - **Numbers in the text that differ from the figure** because they came from different runs.
 - **Supplementary results that contradict the main claim,** left unmentioned.
+- **Authorship settled at submission,** or a co-author who never saw the final version.
 
 ## Validation
 
@@ -97,4 +106,8 @@ notes, the availability statements, the citation list, and for reviews a point-b
 - Reporting practice, wording ladder, checklists, journal expectations: general practice from author
   knowledge, VERIFY against the target venue's instructions and any reporting guideline for your
   study type
-- Not covered: grant writing, patents, authorship disputes, publication ethics in detail
+- Baker, "How to write your first paper", *Obstetrics, Gynaecology and Reproductive Medicine* 22(3):81–82,
+  2012, doi:10.1016/j.ogrm.2011.12.003 (supplied text, paraphrased; record checked on Crossref 2026-10-15):
+  journal first, authorship early, the job of each section, abstract last, cover letter, responses,
+  rejection and proofs
+- Not covered: grant writing, patents, authorship disputes and publication ethics in detail

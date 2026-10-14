@@ -31,3 +31,15 @@ supported.
 
 To have about k samples beyond quantile q, a run needs n of roughly k divided by (1 - q). For q = 0.99
 and k = 10 that is 1,000; for q = 0.999 it is 10,000. `perfstats.py tail` computes it exactly.
+
+## Does the metric measure the claim
+
+A claim such as "more scalable" or "more responsive" names a property that no single number observes.
+Before choosing metrics, write what low, middle and high levels of that property look like, then pick
+the measurements that tell those levels apart and say which level each one targets. Check that the
+metric responds to the property and not to something else: a throughput gain that comes from a
+smaller working set measures the cache, not the design. Low variance across runs shows the metric is
+reliable; it does not show it is valid. Then interpret the result with its use in mind: what decision
+it supports, and what happens if it is wrong. These lessons are adapted from measurement theory in Teo
+(Ed.), *Handbook of Quantitative Methods for Educational Research* (Sense 2013,
+doi:10.1007/978-94-6209-404-8, foreword and chapter 1, paraphrased).

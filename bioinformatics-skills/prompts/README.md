@@ -11,7 +11,7 @@ replace the `<angle-bracket>` parts with your own sequences, tables and files.
 | `experimental-design` | [6 prompts](experimental-design.md) | Work out samples, replicates, controls and batch layout before collecting data |
 | `biological-databases` | [6 prompts](biological-databases.md) | Identify, version, map, cite and deposit data |
 | `data-governance-ethics` | [6 prompts](data-governance-ethics.md) | Work carefully with human and sensitive data |
-| `research-writing-reporting` | [6 prompts](research-writing-reporting.md) | Write methods, word claims honestly, answer reviewers |
+| `research-writing-reporting` | [7 prompts](research-writing-reporting.md) | Write methods, word claims honestly, choose a journal, answer reviewers, handle rejection |
 | `bioinformatics-learning-path` | [5 prompts](bioinformatics-learning-path.md) | Get a study plan, exercises and projects that fit your background |
 
 ## Academic and research

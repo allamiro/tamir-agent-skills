@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate egyptology-skills (standard library only).
 
-Checks: eight expected skills; frontmatter keys; name equals directory; description length;
+Checks: nine expected skills; frontmatter keys; name equals directory; description length;
 SKILL.md under 500 lines; required headings; every relative link and `references/...` or
 `assets/...` mention resolves; code fences balanced; the sign table (each row has a status,
 each code maps to a Unicode character); descriptions are safe plain YAML; ChatGPT bundles (one zip per skill, current
@@ -21,7 +21,8 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SKILLS = os.path.join(ROOT, "skills")
 EXPECTED = ["gardiner-sign-lookup", "transliteration", "text-annotation",
             "hieroglyph-app-builder", "accuracy-review",
-            "egyptology-literature", "edition-conventions", "provenance-research-ethics"]
+            "egyptology-literature", "edition-conventions", "provenance-research-ethics",
+            "egyptology-research-writing"]
 HEADINGS = ["## Purpose and activation", "## Required inputs", "## Workflow", "## Decision framework",
             "## Failure and edge cases", "## Validation", "## Expected output", "## Sources and confidence"]
 errors = []

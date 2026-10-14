@@ -1,0 +1,167 @@
+{
+ "meta": {
+  "engine": "direct",
+  "agent_model": "claude-opus-5-5",
+  "judge_model": "default",
+  "judge_votes": 1,
+  "runs_per_case": 3,
+  "costUsd": 6.6794,
+  "skipped_runs": 0,
+  "partial": false,
+  "claudeVersion": "2.1.296 (Claude Code)",
+  "startedAt": "2026-10-14T23:22:15Z",
+  "_stamp": "2026-10-15",
+  "label": ""
+ },
+ "summary": {
+  "skills": {
+   "systems-biology-workflow": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "model-building-design": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "quantities-units-balances": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "linear-algebra-networks": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "network-analysis": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "stoichiometric-networks": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "flux-balance-analysis": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "ode-dynamics": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "control-systems-feedback": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "enzyme-kinetics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "pharmacokinetic-modeling": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "parameter-estimation-model-selection": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "stochastic-discrete-models": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "multivariate-omics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "quantitative-research-methods": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "systems-biology-programming": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "systems-biology-literature": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "modeling-paper-writing": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "modeling-research-planning": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "model-review": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "systems-biology-learning-path": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   }
+  },
+  "unrelated_runs": 6,
+  "unrelated_false": 0,
+  "confusions": [],
+  "by_kind": {
+   "implicit": [
+    46,
+    63
+   ],
+   "near-miss": [
+    63,
+    63
+   ],
+   "unrelated": [
+    6,
+    6
+   ]
+  },
+  "tp": 46,
+  "fn": 17,
+  "fp": 0,
+  "tn": 63
+ }
+}

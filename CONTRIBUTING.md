@@ -62,8 +62,8 @@ Add the collection to the tables in the root README.
 
 ## Checks to run
 
-From the collection directory (for example `system-design-skills/`; the Egyptology and
-Bioinformatics collections use `scripts/validate_collection.py` instead of `validate_library.py`):
+From the collection directory (for example `system-design-skills/`; the Egyptology, Bioinformatics and
+Systems Biology collections use `scripts/validate_collection.py` instead of `validate_library.py`):
 
 ```bash
 python3 scripts/validate_library.py          # spec rules, sections, size, links, templates, navigation, script self-tests
@@ -74,7 +74,7 @@ claude plugin validate skills                # Claude Code's own check of the sk
 python3 ../tools/run_evals.py plan .         # evaluation cases are valid; the live runs spend API credit (see TESTING.md)
 ```
 
-From the repository root, `python3 tools/check_repo.py` runs every free check in all three collections.
+From the repository root, `python3 tools/check_repo.py` runs every free check in all four collections.
 
 ## Adding a skill: the tests it needs
 
