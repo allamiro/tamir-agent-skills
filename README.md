@@ -18,6 +18,7 @@ Codex and ChatGPT.
 | Collection | What it covers | Skills |
 |---|---|---|
 | [**System Design Skills**](system-design-skills/) | Design, scale, secure, operate and review software systems: capacity, databases, consistency, caching, messaging, storage, reliability, observability, payments, geospatial, architecture review | 17 |
+| [**Egyptology Skills**](egyptology-skills/) | Read and check Middle Egyptian hieroglyphic text: sign lookup by Gardiner code, transliteration, annotated layouts, tool building, accuracy review. Output is a draft for specialists | 5 |
 
 More collections can sit beside it. Each one is a self-contained folder.
 

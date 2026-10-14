@@ -1,0 +1,779 @@
+{
+ "_comment": "Own short labels. Sound values checked against Gardiner, Egyptian Grammar 3rd ed. sign-list pages as supplied (OCR). The printed text is not reproduced. Modern transliteration spelling is from author knowledge: VERIFY.",
+ "signs": [
+  {
+   "code": "G1",
+   "label": "Egyptian vulture",
+   "role": "uniliteral",
+   "value": "ꜣ",
+   "gardiner_page": 467,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M17",
+   "label": "single reed",
+   "role": "uniliteral",
+   "value": "i",
+   "gardiner_page": 481,
+   "note": "Older books write ꞽ or i.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Z4",
+   "label": "two diagonal strokes",
+   "role": "uniliteral",
+   "value": "y",
+   "gardiner_page": 536,
+   "note": "Written as a final y; the double reed M17-M17 is the other common y.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D36",
+   "label": "forearm",
+   "role": "uniliteral",
+   "value": "ꜥ",
+   "gardiner_page": 454,
+   "note": "The ayin; some older books write c or ʿ.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G43",
+   "label": "quail chick",
+   "role": "uniliteral",
+   "value": "w",
+   "gardiner_page": 472,
+   "note": "The hieratic-derived form Z7 is also w.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D58",
+   "label": "foot",
+   "role": "uniliteral",
+   "value": "b",
+   "gardiner_page": 457,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Q3",
+   "label": "stool",
+   "role": "uniliteral",
+   "value": "p",
+   "gardiner_page": 500,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "I9",
+   "label": "horned viper",
+   "role": "uniliteral",
+   "value": "f",
+   "gardiner_page": 476,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G17",
+   "label": "owl",
+   "role": "uniliteral",
+   "value": "m",
+   "gardiner_page": 469,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N35",
+   "label": "ripple of water",
+   "role": "uniliteral",
+   "value": "n",
+   "gardiner_page": 490,
+   "note": "Three ripples (N35 repeated) is mw 'water'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D21",
+   "label": "mouth",
+   "role": "uniliteral",
+   "value": "r",
+   "gardiner_page": 452,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "O4",
+   "label": "reed shelter",
+   "role": "uniliteral",
+   "value": "h",
+   "gardiner_page": 493,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "V28",
+   "label": "twisted wick",
+   "role": "uniliteral",
+   "value": "ḥ",
+   "gardiner_page": 525,
+   "note": "Emphatic h.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Aa1",
+   "label": "placenta (?)",
+   "role": "uniliteral",
+   "value": "ḫ",
+   "gardiner_page": 539,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F32",
+   "label": "animal belly with teats",
+   "role": "uniliteral",
+   "value": "ẖ",
+   "gardiner_page": 465,
+   "note": "Older books may write this as ḫ or h-with-breve; check the edition.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "S29",
+   "label": "folded cloth",
+   "role": "uniliteral",
+   "value": "s",
+   "gardiner_page": 507,
+   "note": "Distinct from O34: Old Egyptian kept s and z apart (Gardiner p. 441).",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "O34",
+   "label": "bolt",
+   "role": "uniliteral",
+   "value": "z",
+   "gardiner_page": 496,
+   "note": "Gardiner prints s (z); Middle Egyptian texts often interchange it with S29.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N37",
+   "label": "pool",
+   "role": "uniliteral",
+   "value": "š",
+   "gardiner_page": 491,
+   "note": "M8 (pool with lotus flowers) is a different sign, read šꜣ.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N29",
+   "label": "sandy hill-slope",
+   "role": "uniliteral",
+   "value": "q",
+   "gardiner_page": 489,
+   "note": "Gardiner and older books write ḳ.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "V31",
+   "label": "basket with handle",
+   "role": "uniliteral",
+   "value": "k",
+   "gardiner_page": 525,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "W11",
+   "label": "jar stand",
+   "role": "uniliteral",
+   "value": "g",
+   "gardiner_page": 529,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "X1",
+   "label": "bread loaf",
+   "role": "uniliteral",
+   "value": "t",
+   "gardiner_page": 531,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "V13",
+   "label": "tethering rope",
+   "role": "uniliteral",
+   "value": "ṯ",
+   "gardiner_page": 523,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D46",
+   "label": "hand",
+   "role": "uniliteral",
+   "value": "d",
+   "gardiner_page": 455,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "I10",
+   "label": "cobra",
+   "role": "uniliteral",
+   "value": "ḏ",
+   "gardiner_page": 476,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D2",
+   "label": "face",
+   "role": "biliteral",
+   "value": "ḥr",
+   "gardiner_page": 450,
+   "note": "Ideogram for 'face'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D4",
+   "label": "eye",
+   "role": "biliteral",
+   "value": "ir",
+   "gardiner_page": 450,
+   "note": "Ideogram for irt 'eye'; also a determinative for seeing.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D28",
+   "label": "raised embracing arms",
+   "role": "biliteral",
+   "value": "kꜣ",
+   "gardiner_page": 453,
+   "note": "Ideogram for kꜣ 'spirit'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D35",
+   "label": "arms in negation",
+   "role": "biliteral",
+   "value": "n",
+   "gardiner_page": 454,
+   "note": "Also writes the negative nn.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "E34",
+   "label": "desert hare",
+   "role": "biliteral",
+   "value": "wn",
+   "gardiner_page": 461,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F31",
+   "label": "three skins tied together",
+   "role": "biliteral",
+   "value": "ms",
+   "gardiner_page": 465,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F34",
+   "label": "heart",
+   "role": "biliteral",
+   "value": "ib",
+   "gardiner_page": 465,
+   "note": "Ideogram for ib 'heart'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G14",
+   "label": "vulture",
+   "role": "biliteral",
+   "value": "mt",
+   "gardiner_page": 469,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G21",
+   "label": "guinea-fowl",
+   "role": "biliteral",
+   "value": "nḥ",
+   "gardiner_page": 469,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G25",
+   "label": "crested ibis",
+   "role": "biliteral",
+   "value": "ꜣḫ",
+   "gardiner_page": 470,
+   "note": "Semi-ideogram for ꜣḫ 'spirit'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G29",
+   "label": "jabiru",
+   "role": "biliteral",
+   "value": "bꜣ",
+   "gardiner_page": 470,
+   "note": "Ideogram for bꜣ 'soul'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G36",
+   "label": "swallow",
+   "role": "biliteral",
+   "value": "wr",
+   "gardiner_page": 471,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G39",
+   "label": "pintail duck",
+   "role": "biliteral",
+   "value": "sꜣ",
+   "gardiner_page": 471,
+   "note": "Ideogram for sꜣ 'son'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M3",
+   "label": "branch",
+   "role": "biliteral",
+   "value": "ḫt",
+   "gardiner_page": 479,
+   "note": "Ideogram for ḫt 'wood'; also a determinative for wood.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M16",
+   "label": "papyrus clump",
+   "role": "biliteral",
+   "value": "ḥꜣ",
+   "gardiner_page": 481,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M23",
+   "label": "sedge plant",
+   "role": "biliteral",
+   "value": "sw",
+   "gardiner_page": 482,
+   "note": "Part of nsw 'king' (with n).",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N28",
+   "label": "hill with rising rays",
+   "role": "biliteral",
+   "value": "ḫꜥ",
+   "gardiner_page": 489,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N36",
+   "label": "water channel",
+   "role": "biliteral",
+   "value": "mr",
+   "gardiner_page": 491,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N41",
+   "label": "well",
+   "role": "biliteral",
+   "value": "ḥm",
+   "gardiner_page": 492,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "O1",
+   "label": "house",
+   "role": "biliteral",
+   "value": "pr",
+   "gardiner_page": 492,
+   "note": "Also a determinative for buildings.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "O50",
+   "label": "threshing floor",
+   "role": "biliteral",
+   "value": "sp",
+   "gardiner_page": 498,
+   "note": "Ideogram for sp 'time, occasion'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "U1",
+   "label": "sickle",
+   "role": "biliteral",
+   "value": "mꜣ",
+   "gardiner_page": 516,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "U6",
+   "label": "hoe",
+   "role": "biliteral",
+   "value": "mr",
+   "gardiner_page": 516,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "V30",
+   "label": "basket",
+   "role": "biliteral",
+   "value": "nb",
+   "gardiner_page": 525,
+   "note": "Ideogram for nb 'lord / every'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "W24",
+   "label": "bowl",
+   "role": "biliteral",
+   "value": "nw",
+   "gardiner_page": 530,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "X8",
+   "label": "conical loaf",
+   "role": "biliteral",
+   "value": "di",
+   "gardiner_page": 533,
+   "note": "Ideogram for rdi / di 'give'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Y5",
+   "label": "draught-board",
+   "role": "biliteral",
+   "value": "mn",
+   "gardiner_page": 534,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F35",
+   "label": "heart with windpipe",
+   "role": "triliteral",
+   "value": "nfr",
+   "gardiner_page": 465,
+   "note": "'good, beautiful'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "L1",
+   "label": "dung beetle",
+   "role": "triliteral",
+   "value": "ḫpr",
+   "gardiner_page": 477,
+   "note": "'become'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "S34",
+   "label": "sandal strap",
+   "role": "triliteral",
+   "value": "ꜥnḫ",
+   "gardiner_page": 508,
+   "note": "'life'; the ankh.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "R11",
+   "label": "djed column",
+   "role": "triliteral",
+   "value": "ḏd",
+   "gardiner_page": 502,
+   "note": "'stable'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "V29",
+   "label": "swab of fibre",
+   "role": "triliteral",
+   "value": "wꜣḥ",
+   "gardiner_page": 525,
+   "note": "",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F12",
+   "label": "head and neck of canine",
+   "role": "triliteral",
+   "value": "wsr",
+   "gardiner_page": 462,
+   "note": "'powerful'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "T31",
+   "label": "knife-sharpener",
+   "role": "triliteral",
+   "value": "sšm",
+   "gardiner_page": 515,
+   "note": "'guide, lead'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "R4",
+   "label": "loaf on mat",
+   "role": "triliteral",
+   "value": "ḥtp",
+   "gardiner_page": 501,
+   "note": "'altar, be at peace, offering'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "R8",
+   "label": "cloth on a pole",
+   "role": "ideogram",
+   "value": "nṯr",
+   "gardiner_page": 502,
+   "note": "Ideogram and phonetic for nṯr 'god'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N5",
+   "label": "sun disc",
+   "role": "ideogram",
+   "value": "rꜥ",
+   "gardiner_page": 485,
+   "note": "Ideogram for rꜥ 'sun, day'; also a determinative for time.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "S12",
+   "label": "collar of beads",
+   "role": "ideogram",
+   "value": "nbw",
+   "gardiner_page": 505,
+   "note": "'gold'; also a determinative for precious metals.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "A1",
+   "label": "seated man",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 442,
+   "note": "Determinative for man; as an ideogram it writes 'I, me'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "A2",
+   "label": "man with hand to mouth",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 442,
+   "note": "Eating, drinking, speaking, thinking, feeling.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "A24",
+   "label": "man striking with a stick",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 444,
+   "note": "Force, effort.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "A40",
+   "label": "seated god",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 446,
+   "note": "Gods and revered persons.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "B1",
+   "label": "seated woman",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 448,
+   "note": "Female persons, goddesses.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "D54",
+   "label": "walking legs",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 457,
+   "note": "Movement; also the ideogram iw 'come'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N1",
+   "label": "sky",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 485,
+   "note": "Sky; also pt 'sky'.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N5",
+   "label": "sun disc",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 485,
+   "note": "Time, day; see the ideogram entry.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N18",
+   "label": "sandy tract",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 487,
+   "note": "Desert or foreign country.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N25",
+   "label": "hill-country",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 488,
+   "note": "Desert, foreign land.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N31",
+   "label": "road with shrubs",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 489,
+   "note": "Roads, travelling.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "N33",
+   "label": "grain of sand",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 490,
+   "note": "Sand, minerals, metals, granular substances.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "O49",
+   "label": "village with cross-roads",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 498,
+   "note": "Village, town, inhabited region.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "P1",
+   "label": "boat on water",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 498,
+   "note": "Boats and sailing.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M1",
+   "label": "tree",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 478,
+   "note": "Trees and wood.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "M2",
+   "label": "herb",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 478,
+   "note": "Plants and flowers.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "T30",
+   "label": "knife",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 515,
+   "note": "Cutting, sharpness.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "G37",
+   "label": "sparrow",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 471,
+   "note": "Small, bad, defective.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "F51",
+   "label": "piece of flesh",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 467,
+   "note": "Limbs, flesh, parts of the body.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "W22",
+   "label": "beer jug",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 530,
+   "note": "Pots, drinks, liquids.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Y1",
+   "label": "papyrus roll",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 533,
+   "note": "Writing and abstract notions.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Z2",
+   "label": "three strokes",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 535,
+   "note": "Plurality.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  },
+  {
+   "code": "Z1",
+   "label": "single stroke",
+   "role": "determinative",
+   "value": null,
+   "gardiner_page": 534,
+   "note": "Marks an ideogram, or singular.",
+   "status": "checked against the supplied Gardiner list (OCR text); diacritics and modern spelling from author knowledge, VERIFY against the page image"
+  }
+ ]
+}

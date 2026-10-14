@@ -1,0 +1,8 @@
+# Source texts stay local. Never commit the Gardiner PDF, its OCR text, or notes copied from it.
+source/
+*.pdf
+*.pdf.txt
+references-local/
+__pycache__/
+*.pyc
+.DS_Store
