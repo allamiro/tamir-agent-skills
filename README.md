@@ -26,8 +26,8 @@ More collections can sit beside it. Each one is a self-contained folder.
 ### Claude Code
 
 ```bash
-git clone https://github.com/allamiro/tamir-claude-skills.git
-cd tamir-claude-skills/system-design-skills
+git clone https://github.com/allamiro/tamir-agent-skills.git
+cd tamir-agent-skills/system-design-skills
 bash scripts/install.sh --claude --project /path/to/your/project
 ```
 
