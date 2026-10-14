@@ -10,7 +10,6 @@ You never need to type a skill name. Describe the problem and the agent picks th
 
 All of them. A prompt is plain text, so the same wording works in every tool that has the skills:
 Claude Code ([`claude/`](../claude/README.md)), Codex and ChatGPT ([`openai/`](../openai/README.md)).
-In ChatGPT, upload the zips first.
 
 ## Start here
 

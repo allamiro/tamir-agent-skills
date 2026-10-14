@@ -4,7 +4,7 @@
 Checks, per skill directory under skills/:
   - SKILL.md exists with YAML frontmatter; keys limited to the allowed set
   - name matches the directory, spec character rules, <= 64 chars
-  - description is 1-1024 chars and non-empty
+  - description is 1-1024 chars, non-empty, and safe as a plain YAML value (no ': ' or ' #' unless quoted)
   - body size: < 500 lines and an approximate token estimate under 5000
   - required section headings are present (the library contract)
   - code fences (``` ) are balanced; mermaid blocks are non-empty
@@ -166,6 +166,8 @@ def check_skill(name, skills_root, errors, warnings):
         errors.append("%s: description length %d not in 1..1024" % (name, len(desc)))
     elif len(desc) < 150:
         warnings.append("%s: description is short (%d chars)" % (name, len(desc)))
+    if desc[:1] not in ("'", '"') and (": " in desc or " #" in desc or desc.endswith(":")):
+        errors.append("%s: description has ': ' or ' #' in an unquoted YAML value, which strict parsers reject" % name)
     lines = text.count("\n") + 1
     toks = approx_tokens(body)
     if lines >= 500:

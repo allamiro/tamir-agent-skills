@@ -20,7 +20,8 @@ reads the language; the skills show where the doubt is instead of hiding it.
 |---|---|---|---|
 | **Claude Code** | [`claude/`](claude/README.md) | `bash scripts/install.sh --claude --project DIR` | Works |
 | **OpenAI Codex** | [`openai/`](openai/README.md#codex) | `bash scripts/install.sh --codex --project DIR` | Works |
-| **ChatGPT** | [`openai/`](openai/README.md#chatgpt) | none | Not built yet for this collection |
+| **ChatGPT desktop app** | [`openai/`](openai/README.md#chatgpt) | [5 zips](openai/chatgpt/) | Zips built; how the app takes them is not confirmed |
+| **OpenAI Skills API** | [`openai/`](openai/README.md#openai-skills-api) | [5 zips](openai/chatgpt/) | Zips built to the documented format and limits |
 
 Claude Code and Codex read the same files from [`skills/`](skills/). Nothing is copied per
 platform, so there is one place to fix a skill.
@@ -31,9 +32,9 @@ platform, so there is one place to fix a skill.
 egyptology-skills/
 ├── skills/     the 5 skills (SKILL.md plus references, scripts and templates)
 ├── claude/     Claude Code: install and use
-├── openai/     OpenAI: Codex works today, ChatGPT is not built yet
+├── openai/     OpenAI: Codex, ChatGPT and the Skills API, with chatgpt/ holding one zip per skill
 ├── prompts/    ready-to-paste prompts, one file per skill
-├── scripts/    install.sh and validate_collection.py
+├── scripts/    install.sh, build_chatgpt.py, validate_collection.py and check_answers.py
 └── assets/     banner
 ```
 
@@ -81,15 +82,35 @@ python3 skills/gardiner-sign-lookup/scripts/signs.py --mdc "G17-D21:N35"
 ## Check it
 
 ```bash
-python3 scripts/validate_collection.py          # structure, links, prompts, sign table, self-test
+python3 scripts/validate_collection.py          # structure, links, prompts, sign table, self-test, bundles current
+python3 scripts/check_answers.py                # the lookup prompts' good-answer lines against signs.py
+python3 scripts/build_chatgpt.py --fresh        # zips are valid and match the skills
 skills-ref validate skills/<name>               # official validator
+claude plugin validate skills                   # Claude Code's own check of the skill files
 ```
 
-Last run, 2026-10-14, after the folder restructure: the collection validator reports 0 errors on
-Python 3.9 and 3.14, including the navigation and prompt checks; the lookup script's 16 self-test
-checks pass on both; `skills-ref` accepts all five skills; markdownlint reports 0 issues.
+Last run, 2026-10-14: the collection validator reports 0 errors on Python 3.9 and 3.14, including the
+navigation, prompt and bundle checks; the lookup script's 16 self-test checks pass on both; `skills-ref`
+accepts all five skills and all five zips; `claude plugin validate` accepts the skills; markdownlint
+reports 0 issues; and 11 answer checks pass against the lookup script.
 
-Not run: any end-to-end test with a live agent, a description-routing test, ChatGPT bundles.
+### Live runs
+
+The five starter prompts were run once each through a real Claude Code session (2.1.296, model
+claude-opus-5-5) with the skills installed ([results](evals/live-results.md)), and again with no skills
+installed ([baseline](evals/live-results-baseline.md)). Grading is by regular expression for the key
+facts, one run per prompt, on one day.
+
+| | Expected skill invoked | Answers with every expected fact | Cost |
+|---|---|---|---|
+| With the skills | 5 of 5 | 5 of 5 | 0.76 US dollars |
+| No skills installed | 0 of 5 | 4 of 5 | 0.54 US dollars |
+
+Here the skills fired every time and the answers were complete every time, against one incomplete answer
+without them (the baseline missed one fact for `accuracy-review`). Five prompts, one run each, is too
+few to call that a measured benefit, and the skills cost more per answer. The checks cannot see the
+skills' main purpose, showing the doubt in a reading. Not run: independent grading by an Egyptologist,
+repeated runs, or a description-routing test.
 
 ## Contribute
 

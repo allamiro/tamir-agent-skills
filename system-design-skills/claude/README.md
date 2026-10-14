@@ -13,8 +13,9 @@ bash scripts/install.sh --claude --project /path/to/your/project   # this projec
 bash scripts/install.sh --claude --user                            # every project on this machine
 ```
 
-This copies all 17 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`). Install all
-of them together, because the specialists share the coordinator's templates.
+This copies all 17 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`), the two
+locations the Claude Code documentation gives for project and personal skills. Install all of them
+together, because the specialists share the coordinator's templates.
 
 | Option | Effect |
 |---|---|
@@ -24,18 +25,28 @@ of them together, because the specialists share the coordinator's templates.
 
 ## Use
 
-Describe the problem in plain language and Claude picks the skill. You can also name one by typing
-`/system-design`, `/system-design-review`, or the name of any specialist in the
-[skills table](../README.md#skills).
+The Claude Code documentation (skills page, read 2026-10-14) says Claude uses a skill when it is
+relevant, or you can invoke one directly with `/skill-name`, and that the skill's `description` is
+what Claude uses to decide when to load it. So you can describe the task in plain words, or type `/system-design`, `/system-design-review`, `/requirements-capacity`, or the name of any specialist in the [skills table](../README.md#skills).
 
-Ready-to-paste prompts, one per skill, are in [`../prompts/`](../prompts/README.md). Fill a template
-by asking for it: "write an ADR for this decision" or "run the production readiness checklist".
+The skills call their bundled scripts by a path relative to the skill folder, for example
+`python3 scripts/capacity.py`. If Claude cannot find a script, tell it the folder the skill was installed
+in. The documentation also describes a `${CLAUDE_SKILL_DIR}` variable that resolves to the skill's folder
+wherever it is installed, which you can use in your own skills.
+
+Ready-to-paste prompts, one per skill, are in [`../prompts/`](../prompts/README.md). Fill a template by asking for it: "write an ADR for this decision" or "run the production readiness checklist".
 
 ## Check that it worked
 
 ```bash
-ls .claude/skills        # should list 17 skill folders, including system-design
+ls .claude/skills                      # should list 17 skill folders
+claude plugin validate .claude/skills  # Claude Code's own check of the skill files (v2.1.233 or later, per the docs)
 ```
+
+The same check run on this collection's `skills/` folder passed with Claude Code 2.1.296. One caution:
+in a test, that check accepted a description containing a colon followed by a space, which strict YAML
+parsers reject. The stricter `skills-ref validate skills/<name>` does reject it, so these skills are
+written to pass both.
 
 ## Update or remove
 

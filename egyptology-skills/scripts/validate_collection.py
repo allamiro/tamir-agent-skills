@@ -4,7 +4,8 @@
 Checks: five expected skills; frontmatter keys; name equals directory; description length;
 SKILL.md under 500 lines; required headings; every relative link and `references/...` or
 `assets/...` mention resolves; code fences balanced; the sign table (each row has a status,
-each code maps to a Unicode character); navigation (claude/, openai/ and prompts/ files exist,
+each code maps to a Unicode character); descriptions are safe plain YAML; ChatGPT bundles (one zip per skill, current
+with the skill); navigation (claude/, openai/ and prompts/ files exist,
 relative links resolve, each skill has its own prompts file, prompt counts match the READMEs,
 prompts only use signs from the table, no skill is copied into a platform folder); no source PDF
 or source folder is tracked by git; the lookup script self-test passes.
@@ -62,6 +63,9 @@ for name in EXPECTED:
         err("%s: name %r != directory" % (name, fm.get("name")))
     if not (1 <= len(fm.get("description", "")) <= 1024):
         err("%s: description length %d" % (name, len(fm.get("description", ""))))
+    desc = fm.get("description", "")
+    if desc[:1] not in ("'", '"') and (": " in desc or " #" in desc or desc.endswith(":")):
+        err("%s: description has ': ' or ' #' in an unquoted YAML value; rephrase or quote it" % name)
     if text.count("\n") + 1 > 500:
         err("%s: SKILL.md over 500 lines" % name)
     for h in HEADINGS:
@@ -148,6 +152,29 @@ for platform in ("claude", "openai"):
     for dirpath, _dirs, files in os.walk(os.path.join(ROOT, platform)):
         if "SKILL.md" in files:
             err("%s holds a copy of a skill (%s): skills live only in skills/" % (platform, dirpath))
+
+zdir = os.path.join(ROOT, "openai", "chatgpt")
+zips = sorted(f[:-4] for f in os.listdir(zdir) if f.endswith(".zip")) if os.path.isdir(zdir) else []
+if zips != sorted(EXPECTED):
+    err("openai/chatgpt/ has zips for %s, expected %s" % (zips, sorted(EXPECTED)))
+r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build_chatgpt.py"), "--fresh"],
+                   capture_output=True, text=True)
+if r.returncode:
+    err("ChatGPT bundles are invalid or out of date: " + " | ".join(
+        ln.strip() for ln in r.stdout.splitlines() if ln.strip().startswith(("FAIL", "-")))[:400])
+
+cases_path = os.path.join(ROOT, "evals", "live_cases.json")
+if not os.path.isfile(cases_path):
+    err("missing evals/live_cases.json")
+else:
+    with open(cases_path, encoding="utf-8") as fh:
+        case_skills = sorted(c["skill"] for c in json.load(fh)["cases"])
+    if case_skills != sorted(EXPECTED):
+        err("evals/live_cases.json covers %s, expected every skill: %s" % (case_skills, sorted(EXPECTED)))
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "live_check.py"), "--dry-run"],
+                       capture_output=True, text=True)
+    if r.returncode:
+        err("scripts/live_check.py --dry-run failed: " + (r.stdout + r.stderr).strip()[-300:])
 
 try:
     out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split("\n")

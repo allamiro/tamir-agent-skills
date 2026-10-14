@@ -80,6 +80,8 @@ for t in "${targets[@]}"; do
       run ln -s "$d" "$target"
     else
       run cp -R "$d" "$target"
+      # leave out bytecode caches left behind by running a script's self-test
+      [ "$dry" -eq 1 ] || find "$target" \( -name __pycache__ -o -name '*.pyc' \) -prune -exec rm -rf {} +
     fi
     echo "installed: $target"
   done

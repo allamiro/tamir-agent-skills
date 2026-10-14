@@ -14,8 +14,8 @@ replace the `<angle-bracket>` parts with your own signs, text and sources.
 ## Which tool are these for
 
 All of them. A prompt is plain text, so the same wording works in every tool that has the skills
-installed. Today that means Claude Code ([`claude/`](../claude/README.md)) and OpenAI Codex
-([`openai/`](../openai/README.md)). There is no ChatGPT bundle for this collection yet.
+installed: Claude Code ([`claude/`](../claude/README.md)) and OpenAI Codex or ChatGPT
+([`openai/`](../openai/README.md)).
 
 You never need to type a skill name. Describe the task and the agent picks the skill.
 

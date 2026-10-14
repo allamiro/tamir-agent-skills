@@ -1,0 +1,51 @@
+{
+ "cases": [
+  {
+   "skill": "gardiner-sign-lookup",
+   "answer_regex": [
+    "13153",
+    "Bird",
+    "uniliteral",
+    "\\bm\\b"
+   ]
+  },
+  {
+   "skill": "transliteration",
+   "answer_regex": [
+    "sꜣ|zꜣ|\\bsA\\b|\\bs3\\b",
+    "determinative",
+    "A1"
+   ]
+  },
+  {
+   "skill": "text-annotation",
+   "answer_regex": [
+    "VERIFY",
+    "grade",
+    "review"
+   ]
+  },
+  {
+   "skill": "hieroglyph-app-builder",
+   "fill": {
+    "<list them>": "a Unicode hieroglyph web font and my own list of 86 signs checked against Gardiner's sign list"
+   },
+   "answer_regex": [
+    "Gardiner",
+    "fallback|missing|box|code",
+    "licen"
+   ]
+  },
+  {
+   "skill": "accuracy-review",
+   "fill": {
+    "<paste>": "Transliteration: G39 A1 = sꜣ 'son'. I am certain this is right. Source: from memory. Convention: Gardiner-era spelling."
+   },
+   "answer_regex": [
+    "memory",
+    "critical|major|severity",
+    "not checked|could not|did not check"
+   ]
+  }
+ ]
+}

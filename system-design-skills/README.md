@@ -19,10 +19,11 @@ workflow and calls only the specialists a problem needs.
 |---|---|---|---|
 | **Claude Code** | [`claude/`](claude/README.md) | `bash scripts/install.sh --claude --project DIR` | Works |
 | **OpenAI Codex** | [`openai/`](openai/README.md#codex) | `bash scripts/install.sh --codex --project DIR` | Works |
-| **ChatGPT** | [`openai/`](openai/README.md#chatgpt) | Upload zips from [`openai/chatgpt/`](openai/chatgpt/) | Zips built; app upload flow unconfirmed |
+| **ChatGPT desktop app** | [`openai/`](openai/README.md#chatgpt) | [17 zips](openai/chatgpt/) | Zips built; how the app takes them is not confirmed |
+| **OpenAI Skills API** | [`openai/`](openai/README.md#openai-skills-api) | [17 zips](openai/chatgpt/) | Zips built to the documented format and limits |
 
 Claude Code and Codex read the same files from [`skills/`](skills/). Nothing is copied per
-platform, so there is one place to fix a skill. ChatGPT needs its own zips, built from `skills/`.
+platform, so there is one place to fix a skill. The zips for ChatGPT and the API are built from `skills/`.
 
 ## What is in this folder
 
@@ -75,8 +76,8 @@ bash scripts/install.sh --codex --project /path/to/your/repo    # OpenAI Codex
 ```
 
 Add `--user` to install for every project on the machine, `--symlink` to link instead of copy,
-`--force` to replace, or `--dry-run` to preview. ChatGPT takes zips instead: see
-[`openai/`](openai/README.md#chatgpt). Details for each tool: [`claude/`](claude/README.md) and
+`--force` to replace, or `--dry-run` to preview. For ChatGPT and the OpenAI Skills API, which take zips,
+see [`openai/`](openai/README.md#chatgpt). Details for each tool: [`claude/`](claude/README.md) and
 [`openai/`](openai/README.md).
 
 ## Try it
@@ -97,13 +98,14 @@ python3 scripts/validate_library.py         # spec, sections, size, links, templ
 python3 scripts/check_routing.py            # description routing, 43 cases (incl. prompts/)
 python3 scripts/build_chatgpt.py --check    # ChatGPT bundle limits
 skills-ref validate skills/<name>           # official validator
+claude plugin validate skills               # Claude Code's own check of the skill files
 ```
 
 Last run, 2026-10-14, after the folder restructure: all 17 skills and all 17 ChatGPT bundles pass
 `skills-ref`, the library validator reports 0 errors (including the navigation check), routing
 passes 43 of 43, both script self-tests pass, the 17 zips are byte-identical to a fresh build, and
-markdownlint reports 0 issues. The 11 Mermaid diagrams were parsed earlier the same day; the skills
-have not changed since. Routing is a word-match check, not a model of how an LLM picks a skill.
+markdownlint reports 0 issues, and `claude plugin validate` accepts the skills. The 11 Mermaid diagrams
+were parsed earlier the same day; the skills have not changed since. Routing is a word-match check, not a model of how an LLM picks a skill.
 
 Not run yet: the five end-to-end scenarios in [`evals/scenarios.md`](evals/scenarios.md). They need a
 live agent and a person to grade them.

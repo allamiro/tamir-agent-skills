@@ -30,14 +30,21 @@ knows one can navigate any other:
 ├── README.md    scope, a "Which one is for my tool?" table, verification status
 ├── skills/      the skills; Claude Code and Codex both read these files
 ├── claude/      README.md: Claude Code install and use
-├── openai/      README.md: Codex and ChatGPT; chatgpt/ holds zips if you build them
+├── openai/      README.md: Codex, ChatGPT and the Skills API; chatgpt/ holds one zip per skill
 ├── prompts/     README.md index; one file of prompts per skill where a skill needs several
-├── scripts/     install.sh (--claude, --codex) and validators
+├── scripts/     install.sh (--claude, --codex), build_chatgpt.py, validators, and check_answers.py where
+│                prompts have computable answers
 └── assets/      banner
 ```
 
 Skills live only in `skills/`. Do not copy a skill into `claude/` or `openai/`; the validators
-reject it. If a platform is not supported yet, say so in its README instead of leaving it out.
+reject it. Build the zips with `scripts/build_chatgpt.py` and commit them; the validators fail when a
+committed zip is out of date with its skill. If a platform is not supported, say so in its README
+instead of leaving it out, and say what the platform's documentation does and does not confirm.
+
+Keep each skill's `description` valid as a plain YAML value: no colon followed by a space and no
+space before a hash sign, unless the value is quoted. Claude Code's own check accepted such a
+description in a test, but `skills-ref` rejects it, and the validators here check for it.
 Add the collection to the tables in the root README.
 
 ## Content rules
@@ -53,13 +60,16 @@ Add the collection to the tables in the root README.
 
 ## Checks to run
 
-From the collection directory (for example `system-design-skills/`):
+From the collection directory (for example `system-design-skills/`; the Egyptology and
+Bioinformatics collections use `scripts/validate_collection.py` instead of `validate_library.py`):
 
 ```bash
 python3 scripts/validate_library.py          # spec rules, sections, size, links, templates, navigation, script self-tests
 python3 scripts/check_routing.py --verbose   # description routing smoke test
-python3 scripts/build_chatgpt.py --check     # bundle limits for ChatGPT / OpenAI uploads
+python3 scripts/build_chatgpt.py --check     # bundle limits for ChatGPT / OpenAI uploads (--fresh also checks the committed zips)
 skills-ref validate skills/<name>            # official Agent Skills validator
+claude plugin validate skills                # Claude Code's own check of the skill files
+python3 scripts/live_check.py --dry-run      # Egyptology and Bioinformatics: plan real-agent runs; --run spends API credit
 ```
 
 `skills-ref` comes from the
