@@ -1,0 +1,166 @@
+{
+ "cases": [
+  {
+   "skill": "bioinformatics-workflow",
+   "answer_regex": [
+    "null",
+    "batch",
+    "claim"
+   ]
+  },
+  {
+   "skill": "experimental-design",
+   "answer_regex": [
+    "\\b64\\b",
+    "\\b2[45]\\d\\b"
+   ]
+  },
+  {
+   "skill": "biological-databases",
+   "answer_regex": [
+    "RefSeq",
+    "version"
+   ]
+  },
+  {
+   "skill": "data-governance-ethics",
+   "answer_regex": [
+    "not (be )?anonymous|identif|re-identif",
+    "relative|unique",
+    "consent|agreement"
+   ]
+  },
+  {
+   "skill": "sequence-formats",
+   "prompt": 1,
+   "fill": {
+    "<paste or give the path>": ">seq1 first\nACGTACGTAC\n>seq2\nACGTACGTACGTACGTACGTACGT\n>seq1 again\nMKVLEF\n>empty\n"
+   },
+   "answer_regex": [
+    "duplicate|repeated",
+    "protein",
+    "empty"
+   ]
+  },
+  {
+   "skill": "ngs-pipelines",
+   "answer_regex": [
+    "\\b99\\b|paired",
+    "147",
+    "reverse"
+   ]
+  },
+  {
+   "skill": "sequence-alignment",
+   "answer_regex": [
+    "score[^.\\n]{0,25}\\b0\\b|\\*\\*0\\*\\*",
+    "three|3 (optimal|alignments)"
+   ]
+  },
+  {
+   "skill": "gene-finding-translation",
+   "answer_regex": [
+    "MK\\*",
+    "stop"
+   ]
+  },
+  {
+   "skill": "protein-analysis",
+   "answer_regex": [
+    "1045\\.5"
+   ]
+  },
+  {
+   "skill": "phylogenetics",
+   "answer_regex": [
+    "0\\.107",
+    "saturat|0\\.75|undefined"
+   ]
+  },
+  {
+   "skill": "variants-population-genetics",
+   "fill": {
+    "<paste a line>": "chr1\t100\t.\tA\tG\t50\tPASS\t.\tGT:DP\t0/1:12\t1|1:9"
+   },
+   "answer_regex": [
+    "1-based",
+    "unphased",
+    "phased"
+   ]
+  },
+  {
+   "skill": "omics-data-analysis",
+   "answer_regex": [
+    "batch",
+    "PCA",
+    "replicate|confound"
+   ]
+  },
+  {
+   "skill": "information-theory-sequences",
+   "answer_regex": [
+    "2(\\.0+)? bits|\\b2\\.0+\\b",
+    "2\\.8"
+   ]
+  },
+  {
+   "skill": "sequence-statistics",
+   "answer_regex": [
+    "\\b16\\b",
+    "\\b12\\b",
+    "\\b10\\b"
+   ]
+  },
+  {
+   "skill": "machine-learning-biology",
+   "answer_regex": [
+    "baseline|always (predict|say)|majority",
+    "average precision|MCC|precision-recall|AUPRC"
+   ]
+  },
+  {
+   "skill": "bioinformatics-programming",
+   "answer_regex": [
+    "stream|one record at a time|line by line",
+    "memory"
+   ]
+  },
+  {
+   "skill": "reproducible-research-code",
+   "answer_regex": [
+    "checksum",
+    "seed",
+    "environment|lock"
+   ]
+  },
+  {
+   "skill": "research-writing-reporting",
+   "fill": {
+    "<paste>": "Reads: SRR1234567 (3 treated, 3 control) aligned to GRCh38 with tool A v1.2; counts from tool B v3.1; differential test with Benjamini-Hochberg correction at 0.05; seed 42."
+   },
+   "answer_regex": [
+    "GRCh38",
+    "SRR1234567",
+    "Benjamini|BH"
+   ]
+  },
+  {
+   "skill": "bioinformatics-review",
+   "fill": {
+    "<paste methods and results>": "Methods: we tested 15,000 genes between 3 treated and 3 control samples with t-tests. Treated samples were sequenced in batch 1 and controls in batch 2. We report the 300 genes with p < 0.05 as significantly differentially expressed. Code is available on request."
+   },
+   "answer_regex": [
+    "batch",
+    "correct|multiple",
+    "critical|major"
+   ]
+  },
+  {
+   "skill": "bioinformatics-learning-path",
+   "answer_regex": [
+    "week",
+    "program|Python|script"
+   ]
+  }
+ ]
+}

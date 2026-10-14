@@ -1,0 +1,8 @@
+# Source texts stay local. Never commit the book (Ramsden), a PDF of it, text copied from it, or notes copied from it.
+source/
+*.pdf
+*.pdf.txt
+references-local/
+__pycache__/
+*.pyc
+.DS_Store
