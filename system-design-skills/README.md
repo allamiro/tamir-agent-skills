@@ -99,14 +99,6 @@ diagrams parse. Routing is a word-match check, not a model of how an LLM picks a
 Not run yet: the five end-to-end scenarios in [`evals/scenarios.md`](evals/scenarios.md). They need a
 live agent and a person to grade them.
 
-## About the source
-
-The skills draw on ByteByteGo's *System Design: The Big Archive* (May 2022), which is not included.
-Only the table of contents and the text of pages 4 to 44 were read. Claims about later pages are
-marked "TOC-anchored only", and modern guidance comes from official docs fetched on 2026-10-14 or is
-marked `VERIFY`. See `skills/system-design/references/book-provenance.md` and
-`modernization-notes.md`.
-
 ## Contribute
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) and [`docs/authoring-guide.md`](docs/authoring-guide.md).
@@ -114,3 +106,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) and [`docs/authoring-guide.md`](docs/a
 ## License
 
 Apache-2.0
+
+## Citation
+
+ByteByteGo. 2022. *System Design: The Big Archive*. May 2022.
