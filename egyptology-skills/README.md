@@ -64,25 +64,6 @@ checks pass on Python 3.9 and 3.14, and `skills-ref` accepts all five skills.
 
 Not run: any end-to-end test with a live agent, a description-routing test, ChatGPT bundles.
 
-## Source and limits
-
-The 86 sign readings were checked against the sign-list pages of Gardiner's *Egyptian Grammar*
-(3rd ed., 1957) from a supplied copy whose text came through OCR. The pictures and many
-diacritics were corrupted, so the sound values were checked by sign code and description, and
-modern transliteration spellings come from author knowledge. A second manual pass on
-2026-10-14 re-read all 86 rows against the supplied pages (values, roles, page numbers) and
-found no changes. No script could check the page images, because the PDF is not on disk, so
-the diacritics still need a person with the page open. Each row carries that status and says
-to check it against the page image (`VERIFY`).
-
-The book is not included and none of its text is reproduced: the sign table uses short original
-labels, Unicode names and page references. The book is likely still in copyright, which I believe
-runs to about 2033 in the UK and EU. That is not legal advice. Keep your own copy under `source/`,
-which is git-ignored.
-
-The table is small on purpose. A sign that is not in it gets its Unicode data and a `VERIFY`
-flag, not a guessed reading.
-
 ## Contribute
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md). Add a sign to the table only with a source and a status.
@@ -90,3 +71,8 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md). Add a sign to the table only with a s
 ## License
 
 Apache-2.0
+
+## Citation
+
+Gardiner, Alan H. 1957. *Egyptian Grammar: Being an Introduction to the Study of Hieroglyphs*.
+3rd ed. Oxford: Griffith Institute. Sign-list, pp. 438-548.
