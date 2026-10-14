@@ -1,0 +1,524 @@
+{
+ "_note": "Source of the evaluation cases. See ../../TESTING.md. outcome cases run with and without the skills; trigger cases run with the skills only.",
+ "outcome": [
+  {
+   "skill": "bioinformatics-workflow",
+   "facts": [
+    "null",
+    "batch",
+    "claim"
+   ]
+  },
+  {
+   "skill": "experimental-design",
+   "facts": [
+    "\\b64\\b",
+    "\\b2[45]\\d\\b"
+   ],
+   "script": "design.py"
+  },
+  {
+   "skill": "biological-databases",
+   "facts": [
+    "RefSeq",
+    "version"
+   ],
+   "script": "accessions.py"
+  },
+  {
+   "skill": "data-governance-ethics",
+   "facts": [
+    "not (be )?anonymous|identif|re-identif",
+    "relative|unique",
+    "consent|agreement"
+   ]
+  },
+  {
+   "skill": "sequence-formats",
+   "fill": {
+    "<paste or give the path>": ">seq1 first\nACGTACGTAC\n>seq2\nACGTACGTACGTACGTACGTACGT\n>seq1 again\nMKVLEF\n>empty\n"
+   },
+   "facts": [
+    "duplicate|repeated",
+    "protein",
+    "empty"
+   ],
+   "script": "seqformats.py"
+  },
+  {
+   "skill": "ngs-pipelines",
+   "facts": [
+    "\\b99\\b|paired",
+    "147",
+    "reverse"
+   ],
+   "script": "ngs.py"
+  },
+  {
+   "skill": "sequence-alignment",
+   "facts": [
+    "score[^.\\n]{0,25}\\b0\\b|\\*\\*0\\*\\*",
+    "three|3 (optimal|alignments)"
+   ],
+   "script": "align.py"
+  },
+  {
+   "skill": "gene-finding-translation",
+   "facts": [
+    "MK\\*",
+    "stop"
+   ],
+   "script": "genecode.py"
+  },
+  {
+   "skill": "protein-analysis",
+   "facts": [
+    "1045\\.5"
+   ],
+   "script": "protein.py"
+  },
+  {
+   "skill": "phylogenetics",
+   "facts": [
+    "0\\.107",
+    "saturat|0\\.75|undefined"
+   ],
+   "script": "tree.py"
+  },
+  {
+   "skill": "variants-population-genetics",
+   "fill": {
+    "<paste a line>": "chr1\t100\t.\tA\tG\t50\tPASS\t.\tGT:DP\t0/1:12\t1|1:9"
+   },
+   "facts": [
+    "1-based",
+    "unphased",
+    "phased"
+   ],
+   "script": "popgen.py"
+  },
+  {
+   "skill": "omics-data-analysis",
+   "facts": [
+    "batch",
+    "PCA",
+    "replicate|confound"
+   ]
+  },
+  {
+   "skill": "information-theory-sequences",
+   "facts": [
+    "2(\\.0+)? bits|\\b2\\.0+\\b",
+    "2\\.8"
+   ],
+   "script": "seqinfo.py"
+  },
+  {
+   "skill": "sequence-statistics",
+   "facts": [
+    "\\b16\\b",
+    "\\b12\\b",
+    "\\b10\\b"
+   ],
+   "script": "seqstats.py"
+  },
+  {
+   "skill": "machine-learning-biology",
+   "facts": [
+    "baseline|always (predict|say)|majority",
+    "average precision|MCC|precision-recall|AUPRC"
+   ],
+   "script": "mlmetrics.py"
+  },
+  {
+   "skill": "bioinformatics-programming",
+   "facts": [
+    "stream|one record at a time|line by line",
+    "memory"
+   ],
+   "script": "bioprog.py"
+  },
+  {
+   "skill": "reproducible-research-code",
+   "facts": [
+    "checksum",
+    "seed",
+    "environment|lock"
+   ]
+  },
+  {
+   "skill": "research-writing-reporting",
+   "fill": {
+    "<paste>": "Reads: SRR1234567 (3 treated, 3 control) aligned to GRCh38 with tool A v1.2; counts from tool B v3.1; differential test with Benjamini-Hochberg correction at 0.05; seed 42."
+   },
+   "facts": [
+    "GRCh38",
+    "SRR1234567",
+    "Benjamini|BH"
+   ]
+  },
+  {
+   "skill": "bioinformatics-review",
+   "fill": {
+    "<paste methods and results>": "Methods: we tested 15,000 genes between 3 treated and 3 control samples with t-tests. Treated samples were sequenced in batch 1 and controls in batch 2. We report the 300 genes with p < 0.05 as significantly differentially expressed. Code is available on request."
+   },
+   "facts": [
+    "batch",
+    "correct|multiple",
+    "critical|major"
+   ]
+  },
+  {
+   "skill": "bioinformatics-learning-path",
+   "facts": [
+    "week",
+    "program|Python|script"
+   ]
+  },
+  {
+   "skill": "literature-search-appraisal",
+   "number": 2,
+   "fill": {
+    "<paste references>": "(1) Gardiner, A. H. Egyptian Grammar. Oxford, 1957. (2) Nobody, N. 2019. A new result. J Imaginary Biol 5:1-9. doi:10.1000/imaginary.2019.1"
+   },
+   "facts": [
+    "recalled",
+    "DOI",
+    "not (show|prove)|does not (show|prove)|cannot (show|prove)"
+   ],
+   "script": "citecheck.py",
+   "presupposes_skill": true
+  },
+  {
+   "skill": "method-benchmarking",
+   "facts": [
+    "\\b11\\b|0\\.11",
+    "noise|chance|not (a )?(real|reliable)|within",
+    "McNemar|paired"
+   ],
+   "script": "benchstats.py"
+  },
+  {
+   "skill": "research-proposal-planning",
+   "number": 2,
+   "facts": [
+    "\\b20\\b",
+    "\\b26\\b",
+    "not fit|does not|doesn't fit"
+   ]
+  }
+ ],
+ "trigger": [
+  {
+   "id": "bi-work-pos",
+   "prompt": "I have RNA-seq from treated and control mice and my PI wants 'something interesting' by Friday. how should I go about it so I don't fool myself?",
+   "expect": "bioinformatics-workflow",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-work-neg",
+   "prompt": "Explain what RNA-seq is in two paragraphs for a high-school student.",
+   "expect": null,
+   "avoid": "bioinformatics-workflow",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-design-pos",
+   "prompt": "I can only afford 12 sequencing libraries. how should I split the treated and untreated mice across two sequencing runs?",
+   "expect": "experimental-design",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-design-neg",
+   "prompt": "What is a p-value? Explain it simply.",
+   "expect": null,
+   "avoid": "experimental-design",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-db-pos",
+   "prompt": "my collaborator sent a table with IDs like ENSG00000141510 and NM_000546 and wants it merged with a UniProt list. what do I need to watch out for?",
+   "expect": "biological-databases",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-db-neg",
+   "prompt": "Write a Python function that reads a CSV with pandas and prints the first five rows.",
+   "expect": null,
+   "avoid": "biological-databases",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-gov-pos",
+   "prompt": "we have whole-genome sequences from patients in a clinic study and a collaborator abroad wants the VCFs. what do we need to sort out before sending anything?",
+   "expect": "data-governance-ethics",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-gov-neg",
+   "prompt": "How do I encrypt a file with gpg on Linux?",
+   "expect": null,
+   "avoid": "data-governance-ethics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-fmt-pos",
+   "prompt": "my aligner crashed on a file somebody exported from a spreadsheet and renamed to .fa. how do I find out what is wrong with it?",
+   "expect": "sequence-formats",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-fmt-neg",
+   "prompt": "How do I convert a Word document to PDF on a Mac?",
+   "expect": null,
+   "avoid": "sequence-formats",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-ngs-pos",
+   "prompt": "I have paired-end whole-genome reads from a bacterial isolate and want variants against a reference. what steps, in what order, and how do I check each one worked?",
+   "expect": "ngs-pipelines",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-ngs-neg",
+   "prompt": "What is the difference between Illumina and Nanopore sequencing? One paragraph, please.",
+   "expect": null,
+   "avoid": "ngs-pipelines",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-align-pos",
+   "prompt": "how similar are these two short DNA sequences, and is that score better than chance? GCATGCG and GATTACA",
+   "expect": "sequence-alignment",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-align-neg",
+   "prompt": "How do I install BLAST+ on Ubuntu?",
+   "expect": null,
+   "avoid": "sequence-alignment",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-gene-pos",
+   "prompt": "here is a stretch of bacterial DNA. I want every protein it could encode in all six frames and whether the long ones are real or just chance: ATGAAAGCCTTTGGCGATTAAGGCATGCCCTGA",
+   "expect": "gene-finding-translation",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-gene-neg",
+   "prompt": "What is the central dogma of molecular biology?",
+   "expect": null,
+   "avoid": "gene-finding-translation",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-prot-pos",
+   "prompt": "what is the molecular weight and where are the hydrophobic stretches of this peptide: MKTAYIAKQRQISFVKSHFSRQ? could it be a membrane protein?",
+   "expect": "protein-analysis",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-prot-neg",
+   "prompt": "Explain at a high level how AlphaFold works.",
+   "expect": null,
+   "avoid": "protein-analysis",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-phy-pos",
+   "prompt": "I have a distance table for five species and want a tree out of it, and I need to know whether I can trust the root.",
+   "expect": "phylogenetics",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-phy-neg",
+   "prompt": "How do I install RAxML on a Linux cluster?",
+   "expect": null,
+   "avoid": "phylogenetics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-var-pos",
+   "prompt": "the sequencing core sent a VCF. I need allele frequencies, to know whether the genotypes follow Hardy-Weinberg, and what the positions mean.",
+   "expect": "variants-population-genetics",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-var-neg",
+   "prompt": "What is a SNP? Explain it to a first-year student.",
+   "expect": null,
+   "avoid": "variants-population-genetics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-omics-pos",
+   "prompt": "my differential expression results look odd: PC1 separates the samples by sequencing date instead of treatment. what do I do?",
+   "expect": "omics-data-analysis",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-omics-neg",
+   "prompt": "Make a bar chart of mean gene expression per group in matplotlib from a pandas DataFrame.",
+   "expect": null,
+   "avoid": "omics-data-analysis",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-info-pos",
+   "prompt": "how conserved is this alignment column, how many bits of information does the motif carry, and is gzip size a fair way to compare two genomes?",
+   "expect": "information-theory-sequences",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-info-neg",
+   "prompt": "What is Shannon's channel capacity theorem? Explain it in plain words.",
+   "expect": null,
+   "avoid": "information-theory-sequences",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-stat-pos",
+   "prompt": "I found the motif GATC 18 times in a 5 kb region and expected about 5. is that surprising, and how do I correct for scanning thousands of regions?",
+   "expect": "sequence-statistics",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-stat-neg",
+   "prompt": "Explain what a t-test is and when to use it.",
+   "expect": null,
+   "avoid": "sequence-statistics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-ml-pos",
+   "prompt": "my classifier for enhancer sequences gets 98 percent accuracy on the test split but only 1 in 100 sequences is an enhancer. should I be happy?",
+   "expect": "machine-learning-biology",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-ml-neg",
+   "prompt": "How do I install PyTorch with CUDA on Windows?",
+   "expect": null,
+   "avoid": "machine-learning-biology",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-prog-pos",
+   "prompt": "my Python script that counts k-mers in a 20 GB FASTA file runs out of memory and runs all night. how do I fix it?",
+   "expect": "bioinformatics-programming",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-prog-neg",
+   "prompt": "How do I sort a Python dictionary by value?",
+   "expect": null,
+   "avoid": "bioinformatics-programming",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-repro-pos",
+   "prompt": "reviewers want our pipeline to be rerunnable and I can't even get my own numbers back from last year. how do I set the project up properly?",
+   "expect": "reproducible-research-code",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-repro-neg",
+   "prompt": "How do I undo my last git commit but keep the changes?",
+   "expect": null,
+   "avoid": "reproducible-research-code",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-write-pos",
+   "prompt": "draft the methods paragraph for our RNA-seq analysis and phrase the main result so it does not overclaim: we found 300 genes at FDR 5 percent.",
+   "expect": "research-writing-reporting",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-write-neg",
+   "prompt": "Translate this abstract into Spanish: We sequenced 12 samples and found that expression of gene X rose after treatment.",
+   "expect": null,
+   "avoid": "research-writing-reporting",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-review-pos",
+   "prompt": "before I submit, tear this analysis apart: we used the same samples to pick genes and to test the classifier, then reported 95 percent accuracy.",
+   "expect": "bioinformatics-review",
+   "kind": "contextual"
+  },
+  {
+   "id": "bi-review-neg",
+   "prompt": "Review this Python function for style issues: def f(x): return x*2",
+   "expect": null,
+   "avoid": "bioinformatics-review",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-learn-pos",
+   "prompt": "I'm a wet-lab biologist who has never coded. what should I learn first so I can analyse my own sequencing data, and how will I know I'm getting it?",
+   "expect": "bioinformatics-learning-path",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-learn-neg",
+   "prompt": "Recommend a good laptop for software development.",
+   "expect": null,
+   "avoid": "bioinformatics-learning-path",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-lit-pos",
+   "prompt": "which RNA-seq normalisation method is best for small sample sizes? find me the evidence and tell me whether the main papers can be trusted.",
+   "expect": "literature-search-appraisal",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-lit-neg",
+   "prompt": "Explain what peer review is and how long it usually takes.",
+   "expect": null,
+   "avoid": "literature-search-appraisal",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-bench-pos",
+   "prompt": "we wrote a new variant caller and it scores 0.83 against 0.81 for the standard one on our 200 test variants. can we say it is better?",
+   "expect": "method-benchmarking",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-bench-neg",
+   "prompt": "How do I run GATK HaplotypeCaller on a BAM file?",
+   "expect": null,
+   "avoid": "method-benchmarking",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-plan-pos",
+   "prompt": "I have six months and a public single-cell dataset. help me turn 'why do some tumours resist this drug' into a plan I can show my supervisor.",
+   "expect": "research-proposal-planning",
+   "kind": "implicit"
+  },
+  {
+   "id": "bi-plan-neg",
+   "prompt": "Write a cover letter for a bioinformatics analyst job.",
+   "expect": null,
+   "avoid": "research-proposal-planning",
+   "kind": "near-miss"
+  },
+  {
+   "id": "bi-none-1",
+   "prompt": "Write a Python function that reverses a linked list.",
+   "expect": null,
+   "kind": "unrelated"
+  },
+  {
+   "id": "bi-none-2",
+   "prompt": "What is a good name for a golden retriever puppy?",
+   "expect": null,
+   "kind": "unrelated"
+  }
+ ]
+}

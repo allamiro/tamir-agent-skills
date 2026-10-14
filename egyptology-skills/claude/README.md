@@ -13,7 +13,7 @@ bash scripts/install.sh --claude --project /path/to/your/project   # this projec
 bash scripts/install.sh --claude --user                            # every project on this machine
 ```
 
-This copies all 5 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`), the two
+This copies all 8 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`), the two
 locations the Claude Code documentation gives for project and personal skills. Install all of them
 together, because they refer to each other.
 
@@ -27,7 +27,7 @@ together, because they refer to each other.
 
 The Claude Code documentation (skills page, read 2026-10-14) says Claude uses a skill when it is
 relevant, or you can invoke one directly with `/skill-name`, and that the skill's `description` is
-what Claude uses to decide when to load it. So you can describe the task in plain words, or type `/gardiner-sign-lookup`, `/transliteration`, `/text-annotation`, `/hieroglyph-app-builder` or `/accuracy-review`.
+what Claude uses to decide when to load it. So you can describe the task in plain words, or type `/gardiner-sign-lookup`, `/transliteration`, `/text-annotation`, `/hieroglyph-app-builder`, `/accuracy-review`, `/egyptology-literature`, `/edition-conventions` or `/provenance-research-ethics`.
 
 The skills call their bundled scripts by a path relative to the skill folder, for example
 `python3 scripts/signs.py`. If Claude cannot find a script, tell it the folder the skill was installed
@@ -39,7 +39,7 @@ Ready-to-paste prompts, one file per skill, are in [`../prompts/`](../prompts/RE
 ## Check that it worked
 
 ```bash
-ls .claude/skills                      # should list 5 skill folders
+ls .claude/skills                      # should list 8 skill folders
 claude plugin validate .claude/skills  # Claude Code's own check of the skill files (v2.1.233 or later, per the docs)
 ```
 
@@ -52,7 +52,7 @@ written to pass both.
 
 - Update: pull this repo and run the install again with `--force`, or install with `--symlink`
   once and skip updating.
-- Remove: delete the 5 folders from `.claude/skills/`.
+- Remove: delete the 8 folders from `.claude/skills/`.
 
 ## Not covered
 

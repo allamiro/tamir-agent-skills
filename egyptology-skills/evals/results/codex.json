@@ -1,0 +1,285 @@
+{
+ "meta": {
+  "collection": "egyptology-skills",
+  "codex_version": "codex-cli 0.162.1",
+  "model": "default"
+ },
+ "summary": [
+  {
+   "skill": "gardiner-sign-lookup",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 67657,
+   "cached_tokens": 50944,
+   "out_tokens": 372,
+   "seconds": 19.2,
+   "error": null
+  },
+  {
+   "skill": "gardiner-sign-lookup",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    false,
+    true
+   ],
+   "all_facts": false,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 152704,
+   "cached_tokens": 98048,
+   "out_tokens": 602,
+   "seconds": 41.4,
+   "error": null
+  },
+  {
+   "skill": "transliteration",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 148265,
+   "cached_tokens": 112128,
+   "out_tokens": 637,
+   "seconds": 34.0,
+   "error": null
+  },
+  {
+   "skill": "transliteration",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 71400,
+   "cached_tokens": 30848,
+   "out_tokens": 406,
+   "seconds": 27.0,
+   "error": null
+  },
+  {
+   "skill": "text-annotation",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 121905,
+   "cached_tokens": 86912,
+   "out_tokens": 634,
+   "seconds": 31.7,
+   "error": null
+  },
+  {
+   "skill": "text-annotation",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 43903,
+   "cached_tokens": 19840,
+   "out_tokens": 296,
+   "seconds": 39.7,
+   "error": null
+  },
+  {
+   "skill": "hieroglyph-app-builder",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 191144,
+   "cached_tokens": 152960,
+   "out_tokens": 2484,
+   "seconds": 112.4,
+   "error": null
+  },
+  {
+   "skill": "hieroglyph-app-builder",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 198519,
+   "cached_tokens": 134272,
+   "out_tokens": 2344,
+   "seconds": 105.7,
+   "error": null
+  },
+  {
+   "skill": "accuracy-review",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 253257,
+   "cached_tokens": 205056,
+   "out_tokens": 1461,
+   "seconds": 76.9,
+   "error": null
+  },
+  {
+   "skill": "accuracy-review",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 151954,
+   "cached_tokens": 115072,
+   "out_tokens": 941,
+   "seconds": 51.8,
+   "error": null
+  },
+  {
+   "skill": "egyptology-literature",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 181193,
+   "cached_tokens": 139264,
+   "out_tokens": 1225,
+   "seconds": 64.9,
+   "error": null
+  },
+  {
+   "skill": "egyptology-literature",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 159468,
+   "cached_tokens": 119424,
+   "out_tokens": 1060,
+   "seconds": 47.8,
+   "error": null
+  },
+  {
+   "skill": "edition-conventions",
+   "arm": "with",
+   "facts": [
+    false,
+    true,
+    true
+   ],
+   "all_facts": false,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 100618,
+   "cached_tokens": 79104,
+   "out_tokens": 717,
+   "seconds": 41.0,
+   "error": null
+  },
+  {
+   "skill": "edition-conventions",
+   "arm": "without",
+   "facts": [
+    false,
+    true,
+    true
+   ],
+   "all_facts": false,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 19982,
+   "cached_tokens": 7168,
+   "out_tokens": 215,
+   "seconds": 11.2,
+   "error": null
+  },
+  {
+   "skill": "provenance-research-ethics",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 102817,
+   "cached_tokens": 80256,
+   "out_tokens": 1061,
+   "seconds": 41.7,
+   "error": null
+  },
+  {
+   "skill": "provenance-research-ethics",
+   "arm": "without",
+   "facts": [
+    false,
+    false,
+    true,
+    true
+   ],
+   "all_facts": false,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 111047,
+   "cached_tokens": 78848,
+   "out_tokens": 1596,
+   "seconds": 57.4,
+   "error": null
+  }
+ ]
+}

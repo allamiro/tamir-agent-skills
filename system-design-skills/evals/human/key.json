@@ -1,0 +1,102 @@
+{
+ "P01": {
+  "skill": "api-networking",
+  "a": "with",
+  "b": "without"
+ },
+ "P02": {
+  "skill": "architecture-scaling",
+  "a": "without",
+  "b": "with"
+ },
+ "P03": {
+  "skill": "caching-performance",
+  "a": "without",
+  "b": "with"
+ },
+ "P04": {
+  "skill": "database-selection",
+  "a": "with",
+  "b": "without"
+ },
+ "P05": {
+  "skill": "deployment-delivery",
+  "a": "with",
+  "b": "without"
+ },
+ "P06": {
+  "skill": "geospatial-design",
+  "a": "with",
+  "b": "without"
+ },
+ "P07": {
+  "skill": "identity-security",
+  "a": "without",
+  "b": "with"
+ },
+ "P08": {
+  "skill": "messaging-streaming",
+  "a": "without",
+  "b": "with"
+ },
+ "P09": {
+  "skill": "observability",
+  "a": "with",
+  "b": "without"
+ },
+ "P10": {
+  "skill": "payment-systems",
+  "a": "with",
+  "b": "without"
+ },
+ "P11": {
+  "skill": "performance-evaluation-methodology",
+  "a": "without",
+  "b": "with"
+ },
+ "P12": {
+  "skill": "reliability-resilience",
+  "a": "with",
+  "b": "without"
+ },
+ "P13": {
+  "skill": "requirements-capacity",
+  "a": "without",
+  "b": "with"
+ },
+ "P14": {
+  "skill": "sharding-replication",
+  "a": "with",
+  "b": "without"
+ },
+ "P15": {
+  "skill": "storage-systems",
+  "a": "with",
+  "b": "without"
+ },
+ "P16": {
+  "skill": "system-design",
+  "a": "without",
+  "b": "with"
+ },
+ "P17": {
+  "skill": "system-design-review",
+  "a": "with",
+  "b": "without"
+ },
+ "P18": {
+  "skill": "systems-literature-reading",
+  "a": "without",
+  "b": "with"
+ },
+ "P19": {
+  "skill": "systems-research-writing",
+  "a": "without",
+  "b": "with"
+ },
+ "P20": {
+  "skill": "transactions-consistency",
+  "a": "with",
+  "b": "without"
+ }
+}

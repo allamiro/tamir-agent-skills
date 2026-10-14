@@ -14,5 +14,5 @@
     "MD041": false,
     "MD060": false
   },
-  "ignores": ["source/**", "node_modules/**", "references/**"]
+  "ignores": ["evals/human/**", "source/**", "node_modules/**", "references/**"]
 }

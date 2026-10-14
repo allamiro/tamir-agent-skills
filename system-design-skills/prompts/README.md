@@ -124,3 +124,59 @@ Claude Code ([`claude/`](../claude/README.md)), Codex and ChatGPT ([`openai/`](.
 > Review the architecture in docs/architecture.md and the code under services/. Give me findings with evidence, severity, impact and a fix for each one.
 
 [Open the skill](../skills/system-design-review/SKILL.md)
+
+## Academic and research
+
+These three come with several prompts each, because research work is rarely one question. Each
+prompt ends with what a good answer contains, so you can tell whether the skill did its job.
+
+### `systems-literature-reading`
+
+> Read the Raft paper (Ongaro and Ousterhout, USENIX ATC 2014) for me. We run a five-node cluster across three availability zones. Give me the claim record, what the paper assumes about failures and the network, and whether those assumptions hold for us. Say what you read and what you are recalling.
+
+More prompts:
+
+- Check this reference list for citations that might be invented or wrong, and tell me what the checker proves and what it does not: <paste references>
+- A vendor whitepaper says their database does 1 million writes per second at 2 ms p99. How do I decide whether to believe it, and what do I ask them?
+- What does the research say about leaderless versus single-leader replication? Give me a short reading list and mark each entry read, seen or recalled.
+- Compare the Dynamo and Spanner papers for a global inventory system. Which assumptions of each fail for us?
+
+A good answer: a claim record with workload, baseline, failure model and what is not claimed; a verdict
+on whether each assumption holds for the user's system; every reference marked read, seen or recalled
+with nothing presented as verified that was not; and a plain statement when the paper itself could not be opened.
+
+[Open the skill](../skills/systems-literature-reading/SKILL.md)
+
+### `performance-evaluation-methodology`
+
+> I benchmarked old and new builds, 5 runs each: mean latency 41 ms for the old and 38 ms for the new. My manager wants to ship it as "7% faster". Is that supportable? Tell me what to check, what to run, and what I can honestly say today.
+
+More prompts:
+
+- My load test keeps 200 connections open and each waits for its reply before sending again. The server stalls for 3 seconds at peak, yet my p99 is only 120 ms. Why, and what do I change?
+- How many samples do I need to report p99.9 honestly, and how many independent runs for plus or minus 2% on mean throughput if run-to-run variation is 8% (coefficient of variation 0.08)?
+- Review the evaluation section of this paper for benchmarking mistakes: <paste>
+- Plan a benchmark that compares PostgreSQL with a document database for our order workload, including the A/A test.
+
+A good answer: no "7% faster" claim from five means without an interval and an A/A noise floor; the
+open-loop and coordinated-omission explanation; 10,000 samples for p99.9 with ten tail samples and 62
+runs for the throughput question; and the computation shown or run, not guessed.
+
+[Open the skill](../skills/performance-evaluation-methodology/SKILL.md)
+
+### `systems-research-writing`
+
+> I built a distributed scheduler that cuts tail latency by 30% in our cluster. Help me turn it into a paper: write the claim, at most three contributions, a claims-evidence matrix with the limit of each claim, and an outline for a systems conference.
+
+More prompts:
+
+- Review this submission as reviewer 2, with major concerns first, each with the page or figure and what would resolve it: <paste>
+- Reviewer 3 says our baseline is untuned and our results come from one run. Draft a response that does not promise results we do not have.
+- What do I need to prepare an artifact for the "available" and "functional" badges, and which claims should I narrow?
+- My co-author used an AI tool to draft related work. What should we disclose, and how do we make sure its references are real?
+
+A good answer: falsifiable contributions each tied to evidence and a limit; a rebuttal that separates
+what will be changed from what is only argued; a note to check the venue's current badge and AI rules
+rather than assuming them; and reference checking before submission.
+
+[Open the skill](../skills/systems-research-writing/SKILL.md)

@@ -5,6 +5,16 @@
 ꜣ ꞽ (or i) ꜥ w b p f m n r h ḥ ḫ ẖ s š q k g t ṯ d ḏ. This set is from author knowledge: VERIFY
 against the grammar or journal style you are following.
 
+## A 2023 standard
+
+A page from the Netherlands Institute for the Near East (read 2026-10-14) reports that fifteen Egyptologists
+meeting on 8 August 2023 at the 13th International Congress of Egyptologists in Leiden agreed a unified
+transliteration for the uniliteral signs, designed to match what most Egyptologists already use, and that
+members of the International Association of Egyptologists voted to accept it. The page leaves some questions
+open (diacritics, capital letters, final weak radicals). Which characters it prescribes was not read, so the
+letters listed above may differ from it: VERIFY against the standard, and follow the scheme the target
+publication states. See `edition-conventions` for how to declare the scheme.
+
 ## Differences to expect in older books
 
 - Gardiner's sign-list prints some letters differently from current style (for example ḳ where

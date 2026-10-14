@@ -13,7 +13,7 @@ bash scripts/install.sh --claude --project /path/to/your/project   # this projec
 bash scripts/install.sh --claude --user                            # every project on this machine
 ```
 
-This copies all 17 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`), the two
+This copies all 20 skills to `.claude/skills/` (or `~/.claude/skills/` with `--user`), the two
 locations the Claude Code documentation gives for project and personal skills. Install all of them
 together, because the specialists share the coordinator's templates.
 
@@ -39,7 +39,7 @@ Ready-to-paste prompts, one per skill, are in [`../prompts/`](../prompts/README.
 ## Check that it worked
 
 ```bash
-ls .claude/skills                      # should list 17 skill folders
+ls .claude/skills                      # should list 20 skill folders
 claude plugin validate .claude/skills  # Claude Code's own check of the skill files (v2.1.233 or later, per the docs)
 ```
 
@@ -52,7 +52,7 @@ written to pass both.
 
 - Update: pull this repo and run the install again with `--force`, or install with `--symlink`
   once and skip updating.
-- Remove: delete the 17 folders from `.claude/skills/`.
+- Remove: delete the 20 folders from `.claude/skills/`.
 
 ## Not covered
 

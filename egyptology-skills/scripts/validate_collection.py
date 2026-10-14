@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Validate egyptology-skills (standard library only).
 
-Checks: five expected skills; frontmatter keys; name equals directory; description length;
+Checks: eight expected skills; frontmatter keys; name equals directory; description length;
 SKILL.md under 500 lines; required headings; every relative link and `references/...` or
 `assets/...` mention resolves; code fences balanced; the sign table (each row has a status,
 each code maps to a Unicode character); descriptions are safe plain YAML; ChatGPT bundles (one zip per skill, current
 with the skill); navigation (claude/, openai/ and prompts/ files exist,
 relative links resolve, each skill has its own prompts file, prompt counts match the READMEs,
 prompts only use signs from the table, no skill is copied into a platform folder); no source PDF
-or source folder is tracked by git; the lookup script self-test passes.
+or source folder is tracked by git; every bundled script runs --help and passes --selftest and is
+named in its SKILL.md.
 """
 import json
 import os
@@ -19,10 +20,12 @@ import sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SKILLS = os.path.join(ROOT, "skills")
 EXPECTED = ["gardiner-sign-lookup", "transliteration", "text-annotation",
-            "hieroglyph-app-builder", "accuracy-review"]
+            "hieroglyph-app-builder", "accuracy-review",
+            "egyptology-literature", "edition-conventions", "provenance-research-ethics"]
 HEADINGS = ["## Purpose and activation", "## Required inputs", "## Workflow", "## Decision framework",
             "## Failure and edge cases", "## Validation", "## Expected output", "## Sources and confidence"]
 errors = []
+script_count = 0
 
 
 def err(msg):
@@ -82,6 +85,27 @@ for name in EXPECTED:
             for f in os.listdir(full):
                 if f.endswith(".md") and "references/" + f not in text:
                     err("%s: references/%s is not linked from SKILL.md" % (name, f))
+
+    scripts_dir = os.path.join(d, "scripts")
+    if os.path.isdir(scripts_dir):
+        for f in sorted(os.listdir(scripts_dir)):
+            if not f.endswith(".py"):
+                continue
+            script_count += 1
+            if "scripts/" + f not in text:
+                err("%s: scripts/%s is not mentioned in SKILL.md" % (name, f))
+            for args in (["--help"], ["--selftest"]):
+                r = subprocess.run([sys.executable, "-I", os.path.join(scripts_dir, f)] + args, capture_output=True, text=True)
+                if r.returncode:
+                    err("%s/scripts/%s %s failed: %s" % (name, f, args[0], (r.stdout + r.stderr).strip()[-300:]))
+                elif args == ["--selftest"]:
+                    print(r.stdout.strip())
+    assets_dir = os.path.join(d, "assets")
+    for dirpath, _dirs, files in os.walk(assets_dir):
+        for f in files:
+            rel = os.path.relpath(os.path.join(dirpath, f), d).replace(os.sep, "/")
+            if rel not in text:
+                err("%s: %s is not mentioned in SKILL.md" % (name, rel))
 
 sys.path.insert(0, os.path.join(SKILLS, "gardiner-sign-lookup", "scripts"))
 import signs  # noqa: E402
@@ -163,18 +187,15 @@ if r.returncode:
     err("ChatGPT bundles are invalid or out of date: " + " | ".join(
         ln.strip() for ln in r.stdout.splitlines() if ln.strip().startswith(("FAIL", "-")))[:400])
 
-cases_path = os.path.join(ROOT, "evals", "live_cases.json")
-if not os.path.isfile(cases_path):
-    err("missing evals/live_cases.json")
-else:
-    with open(cases_path, encoding="utf-8") as fh:
-        case_skills = sorted(c["skill"] for c in json.load(fh)["cases"])
-    if case_skills != sorted(EXPECTED):
-        err("evals/live_cases.json covers %s, expected every skill: %s" % (case_skills, sorted(EXPECTED)))
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "live_check.py"), "--dry-run"],
-                       capture_output=True, text=True)
+tools_runner = os.path.join(ROOT, "..", "tools", "run_evals.py")
+if not os.path.isfile(os.path.join(ROOT, "evals", "cases.json")):
+    err("missing evals/cases.json")
+elif os.path.isfile(tools_runner):
+    r = subprocess.run([sys.executable, tools_runner, "plan", ROOT], capture_output=True, text=True)
     if r.returncode:
-        err("scripts/live_check.py --dry-run failed: " + (r.stdout + r.stderr).strip()[-300:])
+        err("evals/cases.json: " + " | ".join(ln.strip() for ln in r.stdout.splitlines() if ln.startswith("PROBLEM"))[:500])
+else:
+    print("note: ../tools/run_evals.py not found, evaluation cases were not checked")
 
 try:
     out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split("\n")
@@ -184,16 +205,9 @@ try:
 except OSError:
     pass
 
-r = subprocess.run([sys.executable, os.path.join(SKILLS, "gardiner-sign-lookup", "scripts", "signs.py"),
-                    "--selftest"], capture_output=True, text=True)
-if r.returncode:
-    err("signs.py self-test failed: " + r.stdout + r.stderr)
-else:
-    print(r.stdout.strip())
-
 if errors:
     print("FAILED: %d error(s)" % len(errors))
     for e in errors:
         print(" -", e)
     sys.exit(1)
-print("OK: %d skills, %d sign-table rows, 0 errors" % (len(EXPECTED), len(rows)))
+print("OK: %d skills, %d scripts, %d sign-table rows, 0 errors" % (len(EXPECTED), script_count, len(rows)))

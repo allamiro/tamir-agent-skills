@@ -11,9 +11,10 @@ Checks, per skill directory under skills/:
   - every relative Markdown link and every backticked relative file path
     (references/, scripts/, assets/, ../system-design/...) resolves inside skills/
   - SKILL.md never links outside the skills/ tree (so skills install without repo files)
+  - evals/cases.json is valid: every skill has an outcome case and should-trigger and near-miss trigger prompts
   - Python scripts under scripts/ respond to --help and, if they offer --selftest, pass it
 Library-level checks:
-  - all 17 expected skills exist, no unexpected ones
+  - all 20 expected skills exist, no unexpected ones
   - all 11 templates exist and are non-trivial
   - every skill's Sources block exists
   - navigation: README.md, claude/README.md, openai/README.md and prompts/README.md exist and
@@ -37,6 +38,7 @@ EXPECTED_SKILLS = [
     "sharding-replication", "caching-performance", "messaging-streaming",
     "storage-systems", "deployment-delivery", "reliability-resilience", "observability",
     "geospatial-design", "payment-systems", "system-design-review",
+    "systems-literature-reading", "performance-evaluation-methodology", "systems-research-writing",
 ]
 EXPECTED_TEMPLATES = [
     "system-design-document", "adr", "requirements", "capacity-worksheet",
@@ -296,6 +298,15 @@ def main():
         if not os.path.isfile(os.path.join(skills_root, "system-design", "references", f)):
             errors.append("missing system-design/references/%s" % f)
     check_navigation(root, errors)
+    tools_runner = os.path.join(root, "..", "tools", "run_evals.py")
+    if not os.path.isfile(os.path.join(root, "evals", "cases.json")):
+        errors.append("missing evals/cases.json")
+    elif os.path.isfile(tools_runner):
+        r = subprocess.run([sys.executable, tools_runner, "plan", root], capture_output=True, text=True)
+        if r.returncode:
+            errors.append("evals/cases.json: " + " | ".join(ln.strip() for ln in r.stdout.splitlines() if ln.startswith("PROBLEM"))[:500])
+    else:
+        notes.append("../tools/run_evals.py not found, evaluation cases were not checked")
     if not a.skip_scripts:
         check_scripts(skills_root, errors, notes)
     for n in notes:

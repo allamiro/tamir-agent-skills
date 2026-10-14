@@ -4,7 +4,7 @@ source/
 *.pdf.txt
 book-extract/
 # Local working notes derived from the book (titles/pages index and paraphrased notes).
-references/
+/references/
 # Build output and caches. openai/chatgpt/ (generated bundles) IS committed on purpose.
 dist/
 .venv/

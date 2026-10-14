@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "engine": "direct",
+  "agent_model": "claude-opus-5-5",
+  "judge_model": "claude-sonnet-5-5",
+  "judge_votes": 1,
+  "runs_per_case": 3,
+  "costUsd": 2.7314,
+  "skipped_runs": 0,
+  "partial": false,
+  "claudeVersion": "2.1.296 (Claude Code)",
+  "startedAt": "2026-10-14T12:00:28Z",
+  "_stamp": "2026-10-14"
+ },
+ "summary": {
+  "skills": {
+   "gardiner-sign-lookup": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "transliteration": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "text-annotation": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "hieroglyph-app-builder": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "accuracy-review": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "egyptology-literature": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "edition-conventions": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "provenance-research-ethics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   }
+  },
+  "unrelated_runs": 6,
+  "unrelated_false": 0,
+  "confusions": [],
+  "by_kind": {
+   "implicit": [
+    21,
+    21
+   ],
+   "near-miss": [
+    24,
+    24
+   ],
+   "contextual": [
+    3,
+    3
+   ],
+   "unrelated": [
+    6,
+    6
+   ]
+  },
+  "tp": 24,
+  "fn": 0,
+  "fp": 0,
+  "tn": 24
+ }
+}

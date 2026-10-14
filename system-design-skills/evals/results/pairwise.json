@@ -1,0 +1,40 @@
+{
+ "meta": {
+  "judge_model": "claude-sonnet-5-5",
+  "cost": 1.298
+ },
+ "results": {
+  "api-networking": "baseline",
+  "architecture-scaling": "skill",
+  "caching-performance": "skill",
+  "database-selection": "skill",
+  "deployment-delivery": "inconsistent",
+  "geospatial-design": "skill",
+  "identity-security": "skill",
+  "messaging-streaming": "baseline",
+  "observability": "baseline",
+  "payment-systems": "skill",
+  "performance-evaluation-methodology": "skill",
+  "reliability-resilience": "inconsistent",
+  "requirements-capacity": "skill",
+  "sharding-replication": "skill",
+  "storage-systems": "skill",
+  "system-design": "skill",
+  "system-design-review": "skill",
+  "systems-literature-reading": "baseline",
+  "systems-research-writing": "skill",
+  "transactions-consistency": "skill"
+ },
+ "tally": {
+  "skill": 14,
+  "baseline": 4,
+  "tie": 0,
+  "inconsistent": 2,
+  "sign_test_p": 0.0308837890625,
+  "win_rate_decisive": 0.7777777777777778,
+  "win_rate_ci": [
+   0.5478541568378739,
+   0.9099907189139831
+  ]
+ }
+}

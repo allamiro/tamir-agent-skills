@@ -1,0 +1,182 @@
+{
+ "meta": {
+  "engine": "direct",
+  "agent_model": "claude-opus-5-5",
+  "judge_model": "claude-sonnet-5-5",
+  "judge_votes": 1,
+  "runs_per_case": 3,
+  "costUsd": 7.6227,
+  "skipped_runs": 0,
+  "partial": false,
+  "claudeVersion": "2.1.296 (Claude Code)",
+  "startedAt": "2026-10-14T12:48:49Z",
+  "_stamp": "2026-10-14"
+ },
+ "summary": {
+  "skills": {
+   "bioinformatics-workflow": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "experimental-design": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "biological-databases": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "data-governance-ethics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "sequence-formats": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "ngs-pipelines": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "sequence-alignment": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "gene-finding-translation": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "protein-analysis": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "phylogenetics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "variants-population-genetics": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "omics-data-analysis": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "information-theory-sequences": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "sequence-statistics": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "machine-learning-biology": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "bioinformatics-programming": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "reproducible-research-code": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "research-writing-reporting": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "bioinformatics-review": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "bioinformatics-learning-path": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "literature-search-appraisal": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "method-benchmarking": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "research-proposal-planning": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   }
+  },
+  "unrelated_runs": 6,
+  "unrelated_false": 0,
+  "confusions": [],
+  "by_kind": {
+   "implicit": [
+    55,
+    66
+   ],
+   "near-miss": [
+    69,
+    69
+   ],
+   "contextual": [
+    0,
+    3
+   ],
+   "unrelated": [
+    6,
+    6
+   ]
+  },
+  "tp": 55,
+  "fn": 14,
+  "fp": 0,
+  "tn": 69
+ }
+}

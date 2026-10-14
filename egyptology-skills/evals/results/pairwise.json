@@ -1,0 +1,28 @@
+{
+ "meta": {
+  "judge_model": "claude-sonnet-5-5",
+  "cost": 0.409
+ },
+ "results": {
+  "accuracy-review": "baseline",
+  "edition-conventions": "skill",
+  "egyptology-literature": "baseline",
+  "gardiner-sign-lookup": "skill",
+  "hieroglyph-app-builder": "inconsistent",
+  "provenance-research-ethics": "skill",
+  "text-annotation": "inconsistent",
+  "transliteration": "skill"
+ },
+ "tally": {
+  "skill": 4,
+  "baseline": 2,
+  "tie": 0,
+  "inconsistent": 2,
+  "sign_test_p": 0.6875,
+  "win_rate_decisive": 0.6666666666666666,
+  "win_rate_ci": [
+   0.2999933151383921,
+   0.9032285888942194
+  ]
+ }
+}

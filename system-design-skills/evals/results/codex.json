@@ -1,0 +1,687 @@
+{
+ "meta": {
+  "collection": "system-design-skills",
+  "codex_version": "codex-cli 0.162.1",
+  "model": "default"
+ },
+ "summary": [
+  {
+   "skill": "system-design",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 733654,
+   "cached_tokens": 626304,
+   "out_tokens": 12308,
+   "seconds": 518.2,
+   "error": null
+  },
+  {
+   "skill": "system-design",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 528767,
+   "cached_tokens": 470272,
+   "out_tokens": 6835,
+   "seconds": 237.1,
+   "error": null
+  },
+  {
+   "skill": "requirements-capacity",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 82028,
+   "cached_tokens": 50944,
+   "out_tokens": 678,
+   "seconds": 46.2,
+   "error": null
+  },
+  {
+   "skill": "requirements-capacity",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 78916,
+   "cached_tokens": 54272,
+   "out_tokens": 556,
+   "seconds": 29.5,
+   "error": null
+  },
+  {
+   "skill": "architecture-scaling",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 81403,
+   "cached_tokens": 51072,
+   "out_tokens": 664,
+   "seconds": 26.9,
+   "error": null
+  },
+  {
+   "skill": "architecture-scaling",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 46146,
+   "cached_tokens": 12928,
+   "out_tokens": 396,
+   "seconds": 22.3,
+   "error": null
+  },
+  {
+   "skill": "api-networking",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 83650,
+   "cached_tokens": 55936,
+   "out_tokens": 1963,
+   "seconds": 88.7,
+   "error": null
+  },
+  {
+   "skill": "api-networking",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 79590,
+   "cached_tokens": 46848,
+   "out_tokens": 2101,
+   "seconds": 83.4,
+   "error": null
+  },
+  {
+   "skill": "identity-security",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 144220,
+   "cached_tokens": 103936,
+   "out_tokens": 3327,
+   "seconds": 137.9,
+   "error": null
+  },
+  {
+   "skill": "identity-security",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 89381,
+   "cached_tokens": 65920,
+   "out_tokens": 3128,
+   "seconds": 129.6,
+   "error": null
+  },
+  {
+   "skill": "database-selection",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 114292,
+   "cached_tokens": 78848,
+   "out_tokens": 1031,
+   "seconds": 49.8,
+   "error": null
+  },
+  {
+   "skill": "database-selection",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 85097,
+   "cached_tokens": 55808,
+   "out_tokens": 977,
+   "seconds": 50.7,
+   "error": null
+  },
+  {
+   "skill": "transactions-consistency",
+   "arm": "with",
+   "facts": [
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 78069,
+   "cached_tokens": 61056,
+   "out_tokens": 772,
+   "seconds": 41.7,
+   "error": null
+  },
+  {
+   "skill": "transactions-consistency",
+   "arm": "without",
+   "facts": [
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 99522,
+   "cached_tokens": 68096,
+   "out_tokens": 840,
+   "seconds": 43.6,
+   "error": null
+  },
+  {
+   "skill": "sharding-replication",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 81030,
+   "cached_tokens": 55936,
+   "out_tokens": 1065,
+   "seconds": 53.0,
+   "error": null
+  },
+  {
+   "skill": "sharding-replication",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 78285,
+   "cached_tokens": 46720,
+   "out_tokens": 1089,
+   "seconds": 38.7,
+   "error": null
+  },
+  {
+   "skill": "caching-performance",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 89736,
+   "cached_tokens": 53888,
+   "out_tokens": 1481,
+   "seconds": 50.2,
+   "error": null
+  },
+  {
+   "skill": "caching-performance",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 81566,
+   "cached_tokens": 60544,
+   "out_tokens": 1865,
+   "seconds": 87.0,
+   "error": null
+  },
+  {
+   "skill": "storage-systems",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 96790,
+   "cached_tokens": 58368,
+   "out_tokens": 1954,
+   "seconds": 67.3,
+   "error": null
+  },
+  {
+   "skill": "storage-systems",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 83909,
+   "cached_tokens": 61824,
+   "out_tokens": 2209,
+   "seconds": 93.8,
+   "error": null
+  },
+  {
+   "skill": "messaging-streaming",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 116956,
+   "cached_tokens": 79872,
+   "out_tokens": 1460,
+   "seconds": 67.5,
+   "error": null
+  },
+  {
+   "skill": "messaging-streaming",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 68896,
+   "cached_tokens": 22272,
+   "out_tokens": 1043,
+   "seconds": 42.3,
+   "error": null
+  },
+  {
+   "skill": "deployment-delivery",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 77702,
+   "cached_tokens": 39552,
+   "out_tokens": 1154,
+   "seconds": 52.5,
+   "error": null
+  },
+  {
+   "skill": "deployment-delivery",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 19951,
+   "cached_tokens": 7168,
+   "out_tokens": 823,
+   "seconds": 37.1,
+   "error": null
+  },
+  {
+   "skill": "reliability-resilience",
+   "arm": "with",
+   "facts": [
+    true,
+    false,
+    true
+   ],
+   "all_facts": false,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 132586,
+   "cached_tokens": 89984,
+   "out_tokens": 1342,
+   "seconds": 94.3,
+   "error": null
+  },
+  {
+   "skill": "reliability-resilience",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 87881,
+   "cached_tokens": 70656,
+   "out_tokens": 460,
+   "seconds": 41.9,
+   "error": null
+  },
+  {
+   "skill": "observability",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 78702,
+   "cached_tokens": 55424,
+   "out_tokens": 1149,
+   "seconds": 102.1,
+   "error": null
+  },
+  {
+   "skill": "observability",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 75661,
+   "cached_tokens": 45312,
+   "out_tokens": 898,
+   "seconds": 76.3,
+   "error": null
+  },
+  {
+   "skill": "geospatial-design",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 123560,
+   "cached_tokens": 90624,
+   "out_tokens": 1084,
+   "seconds": 92.6,
+   "error": null
+  },
+  {
+   "skill": "geospatial-design",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 77093,
+   "cached_tokens": 53376,
+   "out_tokens": 959,
+   "seconds": 62.6,
+   "error": null
+  },
+  {
+   "skill": "payment-systems",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 123602,
+   "cached_tokens": 92160,
+   "out_tokens": 1704,
+   "seconds": 93.6,
+   "error": null
+  },
+  {
+   "skill": "payment-systems",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 76093,
+   "cached_tokens": 45568,
+   "out_tokens": 1026,
+   "seconds": 71.4,
+   "error": null
+  },
+  {
+   "skill": "system-design-review",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 88585,
+   "cached_tokens": 63488,
+   "out_tokens": 1699,
+   "seconds": 87.6,
+   "error": null
+  },
+  {
+   "skill": "system-design-review",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 81350,
+   "cached_tokens": 55296,
+   "out_tokens": 1177,
+   "seconds": 98.1,
+   "error": null
+  },
+  {
+   "skill": "systems-literature-reading",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    false
+   ],
+   "all_facts": false,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 248638,
+   "cached_tokens": 197760,
+   "out_tokens": 1856,
+   "seconds": 102.9,
+   "error": null
+  },
+  {
+   "skill": "systems-literature-reading",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 237119,
+   "cached_tokens": 191872,
+   "out_tokens": 1578,
+   "seconds": 134.8,
+   "error": null
+  },
+  {
+   "skill": "performance-evaluation-methodology",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 77088,
+   "cached_tokens": 54784,
+   "out_tokens": 786,
+   "seconds": 44.3,
+   "error": null
+  },
+  {
+   "skill": "performance-evaluation-methodology",
+   "arm": "without",
+   "facts": [
+    false,
+    true,
+    false
+   ],
+   "all_facts": false,
+   "fired": false,
+   "any_skill": false,
+   "in_tokens": 19983,
+   "cached_tokens": 7168,
+   "out_tokens": 523,
+   "seconds": 49.3,
+   "error": null
+  },
+  {
+   "skill": "systems-research-writing",
+   "arm": "with",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": true,
+   "any_skill": true,
+   "in_tokens": 80497,
+   "cached_tokens": 57344,
+   "out_tokens": 1314,
+   "seconds": 65.0,
+   "error": null
+  },
+  {
+   "skill": "systems-research-writing",
+   "arm": "without",
+   "facts": [
+    true,
+    true,
+    true
+   ],
+   "all_facts": true,
+   "fired": false,
+   "any_skill": true,
+   "in_tokens": 48223,
+   "cached_tokens": 35328,
+   "out_tokens": 1095,
+   "seconds": 91.8,
+   "error": null
+  }
+ ]
+}

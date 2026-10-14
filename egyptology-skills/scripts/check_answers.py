@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """Run the commands behind the computable "a good answer" lines in prompts/*.md (standard library only).
 
-The lookup script is the only skill script in this collection, so only prompts/gardiner-sign-lookup.md
-has computable answers. For each check this runs signs.py, confirms its output contains the expected
+Four skill scripts have computable answers: the sign lookup (gardiner-sign-lookup), the bracket checker
+(edition-conventions), the provenance checker (provenance-research-ethics) and the citation checker
+(egyptology-literature). For each check this runs the script, confirms its output contains the expected
 text, and confirms that the prompt's own good-answer paragraph mentions the same fact, so the prose
-and the computation cannot drift apart. The other skills' good-answer lines describe behaviour
-(ask for sign codes, flag the doubt, separate roles) and need a person or a live agent to grade.
+and the computation cannot drift apart. The other good-answer lines describe behaviour (ask for sign
+codes, flag the doubt, separate roles) and need a person or a live agent to grade.
 
 This checks the script and the answer key. It does not run any AI agent.
 
 Usage: python3 scripts/check_answers.py [--verbose]
 """
 import argparse
+import json
 import os
 import re
 import subprocess
 import sys
+import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 SIGNS = os.path.join(ROOT, "skills", "gardiner-sign-lookup", "scripts", "signs.py")
@@ -33,6 +36,33 @@ CHECKS = [
     ("gardiner-sign-lookup", 4, ["A14"], "section: Man and his occupations", "Man and his occupations"),
     ("gardiner-sign-lookup", 5, ["D2"], "biliteral     ḥr", "ḥr"),
     ("gardiner-sign-lookup", 5, ["D2"], "Ideogram for 'face'", "ideogram for \"face\""),
+]
+
+
+# Scripts with file inputs: (prompt file, prompt number, script path under skills/, argument list with {FILE},
+# file contents, text the output must contain, text the prompt must mention)
+PROVENANCE = json.dumps({"events": [
+    {"date": "1895", "kind": "excavation", "from": "", "to": "A", "evidence": "document", "ref": "field register"},
+    {"date": "1921", "kind": "sale", "from": "A", "to": "B", "evidence": "publication", "ref": "catalogue lot"},
+    {"date": "1982", "kind": "gift", "from": "B", "to": "Museum", "evidence": "oral", "ref": ""}]})
+FILE_CHECKS = [
+    ("edition-conventions", 1, "edition-conventions/scripts/sigla.py", ["check", "{FILE}"],
+     "htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]", "crossing", "cross"),
+    ("edition-conventions", 1, "edition-conventions/scripts/sigla.py", ["key", "{FILE}"],
+     "htp-dj-nsw [Wsjr {nb} ddw (dj=f prt-xrw]", "{ }", "curly brackets"),
+    ("provenance-research-ethics", 1, "provenance-research-ethics/scripts/provrecord.py", ["check", "{FILE}"],
+     PROVENANCE, "26 years between event 1 (1895) and event 2 (1921)", "26"),
+    ("provenance-research-ethics", 1, "provenance-research-ethics/scripts/provrecord.py", ["check", "{FILE}"],
+     PROVENANCE, "61 years between event 2 (1921) and event 3 (1982)", "61"),
+    ("provenance-research-ethics", 1, "provenance-research-ethics/scripts/provrecord.py", ["check", "{FILE}"],
+     PROVENANCE, "event 3 (gift, 1982) rests on oral report", "undocumented"),
+    ("egyptology-literature", 2, "egyptology-literature/scripts/citecheck.py", ["{FILE}"],
+     "Gardiner, A. H. Egyptian Grammar, 3rd ed. Oxford: Griffith Institute, 1957.\n"
+     "Nobody, N. 2019. A new reading of the Tale of Sinuhe. JEA 105: 1-20. doi:10.1177/0307513319999999.",
+     "DOI-SYNTAX-OK", "DOI"),
+    ("egyptology-literature", 2, "egyptology-literature/scripts/citecheck.py", ["{FILE}"],
+     "Gardiner, A. H. Egyptian Grammar, 3rd ed. Oxford: Griffith Institute, 1957.",
+     "NO-DOI", "librarian"),
 ]
 
 
@@ -59,6 +89,33 @@ def main():
         out = r.stdout + r.stderr
         prose = good_answer(stem, number)
         label = "%s #%d (signs.py %s)" % (stem, number, " ".join(args))
+        if expected not in out:
+            why = "output lacks %r: %r" % (expected, out.strip()[:160])
+        elif prose is None:
+            why = "no 'A good answer' paragraph found"
+        elif mention not in prose:
+            why = "the prompt's good answer does not mention %r" % mention
+        else:
+            why = None
+        if a.verbose:
+            print("%s  %s" % ("PASS" if why is None else "FAIL", label))
+        if why is None:
+            passed += 1
+        else:
+            failures.append((label, why))
+    for stem, number, script, args, content, expected, mention in FILE_CHECKS:
+        path = os.path.join(ROOT, "skills", script)
+        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as fh:
+            fh.write(content.replace("\\n", "\n"))
+            name = fh.name
+        try:
+            r = subprocess.run([sys.executable, "-I", path] + [x.replace("{FILE}", name) for x in args],
+                               capture_output=True, text=True, timeout=60)
+        finally:
+            os.unlink(name)
+        out = r.stdout + r.stderr
+        prose = good_answer(stem, number)
+        label = "%s #%d (%s %s)" % (stem, number, os.path.basename(script), args[0])
         if expected not in out:
             why = "output lacks %r: %r" % (expected, out.strip()[:160])
         elif prose is None:

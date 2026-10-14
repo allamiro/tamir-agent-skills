@@ -25,6 +25,11 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 SCRIPTS = {os.path.basename(p): p for p in glob.glob(os.path.join(ROOT, "skills", "*", "scripts", "*.py"))}
 EXERCISE_ROW = re.compile(r"^\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|\s*$")
 
+RESULTS9 = "dataset,method,score\n" + "".join("d%d,A,%s\nd%d,B,%s\n" % (i, a, i, b) for i, (a, b) in enumerate(
+    [(0.9, 0.8), (0.8, 0.7), (0.7, 0.6), (0.9, 0.7), (0.8, 0.6), (0.7, 0.5), (0.9, 0.85), (0.6, 0.7), (0.5, 0.6)]))
+SCHEDULE = "task,weeks,after\ndata access,6,\nquality control,2,data access\nalignment,3,quality control\nstatistics,4,alignment\nwriting,5,statistics\nfigures,2,statistics\n"
+THIN_DMP = "We will share the data upon request. TBD.\n"
+REFS = "Gardiner, A. H. Egyptian Grammar. Oxford, 1957.\nNobody, N. 2019. A new result. J Imaginary Biol 5:1-9. doi:10.1000/imaginary.2019.1\n"
 MATRIX = ",A,B,C,D\nA,0,2,4,6\nB,2,0,4,6\nC,4,4,0,6\nD,6,6,6,0\n"
 CONFOUNDED = "sample,group,day\n" + "".join("c%d,control,mon\n" % i for i in range(5)) + "".join("t%d,treated,tue\n" % i for i in range(5))
 SHEET12 = "sample,group\n" + "".join("t%d,treated\n" % i for i in range(6)) + "".join("c%d,control\n" % i for i in range(6))
@@ -82,6 +87,14 @@ PROMPT_CHECKS = [
     ("machine-learning-biology", 1, {}, "mlmetrics.py metrics " + ",".join(["0"] * 98 + ["1"] * 2) + " " + ",".join(["0"] * 100), "accuracy           0.9800", "98%"),
     ("bioinformatics-programming", 2, {}, "bioprog.py logsumexp -1000 -1000", "-999.3068528", "log-sum-exp"),
     ("bioinformatics-programming", 3, {}, "bioprog.py pack ACGTACGTAC", "10 bases in 3 bytes", "3 bytes"),
+    ("method-benchmarking", 1, {}, "benchstats.py min-diff --n 200 --acc 0.8", "about 0.112", "11 points"),
+    ("method-benchmarking", 2, {}, "benchstats.py chance-gap --n 200 --k 10 --acc 0.8", "the best looks 0.04", "4 points"),
+    ("method-benchmarking", 5, {"r.csv": RESULTS9}, "benchstats.py compare {r.csv} --a A --b B", "A better on 7, tied on 0, B better on 2; exact sign test p = 0.1797", "0.18"),
+    ("research-proposal-planning", 2, {"p.csv": SCHEDULE}, "schedule.py {p.csv} --deadline 24", "critical path: data access -> quality control -> alignment -> statistics -> writing", "20 weeks"),
+    ("research-proposal-planning", 2, {"p.csv": SCHEDULE}, "schedule.py {p.csv} --deadline 24", "total 20 weeks; with a 30% buffer 26 weeks", "26 week"),
+    ("research-proposal-planning", 2, {"p.csv": SCHEDULE}, "schedule.py {p.csv} --deadline 24", "does NOT fit, short by 2 weeks", "does not fit"),
+    ("research-proposal-planning", 3, {"d.md": THIN_DMP}, "dmpcheck.py {d.md}", "access is offered upon request and no repository is named", "upon request"),
+    ("literature-search-appraisal", 2, {"refs.txt": REFS}, "citecheck.py {refs.txt}", "DOI-SYNTAX-OK", "DOI"),
 ]
 
 

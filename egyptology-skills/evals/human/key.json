@@ -1,0 +1,42 @@
+{
+ "P01": {
+  "skill": "accuracy-review",
+  "a": "with",
+  "b": "without"
+ },
+ "P02": {
+  "skill": "edition-conventions",
+  "a": "without",
+  "b": "with"
+ },
+ "P03": {
+  "skill": "egyptology-literature",
+  "a": "without",
+  "b": "with"
+ },
+ "P04": {
+  "skill": "gardiner-sign-lookup",
+  "a": "with",
+  "b": "without"
+ },
+ "P05": {
+  "skill": "hieroglyph-app-builder",
+  "a": "with",
+  "b": "without"
+ },
+ "P06": {
+  "skill": "provenance-research-ethics",
+  "a": "with",
+  "b": "without"
+ },
+ "P07": {
+  "skill": "text-annotation",
+  "a": "without",
+  "b": "with"
+ },
+ "P08": {
+  "skill": "transliteration",
+  "a": "without",
+  "b": "with"
+ }
+}

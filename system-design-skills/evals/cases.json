@@ -1,0 +1,463 @@
+{
+ "_note": "Source of the evaluation cases. See ../../TESTING.md. outcome cases run with and without the skills; trigger cases run with the skills only.",
+ "outcome": [
+  {
+   "skill": "system-design",
+   "facts": [
+    "ADR",
+    "capacity",
+    "mermaid|diagram|```"
+   ],
+   "rubric": "The answer gives a design document for the food-delivery backend with a diagram, a capacity table that derives orders per second from 500,000 orders a day with a stated peak factor, and architecture decision records for the hard decisions, with assumptions labelled."
+  },
+  {
+   "skill": "requirements-capacity",
+   "facts": [
+    "\\b9[0-3]\\d\\b",
+    "3[,.]?7\\d{2}|3\\.7\\s?k",
+    "99\\.9"
+   ],
+   "rubric": "The answer computes about 926 average and about 3,700 peak requests per second from 2 million users making 40 requests each with a 4 times peak, derives the write rate from the 5 percent share, estimates yearly storage with stated record-size assumptions, and recommends a realistic availability target with its downtime budget.",
+   "script": "capacity.py"
+  },
+  {
+   "skill": "architecture-scaling",
+   "facts": [
+    "bottleneck",
+    "profil|measure|metric|trac(e|ing)|load test",
+    "database|connection pool|CPU|lock|quer(y|ies)"
+   ],
+   "rubric": "The answer refuses to choose microservices or a rewrite before the bottleneck is found by measurement (profiling, metrics, traces, a load test), lists cheaper options first such as query or index fixes, caching, connection pools, scaling up and horizontal scaling of stateless tiers, and says when a split is justified."
+  },
+  {
+   "skill": "api-networking",
+   "facts": [
+    "idempoten",
+    "pagina|cursor",
+    "version"
+   ],
+   "rubric": "The answer compares REST and GraphQL for an invoicing API and recommends one with reasons, and covers cursor pagination, idempotency keys for creating invoices, a consistent error format, versioning, and what belongs on the CDN and the load balancer."
+  },
+  {
+   "skill": "identity-security",
+   "facts": [
+    "tenant",
+    "OIDC|OpenID|SAML",
+    "threat"
+   ],
+   "rubric": "The answer designs per-customer single sign-on using standard protocols such as OpenID Connect or SAML, separates authentication from authorization, gives a tenant isolation approach, and includes a threat model with concrete threats and mitigations."
+  },
+  {
+   "skill": "database-selection",
+   "facts": [
+    "PostgreSQL",
+    "transaction|ACID",
+    "DynamoDB"
+   ],
+   "rubric": "The answer notes that 185 writes per second is modest, bases the choice on access patterns, multi-row transactions and ad hoc reports, compares PostgreSQL, MongoDB and DynamoDB with trade-offs, and states what would change the choice."
+  },
+  {
+   "skill": "transactions-consistency",
+   "facts": [
+    "FOR UPDATE|row[- ]lock|optimistic|conditional|serializable|constraint",
+    "test|concurren"
+   ],
+   "rubric": "The answer prevents overselling with a concrete mechanism such as a conditional update, a row lock or a constraint, names the isolation level or locking trade-off, and describes how to test it with concurrent requests."
+  },
+  {
+   "skill": "sharding-replication",
+   "facts": [
+    "shard key",
+    "replica",
+    "failover"
+   ],
+   "rubric": "The answer checks cheaper options before sharding (read replicas, partitioning, archiving, indexes, vertical scaling), explains the growth arithmetic, chooses a shard key with reasons if sharding is needed, and gives a failover plan."
+  },
+  {
+   "skill": "caching-performance",
+   "facts": [
+    "stampede|single[- ]?flight|coalesc|request collaps|lock",
+    "invalidat",
+    "(Redis|cache).{0,60}(down|fail|outage)|fallback|degrad"
+   ],
+   "rubric": "The answer sizes the cache against 10,000 reads per second versus 3,000 the database handles, chooses a cache strategy, handles stampedes and invalidation, and states what happens when Redis is unavailable."
+  },
+  {
+   "skill": "storage-systems",
+   "facts": [
+    "multipart|resumable|chunk",
+    "erasure",
+    "lifecycle|tier"
+   ],
+   "rubric": "The answer designs resumable chunked uploads for 20 GB files, separates metadata from object storage, defines storage tiers and lifecycle rules, and compares replication with erasure coding on cost and durability."
+  },
+  {
+   "skill": "messaging-streaming",
+   "facts": [
+    "idempoten",
+    "dead[- ]?letter|DLQ",
+    "at[- ]least[- ]once"
+   ],
+   "rubric": "The answer explains that duplicates come from at-least-once delivery and consumer restarts, makes the email send idempotent with a deduplication key, and designs retries and a dead-letter queue."
+  },
+  {
+   "skill": "deployment-delivery",
+   "facts": [
+    "expand|contract|backward[- ]compat|dual[- ]write|two[- ]phase|additive",
+    "canary",
+    "rollback"
+   ],
+   "rubric": "The answer plans a multi-step column rename (add the new column, write both, backfill, switch reads, remove the old one), uses a canary with explicit rollback triggers, and keeps every step backward compatible."
+  },
+  {
+   "skill": "reliability-resilience",
+   "facts": [
+    "timeout",
+    "circuit[- ]?breaker",
+    "jitter|backoff"
+   ],
+   "rubric": "The answer sets timeouts, retries with exponential backoff and jitter and a retry budget, adds a circuit breaker, defines a degradation plan for the payment provider, and relates them to a 99.95 percent availability target."
+  },
+  {
+   "skill": "observability",
+   "facts": [
+    "burn[- ]?rate",
+    "SLO",
+    "cardinality"
+   ],
+   "rubric": "The answer defines SLIs and SLOs for checkout, sets multi-window burn-rate alerts instead of CPU pages, and checks metric label cardinality.",
+   "script": "slo_budget.py"
+  },
+  {
+   "skill": "geospatial-design",
+   "facts": [
+    "geohash",
+    "quadtree|S2|H3",
+    "memory|fit|GB"
+   ],
+   "rubric": "The answer compares geohash with a quadtree or similar index, estimates the index memory for 50 million places and concludes with arithmetic whether it fits on one machine, and sizes the query rate."
+  },
+  {
+   "skill": "payment-systems",
+   "facts": [
+    "idempotency",
+    "ledger",
+    "reconcil"
+   ],
+   "rubric": "The answer uses idempotency keys so a retry after a timeout cannot double charge, records money movement in a double-entry ledger, and reconciles daily against the provider's reports."
+  },
+  {
+   "skill": "system-design-review",
+   "prompt": "Review this design and give me findings with evidence, severity, impact and a fix for each one. The system: one PostgreSQL primary with no replica and one app server behind a load balancer; user sessions are stored in the app server's memory; checkout charges the card synchronously inside the HTTP request with a 60 second timeout and no idempotency key; backups run weekly and nobody has ever restored one.",
+   "facts": [
+    "single point of failure|SPOF|single (primary|server|instance)",
+    "idempoten",
+    "restore"
+   ],
+   "rubric": "The answer lists findings ranked by severity, each with evidence from the description, impact and a fix, and it identifies the single points of failure, the missing idempotency on the charge, and the untested backups."
+  },
+  {
+   "skill": "systems-literature-reading",
+   "facts": [
+    "recall|memory|did not (open|read)|cannot (open|access|read)|can't (open|access|read)",
+    "quorum|majority",
+    "zone"
+   ],
+   "script": "citecheck.py",
+   "rubric": "The answer gives a claim record for the paper (what it claims, the evidence, workload, failure and network model, what it does not claim), judges whether those assumptions hold for a five-node cluster across three availability zones, and says plainly what it read and what it is recalling, or that it could not open the paper, without presenting recalled details as verified."
+  },
+  {
+   "skill": "performance-evaluation-methodology",
+   "facts": [
+    "A/A|noise",
+    "interval|confidence|bootstrap|variance|standard deviation|spread",
+    "not (supported|enough|sufficient)|cannot|can't|isn't|unsupported|premature"
+   ],
+   "script": "perfstats.py",
+   "rubric": "The answer does not endorse '7 percent faster' from five run means alone: it asks for or computes the variation across runs and an interval, recommends or asks for an A/A test to find the noise floor, says what to run next (more independent runs, percentiles, a comparison test), and states what can honestly be said today."
+  },
+  {
+   "skill": "systems-research-writing",
+   "facts": [
+    "contribution",
+    "evidence",
+    "limit|threat|scope"
+   ],
+   "rubric": "The answer gives a one-sentence claim, at most three falsifiable contributions, a claims-evidence matrix that gives the limit of each claim, and an outline suited to a systems conference."
+  }
+ ],
+ "trigger": [
+  {
+   "id": "sd-design-pos",
+   "prompt": "we're starting a marketplace where local tutors list their hours and students book and pay, maybe 100k users in year one, four engineers. what should the backend look like and what will we regret not deciding now?",
+   "expect": "system-design",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-design-neg",
+   "prompt": "Write a SQL query that returns the ten most recent orders for each customer from the orders table.",
+   "expect": null,
+   "avoid": "system-design",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-cap-pos",
+   "prompt": "we get about 3 million signups a month and each user uploads 12 photos averaging 2 MB. roughly how much storage and bandwidth should we budget for in year two?",
+   "expect": "requirements-capacity",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-cap-neg",
+   "prompt": "How do I write an S3 lifecycle rule that moves objects older than 90 days to Glacier?",
+   "expect": null,
+   "avoid": "requirements-capacity",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-scale-pos",
+   "prompt": "our django app crawls every time marketing sends an email blast. what are our options before we rewrite anything?",
+   "expect": "architecture-scaling",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-scale-neg",
+   "prompt": "Convert this Flask route to async def and explain what changes in how it runs.",
+   "expect": null,
+   "avoid": "architecture-scaling",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-api-pos",
+   "prompt": "partners keep complaining that our webhook payloads changed without warning. how should we handle breaking changes, retries and versions on the API side?",
+   "expect": "api-networking",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-api-neg",
+   "prompt": "Fix this TypeScript error: Property 'id' does not exist on type 'User'.",
+   "expect": null,
+   "avoid": "api-networking",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-id-pos",
+   "prompt": "our enterprise customers want to log in with their own company accounts and see only their own data. how do we set that up safely?",
+   "expect": "identity-security",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-id-neg",
+   "prompt": "Write a Python function that hashes a file with SHA-256 and prints the hex digest.",
+   "expect": null,
+   "avoid": "identity-security",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-db-pos",
+   "prompt": "we store orders, line items and shipments, mostly reads by customer and a nightly report. mysql, postgres or something else?",
+   "expect": "database-selection",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-db-neg",
+   "prompt": "Why does my psql command say 'role does not exist' after a fresh install?",
+   "expect": null,
+   "avoid": "database-selection",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-tx-pos",
+   "prompt": "two people can book the last seat on a flight at the same time and we end up with 101 passengers in 100 seats. how do we stop that?",
+   "expect": "transactions-consistency",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-tx-neg",
+   "prompt": "Explain the difference between a Python list and a tuple.",
+   "expect": null,
+   "avoid": "transactions-consistency",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-shard-pos",
+   "prompt": "our main postgres box is at 80 percent disk and write latency is climbing every month. do we split the data up and how?",
+   "expect": "sharding-replication",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-shard-neg",
+   "prompt": "How do I restore a PostgreSQL dump file into a new database?",
+   "expect": null,
+   "avoid": "sharding-replication",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-cache-pos",
+   "prompt": "the product page makes the database sweat at lunch hour and everything falls over when we restart redis. how do we fix the caching?",
+   "expect": "caching-performance",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-cache-neg",
+   "prompt": "What does the Cache-Control: max-age header do in an HTTP response?",
+   "expect": null,
+   "avoid": "caching-performance",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-storage-pos",
+   "prompt": "customers upload videos up to 20 GB and we pay a lot to keep old ones forever. how should we store and age them?",
+   "expect": "storage-systems",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-storage-neg",
+   "prompt": "How do I mount an extra disk on Ubuntu and make it persist after reboot?",
+   "expect": null,
+   "avoid": "storage-systems",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-msg-pos",
+   "prompt": "after consumers restart some customers get the same order email twice. how do we make sure it goes out once?",
+   "expect": "messaging-streaming",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-msg-neg",
+   "prompt": "Write a Python script that sends one email using smtplib.",
+   "expect": null,
+   "avoid": "messaging-streaming",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-deploy-pos",
+   "prompt": "we need to rename a column on a table that serves traffic all day, with no downtime and a way back if it goes wrong. what is the plan?",
+   "expect": "deployment-delivery",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-deploy-neg",
+   "prompt": "Write a Dockerfile for a small Node.js service.",
+   "expect": null,
+   "avoid": "deployment-delivery",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-rel-pos",
+   "prompt": "a slow payment provider keeps knocking checkout over when it has a bad hour, and our retries seem to make it worse. what should we change?",
+   "expect": "reliability-resilience",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-rel-neg",
+   "prompt": "Why does 'ConnectionResetError: [Errno 54]' appear when I run my Python requests script?",
+   "expect": null,
+   "avoid": "reliability-resilience",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-obs-pos",
+   "prompt": "we get paged all night for CPU spikes that never matter and still found out about the last outage from customers. how should alerting work?",
+   "expect": "observability",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-obs-neg",
+   "prompt": "How do I print a stack trace in Python when I catch an exception?",
+   "expect": null,
+   "avoid": "observability",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-geo-pos",
+   "prompt": "we need a 'restaurants near me' feature for about 50 million places. how should the lookup work?",
+   "expect": "geospatial-design",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-geo-neg",
+   "prompt": "Write a function that computes the haversine distance between two latitude and longitude pairs.",
+   "expect": null,
+   "avoid": "geospatial-design",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-pay-pos",
+   "prompt": "a customer got charged twice because our request to the card processor timed out and we retried. how should we design payments so that cannot happen?",
+   "expect": "payment-systems",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-pay-neg",
+   "prompt": "Format this number as US dollars with two decimals in JavaScript.",
+   "expect": null,
+   "avoid": "payment-systems",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-review-pos",
+   "prompt": "here is our architecture doc and the repo, can you tell me what is wrong with it before we launch?",
+   "expect": "system-design-review",
+   "kind": "contextual"
+  },
+  {
+   "id": "sd-review-neg",
+   "prompt": "Summarise this README in three bullet points.",
+   "expect": null,
+   "avoid": "system-design-review",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-lit-pos",
+   "prompt": "my lead says we should copy the approach in that Spanner paper. before we do, what does it actually assume and does any of it apply to a 5-node cluster in one region?",
+   "expect": "systems-literature-reading",
+   "kind": "contextual"
+  },
+  {
+   "id": "sd-lit-neg",
+   "prompt": "Explain how Raft leader election works, step by step, for a beginner.",
+   "expect": null,
+   "avoid": "systems-literature-reading",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-perf-pos",
+   "prompt": "we ran the old and new build five times each and the new one looks 7 percent faster on average. can I tell the team it is faster?",
+   "expect": "performance-evaluation-methodology",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-perf-neg",
+   "prompt": "How do I make this Python loop faster? It iterates over a list of a million integers and sums the squares.",
+   "expect": null,
+   "avoid": "performance-evaluation-methodology",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-write-pos",
+   "prompt": "I have results showing our scheduler cuts tail latency by 30 percent. how do I turn this into a paper for a systems conference?",
+   "expect": "systems-research-writing",
+   "kind": "implicit"
+  },
+  {
+   "id": "sd-write-neg",
+   "prompt": "Write a design document for adding rate limiting to our public API, with an ADR for the algorithm choice.",
+   "expect": null,
+   "avoid": "systems-research-writing",
+   "kind": "near-miss"
+  },
+  {
+   "id": "sd-none-1",
+   "prompt": "Write a Python function that reverses a linked list.",
+   "expect": null,
+   "kind": "unrelated"
+  },
+  {
+   "id": "sd-none-2",
+   "prompt": "What is a good name for a golden retriever puppy?",
+   "expect": null,
+   "kind": "unrelated"
+  }
+ ]
+}

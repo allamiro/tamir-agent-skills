@@ -1,0 +1,117 @@
+{
+ "P01": {
+  "skill": "bioinformatics-learning-path",
+  "a": "with",
+  "b": "without"
+ },
+ "P02": {
+  "skill": "bioinformatics-programming",
+  "a": "without",
+  "b": "with"
+ },
+ "P03": {
+  "skill": "bioinformatics-review",
+  "a": "without",
+  "b": "with"
+ },
+ "P04": {
+  "skill": "bioinformatics-workflow",
+  "a": "with",
+  "b": "without"
+ },
+ "P05": {
+  "skill": "biological-databases",
+  "a": "with",
+  "b": "without"
+ },
+ "P06": {
+  "skill": "data-governance-ethics",
+  "a": "with",
+  "b": "without"
+ },
+ "P07": {
+  "skill": "experimental-design",
+  "a": "without",
+  "b": "with"
+ },
+ "P08": {
+  "skill": "gene-finding-translation",
+  "a": "without",
+  "b": "with"
+ },
+ "P09": {
+  "skill": "information-theory-sequences",
+  "a": "with",
+  "b": "without"
+ },
+ "P10": {
+  "skill": "literature-search-appraisal",
+  "a": "with",
+  "b": "without"
+ },
+ "P11": {
+  "skill": "machine-learning-biology",
+  "a": "without",
+  "b": "with"
+ },
+ "P12": {
+  "skill": "method-benchmarking",
+  "a": "with",
+  "b": "without"
+ },
+ "P13": {
+  "skill": "ngs-pipelines",
+  "a": "without",
+  "b": "with"
+ },
+ "P14": {
+  "skill": "omics-data-analysis",
+  "a": "with",
+  "b": "without"
+ },
+ "P15": {
+  "skill": "phylogenetics",
+  "a": "with",
+  "b": "without"
+ },
+ "P16": {
+  "skill": "protein-analysis",
+  "a": "without",
+  "b": "with"
+ },
+ "P17": {
+  "skill": "reproducible-research-code",
+  "a": "with",
+  "b": "without"
+ },
+ "P18": {
+  "skill": "research-proposal-planning",
+  "a": "without",
+  "b": "with"
+ },
+ "P19": {
+  "skill": "research-writing-reporting",
+  "a": "without",
+  "b": "with"
+ },
+ "P20": {
+  "skill": "sequence-alignment",
+  "a": "with",
+  "b": "without"
+ },
+ "P21": {
+  "skill": "sequence-formats",
+  "a": "with",
+  "b": "without"
+ },
+ "P22": {
+  "skill": "sequence-statistics",
+  "a": "without",
+  "b": "with"
+ },
+ "P23": {
+  "skill": "variants-population-genetics",
+  "a": "without",
+  "b": "with"
+ }
+}

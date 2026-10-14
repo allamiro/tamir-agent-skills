@@ -4,7 +4,7 @@
 
 <p align="center">
   <img alt="License Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-096efb?style=flat-square&labelColor=15123d">
-  <img alt="42 skills" src="https://img.shields.io/badge/skills-42-6c64eb?style=flat-square&labelColor=15123d">
+  <img alt="51 skills" src="https://img.shields.io/badge/skills-51-6c64eb?style=flat-square&labelColor=15123d">
   <img alt="Agent Skills spec valid" src="https://img.shields.io/badge/Agent%20Skills%20spec-valid-9cc464?style=flat-square&labelColor=15123d">
   <img alt="Works with Claude Code, Codex and ChatGPT" src="https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20ChatGPT-fb6373?style=flat-square&labelColor=15123d">
 </p>
@@ -17,9 +17,9 @@ and Codex, and as zips for ChatGPT and the OpenAI Skills API.
 
 | Collection | What it covers | Skills |
 |---|---|---|
-| [**System Design Skills**](system-design-skills/) | Design, scale, secure, operate and review software systems: capacity, databases, consistency, caching, messaging, storage, reliability, observability, payments, geospatial, architecture review | 17 |
-| [**Egyptology Skills**](egyptology-skills/) | Read and check Middle Egyptian hieroglyphic text: sign lookup by Gardiner code, transliteration, annotated layouts, tool building, accuracy review. Output is a draft for specialists | 5 |
-| [**Bioinformatics Skills**](bioinformatics-skills/) | The whole of a bioinformatics project: study design, data and identifiers, privacy and ethics, file formats, sequencing pipelines, alignment, genes, proteins, trees, variants, omics, statistics, machine learning, programming, reproducibility, writing up, review, and learning the field. Output is a draft for review | 20 |
+| [**System Design Skills**](system-design-skills/) | Design, scale, secure, operate and review software systems: capacity, databases, consistency, caching, messaging, storage, reliability, observability, payments, geospatial, architecture review, plus reading papers, benchmarking and writing research | 20 |
+| [**Egyptology Skills**](egyptology-skills/) | Read and check Middle Egyptian hieroglyphic text: sign lookup by Gardiner code, transliteration, annotated layouts, tool building, accuracy review, plus literature and citations, editorial conventions, and provenance and ethics. Output is a draft for specialists | 8 |
+| [**Bioinformatics Skills**](bioinformatics-skills/) | The whole of a bioinformatics project: study design, data and identifiers, privacy and ethics, file formats, sequencing pipelines, alignment, genes, proteins, trees, variants, omics, statistics, machine learning, programming, reproducibility, writing up, review, and learning the field, plus literature search, benchmarking methods and research planning. Output is a draft for review | 23 |
 
 More collections can sit beside it. Each one is a self-contained folder.
 
@@ -29,7 +29,7 @@ More collections can sit beside it. Each one is a self-contained folder.
 |---|---|---|---|
 | **Claude Code** | [guide](system-design-skills/claude/README.md) | [guide](egyptology-skills/claude/README.md) | [guide](bioinformatics-skills/claude/README.md) |
 | **OpenAI Codex** | [guide](system-design-skills/openai/README.md#codex) | [guide](egyptology-skills/openai/README.md#codex) | [guide](bioinformatics-skills/openai/README.md#codex) |
-| **ChatGPT and OpenAI Skills API** | [17 zips](system-design-skills/openai/chatgpt/) | [5 zips](egyptology-skills/openai/chatgpt/) | [20 zips](bioinformatics-skills/openai/chatgpt/) |
+| **ChatGPT and OpenAI Skills API** | [20 zips](system-design-skills/openai/chatgpt/) | [8 zips](egyptology-skills/openai/chatgpt/) | [23 zips](bioinformatics-skills/openai/chatgpt/) |
 
 Claude Code and Codex read the same `skills/` folder in each collection. The zips for ChatGPT and the
 API are built from it and live in their own folder. Each collection has the same layout: `skills/`, `claude/`,
@@ -69,7 +69,10 @@ Every skill has ready-to-paste prompts:
 - **Honest sources.** Every skill ends with a sources block that separates what was verified,
   what was fetched from official docs (dated), and what still needs checking.
 - **Checked.** Validators cover the spec, structure, size, links, templates, scripts and
-  description routing. The collection README lists what has and has not been run.
+  description routing. Live runs measure whether an agent picks each skill up and whether the answer
+  improves, with repeats and a no-skill comparison, and a blind kit lets people grade the answers.
+  [TESTING.md](TESTING.md) lists every measure, what it can and cannot tell you, and the latest results.
+- **Sample outputs.** Each collection's README shows real answers and token counts with and without the skills.
 
 ## Contribute
 

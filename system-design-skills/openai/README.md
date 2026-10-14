@@ -7,8 +7,8 @@ does not say is marked as unconfirmed.
 | Tool | How skills get in | Status for this collection | Read |
 |---|---|---|---|
 | **Codex** (CLI and IDE extension) | Folders of `SKILL.md` files in `.agents/skills` | Works | [Codex](#codex) |
-| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 17 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
-| **OpenAI Skills API** | A zip with one top-level folder | 17 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
+| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 20 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
+| **OpenAI Skills API** | A zip with one top-level folder | 20 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
 
 ## Codex
 
@@ -21,7 +21,7 @@ bash scripts/install.sh --codex --project /path/to/your/project   # this project
 bash scripts/install.sh --codex --user                            # every project on this machine
 ```
 
-`--codex` and `--agents` do the same thing. Install all 17 skills together, because the specialists share the coordinator's templates.
+`--codex` and `--agents` do the same thing. Install all 20 skills together, because the specialists share the coordinator's templates.
 `--symlink`, `--force` and `--dry-run` work as they do for Claude Code.
 
 Codex scans `.agents/skills` in every directory from the working directory up to the repository root,
@@ -29,6 +29,8 @@ Codex scans `.agents/skills` in every directory from the working directory up to
 symlinked skill folders. To use a skill, describe the task and Codex picks one from the description,
 or run `/skills` or type `$` and the skill name to choose one yourself. (Codex skills documentation
 at learn.chatgpt.com, read 2026-10-14.)
+
+**Tested.** On 2026-10-14, with codex-cli 0.162.1, each skill's starter prompt was run with `codex exec` once with the skills installed in `.agents/skills` and once with none ([results](../evals/results/codex.md)). Codex read the expected skill's `SKILL.md` in 20 of 20 runs, and 18 of 20 answers contained every expected fact with the skills against 19 of 20 without. That checks that Codex finds and uses the skills from that folder; with one run per prompt and no judge, it says little about answer quality.
 
 Ready-to-paste prompts, one file per skill, are in [`../prompts/`](../prompts/README.md).
 
@@ -75,6 +77,9 @@ Start with `system-design.zip`, the coordinator, then add the specialists you ne
 | [`geospatial-design.zip`](chatgpt/geospatial-design.zip) | Geohash, quadtree, nearby search, map tiles |
 | [`payment-systems.zip`](chatgpt/payment-systems.zip) | Payment flow, ledger, settlement, idempotency, reconciliation |
 | [`system-design-review.zip`](chatgpt/system-design-review.zip) | Evidence-based review with severity-ranked findings |
+| [`systems-literature-reading.zip`](chatgpt/systems-literature-reading.zip) | Reading papers and vendor claims, claim records, transfer verdicts, reference checking |
+| [`performance-evaluation-methodology.zip`](chatgpt/performance-evaluation-methodology.zip) | Benchmark design, coordinated omission, runs, percentiles with intervals, A/A checks |
+| [`systems-research-writing.zip`](chatgpt/systems-research-writing.zip) | Systems papers, reviews, rebuttals, artifacts, disclosure |
 
 ### Rebuild the zips
 

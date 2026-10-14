@@ -2,57 +2,315 @@
   "_note": "Prompts and the skills that should rank in the top 3 by lexical similarity to name+description. 'forbidden' skills must NOT appear in the top 3. This is a smoke test of description wording, not a model of how an LLM router decides.",
   "top_k": 3,
   "cases": [
-    {"id": "A", "prompt": "Design the backend for an online store with flash sales, limited stock, checkout and payments for millions of users",
-     "expect_any": ["system-design"], "forbidden": ["geospatial-design"]},
-    {"id": "A-inventory", "prompt": "Two customers buy the last item at the same time and we oversell. How do we prevent the race condition on stock?",
-     "expect_any": ["transactions-consistency"], "forbidden": ["geospatial-design", "payment-systems"]},
-    {"id": "A-capacity", "prompt": "How many requests per second and how much storage do we need for 3 million monthly users?",
-     "expect_any": ["requirements-capacity"], "forbidden": ["geospatial-design"]},
-    {"id": "B", "prompt": "Design a metrics monitoring and alerting platform with time series storage, high cardinality labels and SLO burn rate alerts",
-     "expect_any": ["observability"], "forbidden": ["payment-systems", "geospatial-design"]},
-    {"id": "B-slo", "prompt": "Set SLOs and an error budget and design alerts so we stop getting paged for CPU",
-     "expect_any": ["observability"], "forbidden": ["payment-systems"]},
-    {"id": "C", "prompt": "Design a real time collaborative document editor with concurrent edits, conflict resolution and offline sync over websockets",
-     "expect_any": ["system-design", "transactions-consistency", "api-networking", "messaging-streaming"], "forbidden": ["payment-systems", "geospatial-design"]},
-    {"id": "D", "prompt": "Secure multi-tenant SaaS: single sign-on per customer, tenant data isolation, authorization and API security",
-     "expect_any": ["identity-security"], "forbidden": ["geospatial-design", "payment-systems"]},
-    {"id": "E", "prompt": "Review this existing architecture and tell me the single points of failure, bottlenecks and risks",
-     "expect_any": ["system-design-review"], "forbidden": ["geospatial-design"]},
-    {"id": "E-pr", "prompt": "Audit my design proposal for weaknesses and give findings with severity and remediation",
-     "expect_any": ["system-design-review"], "forbidden": []},
-    {"id": "db-choice", "prompt": "Should we use PostgreSQL or MongoDB or Cassandra for this workload? Help choose a database",
-     "expect_any": ["database-selection"], "forbidden": ["geospatial-design", "payment-systems"]},
-    {"id": "isolation", "prompt": "Which transaction isolation level should I use and what is write skew?",
-     "expect_any": ["transactions-consistency"], "forbidden": ["geospatial-design"]},
-    {"id": "sharding", "prompt": "Do we need to shard our database? How do we pick a shard key and handle failover of the primary?",
-     "expect_any": ["sharding-replication"], "forbidden": ["geospatial-design"]},
-    {"id": "cache", "prompt": "Add a Redis cache. How do I avoid a cache stampede and handle invalidation and TTL?",
-     "expect_any": ["caching-performance"], "forbidden": ["payment-systems", "geospatial-design"]},
-    {"id": "kafka", "prompt": "Kafka or a queue? We get duplicate messages and need exactly-once, retries and a dead letter queue",
-     "expect_any": ["messaging-streaming"], "forbidden": ["geospatial-design"]},
-    {"id": "upload", "prompt": "How do we store and upload large video files? Object storage vs block storage, multipart uploads, erasure coding",
-     "expect_any": ["storage-systems"], "forbidden": ["payment-systems"]},
-    {"id": "deploy", "prompt": "Blue-green or canary deployment? How do we roll back a schema migration safely with zero downtime?",
-     "expect_any": ["deployment-delivery"], "forbidden": ["geospatial-design"]},
-    {"id": "resilience", "prompt": "Retry storms and cascading failures take us down. Add timeouts, backoff with jitter, circuit breakers and a disaster recovery plan",
-     "expect_any": ["reliability-resilience"], "forbidden": ["geospatial-design"]},
-    {"id": "geo", "prompt": "Design nearby restaurant search with geohash or quadtree and map tiles",
-     "expect_any": ["geospatial-design"], "forbidden": ["payment-systems", "identity-security"]},
-    {"id": "payments", "prompt": "Design a payment system that avoids double charge with idempotency, a ledger and reconciliation",
-     "expect_any": ["payment-systems"], "forbidden": ["geospatial-design"]},
-    {"id": "api", "prompt": "REST or GraphQL or gRPC? Design the API contract with pagination, error handling, load balancer and CDN",
-     "expect_any": ["api-networking"], "forbidden": ["geospatial-design", "payment-systems"]},
-    {"id": "scaling", "prompt": "Should we move from a monolith to microservices? How should we scale vertically or horizontally?",
-     "expect_any": ["architecture-scaling"], "forbidden": ["geospatial-design", "payment-systems"]},
-    {"id": "passwords", "prompt": "How should I store user passwords and implement OAuth login and API tokens securely?",
-     "expect_any": ["identity-security"], "forbidden": ["system-design", "geospatial-design", "payment-systems"]},
-    {"id": "N1", "prompt": "Fix this off-by-one error in my Python for loop",
-     "expect_any": [], "forbidden_all_above": 0.0},
-    {"id": "N2", "prompt": "Write a CSS grid layout for a pricing page with three cards",
-     "expect_any": [], "forbidden_all_above": 0.0},
-    {"id": "N7", "prompt": "Summarize this meeting transcript into action items",
-     "expect_any": [], "forbidden_all_above": 0.0},
-    {"id": "N8", "prompt": "Pick a color palette and fonts for our brand",
-     "expect_any": [], "forbidden_all_above": 0.0}
+    {
+      "id": "A",
+      "prompt": "Design the backend for an online store with flash sales, limited stock, checkout and payments for millions of users",
+      "expect_any": [
+        "system-design"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "A-inventory",
+      "prompt": "Two customers buy the last item at the same time and we oversell. How do we prevent the race condition on stock?",
+      "expect_any": [
+        "transactions-consistency"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "A-capacity",
+      "prompt": "How many requests per second and how much storage do we need for 3 million monthly users?",
+      "expect_any": [
+        "requirements-capacity"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "B",
+      "prompt": "Design a metrics monitoring and alerting platform with time series storage, high cardinality labels and SLO burn rate alerts",
+      "expect_any": [
+        "observability"
+      ],
+      "forbidden": [
+        "payment-systems",
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "B-slo",
+      "prompt": "Set SLOs and an error budget and design alerts so we stop getting paged for CPU",
+      "expect_any": [
+        "observability"
+      ],
+      "forbidden": [
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "C",
+      "prompt": "Design a real time collaborative document editor with concurrent edits, conflict resolution and offline sync over websockets",
+      "expect_any": [
+        "system-design",
+        "transactions-consistency",
+        "api-networking",
+        "messaging-streaming"
+      ],
+      "forbidden": [
+        "payment-systems",
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "D",
+      "prompt": "Secure multi-tenant SaaS: single sign-on per customer, tenant data isolation, authorization and API security",
+      "expect_any": [
+        "identity-security"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "E",
+      "prompt": "Review this existing architecture and tell me the single points of failure, bottlenecks and risks",
+      "expect_any": [
+        "system-design-review"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "E-pr",
+      "prompt": "Audit my design proposal for weaknesses and give findings with severity and remediation",
+      "expect_any": [
+        "system-design-review"
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "db-choice",
+      "prompt": "Should we use PostgreSQL or MongoDB or Cassandra for this workload? Help choose a database",
+      "expect_any": [
+        "database-selection"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "isolation",
+      "prompt": "Which transaction isolation level should I use and what is write skew?",
+      "expect_any": [
+        "transactions-consistency"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "sharding",
+      "prompt": "Do we need to shard our database? How do we pick a shard key and handle failover of the primary?",
+      "expect_any": [
+        "sharding-replication"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "cache",
+      "prompt": "Add a Redis cache. How do I avoid a cache stampede and handle invalidation and TTL?",
+      "expect_any": [
+        "caching-performance"
+      ],
+      "forbidden": [
+        "payment-systems",
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "kafka",
+      "prompt": "Kafka or a queue? We get duplicate messages and need exactly-once, retries and a dead letter queue",
+      "expect_any": [
+        "messaging-streaming"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "upload",
+      "prompt": "How do we store and upload large video files? Object storage vs block storage, multipart uploads, erasure coding",
+      "expect_any": [
+        "storage-systems"
+      ],
+      "forbidden": [
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "deploy",
+      "prompt": "Blue-green or canary deployment? How do we roll back a schema migration safely with zero downtime?",
+      "expect_any": [
+        "deployment-delivery"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "resilience",
+      "prompt": "Retry storms and cascading failures take us down. Add timeouts, backoff with jitter, circuit breakers and a disaster recovery plan",
+      "expect_any": [
+        "reliability-resilience"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "geo",
+      "prompt": "Design nearby restaurant search with geohash or quadtree and map tiles",
+      "expect_any": [
+        "geospatial-design"
+      ],
+      "forbidden": [
+        "payment-systems",
+        "identity-security"
+      ]
+    },
+    {
+      "id": "payments",
+      "prompt": "Design a payment system that avoids double charge with idempotency, a ledger and reconciliation",
+      "expect_any": [
+        "payment-systems"
+      ],
+      "forbidden": [
+        "geospatial-design"
+      ]
+    },
+    {
+      "id": "api",
+      "prompt": "REST or GraphQL or gRPC? Design the API contract with pagination, error handling, load balancer and CDN",
+      "expect_any": [
+        "api-networking"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "scaling",
+      "prompt": "Should we move from a monolith to microservices? How should we scale vertically or horizontally?",
+      "expect_any": [
+        "architecture-scaling"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "passwords",
+      "prompt": "How should I store user passwords and implement OAuth login and API tokens securely?",
+      "expect_any": [
+        "identity-security"
+      ],
+      "forbidden": [
+        "system-design",
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "N1",
+      "prompt": "Fix this off-by-one error in my Python for loop",
+      "expect_any": [],
+      "forbidden_all_above": 0.0
+    },
+    {
+      "id": "N2",
+      "prompt": "Write a CSS grid layout for a pricing page with three cards",
+      "expect_any": [],
+      "forbidden_all_above": 0.0
+    },
+    {
+      "id": "N7",
+      "prompt": "Summarize this meeting transcript into action items",
+      "expect_any": [],
+      "forbidden_all_above": 0.0
+    },
+    {
+      "id": "N8",
+      "prompt": "Pick a color palette and fonts for our brand",
+      "expect_any": [],
+      "forbidden_all_above": 0.0
+    },
+    {
+      "id": "R-paper",
+      "prompt": "Summarise this paper on Raft and tell me whether its assumptions hold for our cluster, and check that my references are real",
+      "expect_any": [
+        "systems-literature-reading"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "R-benchmark",
+      "prompt": "Is this benchmark valid? The p99 looks too good, we ran five times, and I need to know if the 7 percent speedup is real",
+      "expect_any": [
+        "performance-evaluation-methodology"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "R-paper-writing",
+      "prompt": "Help me outline my systems paper, write the evaluation section and respond to the reviewers",
+      "expect_any": [
+        "systems-research-writing"
+      ],
+      "forbidden": [
+        "geospatial-design",
+        "payment-systems"
+      ]
+    },
+    {
+      "id": "R-near-miss-design-doc",
+      "prompt": "Write a design doc and ADRs for our new notification service with a capacity table",
+      "expect_any": [
+        "system-design"
+      ],
+      "forbidden": [
+        "systems-research-writing",
+        "systems-literature-reading"
+      ]
+    },
+    {
+      "id": "R-near-miss-cache",
+      "prompt": "Tune our Redis cache to raise the hit ratio and stop stampedes after a deploy",
+      "expect_any": [
+        "caching-performance"
+      ],
+      "forbidden": [
+        "performance-evaluation-methodology"
+      ]
+    }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  // Structural rules stay on (blank lines around headings, fences, lists, tables; table shape).
+  // Stylistic rules that fight dense reference tables and templates are off.
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD024": false,
+    "MD025": false,
+    "MD026": false,
+    "MD029": false,
+    "MD033": false,
+    "MD036": false,
+    "MD040": false,
+    "MD041": false,
+    "MD060": false
+  },
+  "ignores": ["source/**", "node_modules/**", "system-design-skills/**", "egyptology-skills/**", "bioinformatics-skills/**"]
+}

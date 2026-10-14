@@ -1,0 +1,205 @@
+{
+ "_note": "Source of the evaluation cases. See ../../TESTING.md. outcome cases run with and without the skills; trigger cases run with the skills only.",
+ "outcome": [
+  {
+   "skill": "gardiner-sign-lookup",
+   "facts": [
+    "13153",
+    "Bird",
+    "uniliteral",
+    "\\bm\\b"
+   ],
+   "script": "signs.py",
+   "presupposes_skill": true
+  },
+  {
+   "skill": "transliteration",
+   "facts": [
+    "sꜣ|zꜣ|\\bsA\\b|\\bs3\\b",
+    "determinative",
+    "A1"
+   ]
+  },
+  {
+   "skill": "text-annotation",
+   "facts": [
+    "VERIFY",
+    "grade",
+    "review"
+   ]
+  },
+  {
+   "skill": "hieroglyph-app-builder",
+   "fill": {
+    "<list them>": "a Unicode hieroglyph web font and my own list of 86 signs checked against Gardiner's sign list"
+   },
+   "facts": [
+    "Gardiner",
+    "fallback|missing|box|code",
+    "licen"
+   ]
+  },
+  {
+   "skill": "accuracy-review",
+   "fill": {
+    "<paste>": "Transliteration: G39 A1 = sꜣ 'son'. I am certain this is right. Source: from memory. Convention: Gardiner-era spelling."
+   },
+   "facts": [
+    "memory",
+    "critical|major|severity",
+    "not checked|could not|did not check"
+   ]
+  },
+  {
+   "skill": "egyptology-literature",
+   "number": 2,
+   "fill": {
+    "<paste>": "(1) Gardiner, A. H. Egyptian Grammar, 3rd ed. Oxford: Griffith Institute, 1957. (2) Nobody, N. 2019. A new reading of the Tale of Sinuhe. Journal of Egyptian Archaeology 105: 1-20. doi:10.1177/0307513319999999. (3) Faulkner, R. O. A Concise Dictionary of Middle Egyptian. Oxford: Griffith Institute, 1962."
+   },
+   "facts": [
+    "recalled",
+    "doi",
+    "librarian|catalogue|catalog|publisher"
+   ],
+   "script": "citecheck.py"
+  },
+  {
+   "skill": "edition-conventions",
+   "facts": [
+    "cross|overlap|interleav|not nest|do(es)? not nest",
+    "key",
+    "\\{nb\\}|curly"
+   ],
+   "script": "sigla.py"
+  },
+  {
+   "skill": "provenance-research-ethics",
+   "facts": [
+    "\\b26\\b",
+    "\\b61\\b",
+    "undocumented|oral",
+    "lawful|legal"
+   ],
+   "script": "provrecord.py",
+   "presupposes_skill": true
+  }
+ ],
+ "trigger": [
+  {
+   "id": "eg-sign-pos",
+   "prompt": "I'm looking at a photo of a Middle Kingdom stela and one sign looks like an owl in profile. which sign is it in Gardiner's list and what does it write?",
+   "expect": "gardiner-sign-lookup",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-sign-neg",
+   "prompt": "Who was Ramesses II and roughly when did he rule?",
+   "expect": null,
+   "avoid": "gardiner-sign-lookup",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-trans-pos",
+   "prompt": "can you read this off for me, I only need the sounds and a flag where you're not sure, not a translation: G17-D21:N35",
+   "expect": "transliteration",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-trans-neg",
+   "prompt": "What is the Rosetta Stone and how did Champollion use it to decipher hieroglyphs?",
+   "expect": null,
+   "avoid": "transliteration",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-annot-pos",
+   "prompt": "I'm preparing a class handout. set this line out so students can see the signs, the sounds, a word-by-word gloss and a translation, and mark where we aren't sure: G17-D21:N35",
+   "expect": "text-annotation",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-annot-neg",
+   "prompt": "Write a 150-word museum label for a limestone Middle Kingdom stela for a general audience.",
+   "expect": null,
+   "avoid": "text-annotation",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-app-pos",
+   "prompt": "we're building a small web app where students search hieroglyph signs by Gardiner code or by sound and see them in a nice font. how should we structure the data and what will go wrong with Unicode?",
+   "expect": "hieroglyph-app-builder",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-app-neg",
+   "prompt": "Build me a React component that shows a searchable list of countries with their flags.",
+   "expect": null,
+   "avoid": "hieroglyph-app-builder",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-acc-pos",
+   "prompt": "a colleague sent me their transliteration and gloss of a stela line and I have to sign off before it goes in our department newsletter. can you check it? Transliteration: sꜣ nswt, gloss: son of the king.",
+   "expect": "accuracy-review",
+   "kind": "contextual"
+  },
+  {
+   "id": "eg-acc-neg",
+   "prompt": "Proofread this paragraph for grammar and style: The pyramids was build by thousands of workers who lives nearby.",
+   "expect": null,
+   "avoid": "accuracy-review",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-lit-pos",
+   "prompt": "for a seminar paper on the Tale of Sinuhe I need the main editions and recent articles. where do I look, and how do I cite them without getting anything wrong?",
+   "expect": "egyptology-literature",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-lit-neg",
+   "prompt": "Summarise the plot of the Tale of Sinuhe in five sentences.",
+   "expect": null,
+   "avoid": "egyptology-literature",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-edit-pos",
+   "prompt": "part of this line is broken away on the stela and I think I can restore it from a parallel on another stela. how do I show that in an edition so a reader knows what is mine?",
+   "expect": "edition-conventions",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-edit-neg",
+   "prompt": "Format these three references in Chicago style: Gardiner 1957 Egyptian Grammar Oxford; Faulkner 1962 Concise Dictionary of Middle Egyptian Oxford; Allen 2014 Middle Egyptian Cambridge.",
+   "expect": null,
+   "avoid": "edition-conventions",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-prov-pos",
+   "prompt": "a small museum offered me photos of a stela that reached them through a dealer in the 1960s with no excavation record. can I publish it and use their images?",
+   "expect": "provenance-research-ethics",
+   "kind": "implicit"
+  },
+  {
+   "id": "eg-prov-neg",
+   "prompt": "Give me a three-day itinerary for visiting the Egyptian Museum and the pyramids from Cairo.",
+   "expect": null,
+   "avoid": "provenance-research-ethics",
+   "kind": "near-miss"
+  },
+  {
+   "id": "eg-none-1",
+   "prompt": "Write a Python function that reverses a linked list.",
+   "expect": null,
+   "kind": "unrelated"
+  },
+  {
+   "id": "eg-none-2",
+   "prompt": "What is a good name for a golden retriever puppy?",
+   "expect": null,
+   "kind": "unrelated"
+  }
+ ]
+}

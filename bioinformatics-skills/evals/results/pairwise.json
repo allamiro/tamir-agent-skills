@@ -1,0 +1,43 @@
+{
+ "meta": {
+  "judge_model": "claude-sonnet-5-5",
+  "cost": 1.048
+ },
+ "results": {
+  "bioinformatics-learning-path": "skill",
+  "bioinformatics-programming": "skill",
+  "bioinformatics-review": "skill",
+  "bioinformatics-workflow": "skill",
+  "biological-databases": "baseline",
+  "data-governance-ethics": "skill",
+  "experimental-design": "skill",
+  "gene-finding-translation": "skill",
+  "information-theory-sequences": "inconsistent",
+  "literature-search-appraisal": "skill",
+  "machine-learning-biology": "skill",
+  "method-benchmarking": "baseline",
+  "ngs-pipelines": "baseline",
+  "omics-data-analysis": "tie",
+  "phylogenetics": "tie",
+  "protein-analysis": "skill",
+  "reproducible-research-code": "skill",
+  "research-proposal-planning": "skill",
+  "research-writing-reporting": "skill",
+  "sequence-alignment": "inconsistent",
+  "sequence-formats": "skill",
+  "sequence-statistics": "tie",
+  "variants-population-genetics": "skill"
+ },
+ "tally": {
+  "skill": 15,
+  "baseline": 3,
+  "tie": 3,
+  "inconsistent": 2,
+  "sign_test_p": 0.007537841796875,
+  "win_rate_decisive": 0.8333333333333334,
+  "win_rate_ci": [
+   0.6077796189608429,
+   0.9416342319413855
+  ]
+ }
+}

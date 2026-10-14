@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="t d">
   <title id="t">System Design Skills</title>
-  <desc id="d">Seventeen agent skills for designing, scaling, securing and reviewing software systems. Seventeen colored tiles stand for the skills.</desc>
+  <desc id="d">Twenty agent skills for designing, scaling, securing and reviewing software systems. Twenty colored tiles stand for the skills.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0d2438"/>
@@ -29,28 +29,32 @@
     <text x="64" y="132" font-size="68" font-weight="800" fill="url(#word)" letter-spacing="-1.2">System Design Skills</text>
     <rect x="66" y="154" width="120" height="6" rx="3" fill="#f5eb89"/>
     <text x="64" y="208" font-size="26" fill="#dcecff">Design, scale, secure and review software systems</text>
-    <text x="64" y="244" font-size="20" font-weight="600" fill="#8ab4ff">17 skills  ·  11 templates  ·  validated</text>
+    <text x="64" y="244" font-size="20" font-weight="600" fill="#8ab4ff">20 skills  ·  11 templates  ·  validated</text>
   </g>
 
   <g>
-    <rect x="800"  y="40"  width="48" height="48" rx="11" fill="#096efb"/>
-    <rect x="860"  y="40"  width="48" height="48" rx="11" fill="#9cc464"/>
-    <rect x="920"  y="40"  width="48" height="48" rx="11" fill="#f5eb89"/>
-    <rect x="980"  y="40"  width="48" height="48" rx="11" fill="#fb6373"/>
-    <rect x="1040" y="40"  width="48" height="48" rx="11" fill="#6c64eb"/>
-    <rect x="1100" y="40"  width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="860" y="24" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="920" y="24" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="980" y="24" width="48" height="48" rx="11" fill="#f5eb89"/>
+    <rect x="1040" y="24" width="48" height="48" rx="11" fill="#fb6373"/>
+    <rect x="1100" y="24" width="48" height="48" rx="11" fill="#6c64eb"/>
 
-    <rect x="800"  y="100" width="48" height="48" rx="11" fill="#9cc464"/>
-    <rect x="860"  y="100" width="48" height="48" rx="11" fill="#f5eb89"/>
-    <rect x="920"  y="100" width="48" height="48" rx="11" fill="#fb6373"/>
-    <rect x="980"  y="100" width="48" height="48" rx="11" fill="#6c64eb"/>
-    <rect x="1040" y="100" width="48" height="48" rx="11" fill="#096efb"/>
-    <rect x="1100" y="100" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="860" y="84" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="920" y="84" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="980" y="84" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="1040" y="84" width="48" height="48" rx="11" fill="#f5eb89"/>
+    <rect x="1100" y="84" width="48" height="48" rx="11" fill="#fb6373"/>
 
-    <rect x="800"  y="160" width="48" height="48" rx="11" fill="#f5eb89"/>
-    <rect x="860"  y="160" width="48" height="48" rx="11" fill="#fb6373"/>
-    <rect x="920"  y="160" width="48" height="48" rx="11" fill="#6c64eb"/>
-    <rect x="980"  y="160" width="48" height="48" rx="11" fill="#096efb"/>
-    <rect x="1040" y="160" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="860" y="144" width="48" height="48" rx="11" fill="#6c64eb"/>
+    <rect x="920" y="144" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="980" y="144" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="1040" y="144" width="48" height="48" rx="11" fill="#9cc464"/>
+    <rect x="1100" y="144" width="48" height="48" rx="11" fill="#f5eb89"/>
+
+    <rect x="860" y="204" width="48" height="48" rx="11" fill="#fb6373"/>
+    <rect x="920" y="204" width="48" height="48" rx="11" fill="#6c64eb"/>
+    <rect x="980" y="204" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="1040" y="204" width="48" height="48" rx="11" fill="#096efb"/>
+    <rect x="1100" y="204" width="48" height="48" rx="11" fill="#9cc464"/>
   </g>
 </svg>

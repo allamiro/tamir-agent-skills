@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="t d">
   <title id="t">Bioinformatics Skills</title>
-  <desc id="d">Twenty agent skills for research planning, data, sequences, proteins, variants, omics, statistics, code, writing and review. Twenty colored tiles stand for the skills.</desc>
+  <desc id="d">Twenty-three agent skills for research planning, data, sequences, proteins, variants, omics, statistics, code, writing and review. Twenty-three colored tiles stand for the skills.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0c3b3a"/>
@@ -22,7 +22,7 @@
     <text x="64" y="132" font-size="68" font-weight="800" fill="url(#word)" letter-spacing="-1.2">Bioinformatics Skills</text>
     <rect x="66" y="154" width="120" height="6" rx="3" fill="#f5eb89"/>
     <text x="64" y="208" font-size="26" fill="#d6f5ea">Research, data, analysis, code and review, with the checks shown</text>
-    <text x="64" y="244" font-size="20" font-weight="600" fill="#9fe0c8">20 skills  ·  13 tested scripts  ·  output is a draft for review</text>
+    <text x="64" y="244" font-size="20" font-weight="600" fill="#9fe0c8">23 skills  ·  17 tested scripts  ·  output is a draft for review</text>
   </g>
   <g>
     <rect x="800" y="50" width="40" height="40" rx="10" fill="#096efb"/>
@@ -30,16 +30,19 @@
     <rect x="912" y="50" width="40" height="40" rx="10" fill="#f5eb89"/>
     <rect x="968" y="50" width="40" height="40" rx="10" fill="#fb6373"/>
     <rect x="1024" y="50" width="40" height="40" rx="10" fill="#6c64eb"/>
+    <rect x="1080" y="50" width="40" height="40" rx="10" fill="#096efb"/>
     <rect x="800" y="102" width="40" height="40" rx="10" fill="#9cc464"/>
     <rect x="856" y="102" width="40" height="40" rx="10" fill="#f5eb89"/>
     <rect x="912" y="102" width="40" height="40" rx="10" fill="#fb6373"/>
     <rect x="968" y="102" width="40" height="40" rx="10" fill="#6c64eb"/>
     <rect x="1024" y="102" width="40" height="40" rx="10" fill="#096efb"/>
+    <rect x="1080" y="102" width="40" height="40" rx="10" fill="#9cc464"/>
     <rect x="800" y="154" width="40" height="40" rx="10" fill="#f5eb89"/>
     <rect x="856" y="154" width="40" height="40" rx="10" fill="#fb6373"/>
     <rect x="912" y="154" width="40" height="40" rx="10" fill="#6c64eb"/>
     <rect x="968" y="154" width="40" height="40" rx="10" fill="#096efb"/>
     <rect x="1024" y="154" width="40" height="40" rx="10" fill="#9cc464"/>
+    <rect x="1080" y="154" width="40" height="40" rx="10" fill="#f5eb89"/>
     <rect x="800" y="206" width="40" height="40" rx="10" fill="#fb6373"/>
     <rect x="856" y="206" width="40" height="40" rx="10" fill="#6c64eb"/>
     <rect x="912" y="206" width="40" height="40" rx="10" fill="#096efb"/>

@@ -14,6 +14,14 @@ replace the `<angle-bracket>` parts with your own sequences, tables and files.
 | `research-writing-reporting` | [6 prompts](research-writing-reporting.md) | Write methods, word claims honestly, answer reviewers |
 | `bioinformatics-learning-path` | [5 prompts](bioinformatics-learning-path.md) | Get a study plan, exercises and projects that fit your background |
 
+## Academic and research
+
+| Skill | Prompts | Use them to |
+|---|---|---|
+| `literature-search-appraisal` | [6 prompts](literature-search-appraisal.md) | Build and log a search, appraise a method paper, and check references for invented citations |
+| `method-benchmarking` | [6 prompts](method-benchmarking.md) | Design or audit a tool comparison and test whether a gain is real |
+| `research-proposal-planning` | [6 prompts](research-proposal-planning.md) | Turn an idea into aims, a data management plan, a schedule and a risk list |
+
 ## Sequences and genomes
 
 | Skill | Prompts | Use them to |

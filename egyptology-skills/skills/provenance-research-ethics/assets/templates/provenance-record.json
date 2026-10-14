@@ -1,0 +1,12 @@
+{
+  "object": {"id": "Example only: invented record for testing the checker", "description": "stela fragment"},
+  "benchmarks": {"UNESCO 1970 Convention": 1970, "A venue's publication rule (set from its policy)": 1973},
+  "events": [
+    {"date": "1895", "kind": "excavation", "from": "", "to": "Excavator A", "place": "Egypt",
+     "evidence": "document", "ref": "field register, entry number"},
+    {"date": "1921-05", "kind": "sale", "from": "Excavator A", "to": "Collector B", "place": "Cairo",
+     "evidence": "publication", "ref": "sale catalogue, lot number"},
+    {"date": "1958", "kind": "gift", "from": "Collector B", "to": "Museum M", "place": "Europe",
+     "evidence": "document", "ref": "accession register"}
+  ]
+}

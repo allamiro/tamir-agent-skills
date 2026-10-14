@@ -1,0 +1,164 @@
+{
+ "meta": {
+  "engine": "direct",
+  "agent_model": "claude-opus-5-5",
+  "judge_model": "claude-sonnet-5-5",
+  "judge_votes": 1,
+  "runs_per_case": 3,
+  "costUsd": 7.1578,
+  "skipped_runs": 0,
+  "partial": false,
+  "claudeVersion": "2.1.296 (Claude Code)",
+  "startedAt": "2026-10-14T12:33:40Z",
+  "_stamp": "2026-10-14"
+ },
+ "summary": {
+  "skills": {
+   "system-design": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "requirements-capacity": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "architecture-scaling": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "api-networking": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "identity-security": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "database-selection": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "transactions-consistency": {
+    "pos_runs": 3,
+    "pos_hit": 0,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "sharding-replication": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "caching-performance": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "storage-systems": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "messaging-streaming": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "deployment-delivery": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "reliability-resilience": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "observability": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "geospatial-design": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "payment-systems": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "system-design-review": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "systems-literature-reading": {
+    "pos_runs": 3,
+    "pos_hit": 1,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "performance-evaluation-methodology": {
+    "pos_runs": 3,
+    "pos_hit": 2,
+    "neg_runs": 3,
+    "neg_false": 0
+   },
+   "systems-research-writing": {
+    "pos_runs": 3,
+    "pos_hit": 3,
+    "neg_runs": 3,
+    "neg_false": 0
+   }
+  },
+  "unrelated_runs": 6,
+  "unrelated_false": 0,
+  "confusions": [],
+  "by_kind": {
+   "implicit": [
+    33,
+    54
+   ],
+   "near-miss": [
+    60,
+    60
+   ],
+   "contextual": [
+    4,
+    6
+   ],
+   "unrelated": [
+    6,
+    6
+   ]
+  },
+  "tp": 37,
+  "fn": 23,
+  "fp": 0,
+  "tn": 60
+ }
+}

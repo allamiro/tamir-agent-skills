@@ -1,0 +1,358 @@
+{
+ "meta": {
+  "engine": "direct",
+  "agent_model": "claude-opus-5-5",
+  "judge_model": "claude-sonnet-5-5",
+  "judge_votes": 3,
+  "runs_per_case": 3,
+  "costUsd": 10.6487,
+  "skipped_runs": 0,
+  "partial": false,
+  "claudeVersion": "2.1.296 (Claude Code)",
+  "startedAt": "2026-10-14T12:09:49Z",
+  "_stamp": "2026-10-14",
+  "rejudge": {
+   "answers": 48,
+   "verdicts": 96,
+   "changed": 2
+  }
+ },
+ "summary": {
+  "skills": {
+   "accuracy-review": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 0,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 3548,
+     "in_tokens": 151742,
+     "cost": 0.2129,
+     "seconds": 39.3
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 0,
+     "calibration": 3,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 2562.3333,
+     "in_tokens": 30437,
+     "cost": 0.1114,
+     "seconds": 29.6333
+    }
+   },
+   "edition-conventions": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 3,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 3018.3333,
+     "in_tokens": 175825.3333,
+     "cost": 0.2029,
+     "seconds": 36.8333
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 2,
+     "calibration": 0,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 1835.3333,
+     "in_tokens": 30382.6667,
+     "cost": 0.0965,
+     "seconds": 23.0333
+    }
+   },
+   "egyptology-literature": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 3,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 2055.6667,
+     "in_tokens": 163021,
+     "cost": 0.1755,
+     "seconds": 23.4667
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 1332.6667,
+     "in_tokens": 135084,
+     "cost": 0.1181,
+     "seconds": 20.3
+    }
+   },
+   "gardiner-sign-lookup": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 3,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 683.6667,
+     "in_tokens": 101256.3333,
+     "cost": 0.1225,
+     "seconds": 10.1333
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 0,
+     "calibration": 3,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 943.6667,
+     "in_tokens": 91802.3333,
+     "cost": 0.0947,
+     "seconds": 13.5
+    }
+   },
+   "hieroglyph-app-builder": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 0,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 5995,
+     "in_tokens": 151563.6667,
+     "cost": 0.2584,
+     "seconds": 67.4
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 1,
+     "calibration": 3,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 7175.6667,
+     "in_tokens": 61201.3333,
+     "cost": 0.2123,
+     "seconds": 78.2
+    }
+   },
+   "provenance-research-ethics": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 3,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 3408.3333,
+     "in_tokens": 190388.6667,
+     "cost": 0.2528,
+     "seconds": 37.2333
+    },
+    "without": {
+     "runs": 3,
+     "facts": 2,
+     "rubric": 1,
+     "calibration": 3,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 3,
+     "errors": 0,
+     "out_tokens": 3520.6667,
+     "in_tokens": 138573.3333,
+     "cost": 0.179,
+     "seconds": 42.2
+    }
+   },
+   "text-annotation": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 2,
+     "fired": 3,
+     "script": 0,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 2094.3333,
+     "in_tokens": 148719.6667,
+     "cost": 0.1694,
+     "seconds": 27.9
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 0,
+     "calibration": 0,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 998,
+     "in_tokens": 30408,
+     "cost": 0.0799,
+     "seconds": 13.0
+    }
+   },
+   "transliteration": {
+    "with": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 3,
+     "calibration": 3,
+     "fired": 3,
+     "script": 0,
+     "any_skill": 3,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 1756.3333,
+     "in_tokens": 139845.6667,
+     "cost": 0.1698,
+     "seconds": 22.4333
+    },
+    "without": {
+     "runs": 3,
+     "facts": 3,
+     "rubric": 1,
+     "calibration": 0,
+     "fired": 0,
+     "script": 0,
+     "any_skill": 0,
+     "denied": 0,
+     "has_script": 0,
+     "errors": 0,
+     "out_tokens": 1320.3333,
+     "in_tokens": 30373.6667,
+     "cost": 0.0861,
+     "seconds": 18.2667
+    }
+   }
+  },
+  "overall": {
+   "with": {
+    "runs": 24,
+    "skills": 8,
+    "facts": 24,
+    "rubric": 24,
+    "calibration": 23,
+    "fired": 24,
+    "script": 12,
+    "any_skill": 24,
+    "errors": 0,
+    "denied": 0,
+    "has_script": 12,
+    "runs_per_skill": 3,
+    "pass_hat_all_facts": 1.0,
+    "pass_hat_rubric": 1.0,
+    "mean_out_tokens": 2820.0,
+    "mean_in_tokens": 152795.3,
+    "mean_cost": 0.1955,
+    "total_cost": 4.69
+   },
+   "without": {
+    "runs": 24,
+    "skills": 8,
+    "facts": 23,
+    "rubric": 8,
+    "calibration": 15,
+    "fired": 0,
+    "script": 0,
+    "any_skill": 0,
+    "errors": 0,
+    "denied": 0,
+    "has_script": 12,
+    "runs_per_skill": 3,
+    "pass_hat_all_facts": 0.875,
+    "pass_hat_rubric": 0.125,
+    "mean_out_tokens": 2461.1,
+    "mean_in_tokens": 68532.8,
+    "mean_cost": 0.1222,
+    "total_cost": 2.93
+   }
+  },
+  "flagged": [
+   "gardiner-sign-lookup",
+   "provenance-research-ethics"
+  ],
+  "neutral": {
+   "with": {
+    "runs": 18,
+    "facts": 18,
+    "rubric": 18,
+    "calibration": 17,
+    "skills": 6
+   },
+   "without": {
+    "runs": 18,
+    "facts": 18,
+    "rubric": 7,
+    "calibration": 9,
+    "skills": 6
+   }
+  }
+ }
+}

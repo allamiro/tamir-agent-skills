@@ -7,8 +7,8 @@ does not say is marked as unconfirmed.
 | Tool | How skills get in | Status for this collection | Read |
 |---|---|---|---|
 | **Codex** (CLI and IDE extension) | Folders of `SKILL.md` files in `.agents/skills` | Works | [Codex](#codex) |
-| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 5 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
-| **OpenAI Skills API** | A zip with one top-level folder | 5 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
+| **ChatGPT desktop app** | Standalone skills show in a Skills sidebar and are picked with `@` | 8 zips built; how the app takes a skill is not confirmed | [ChatGPT](#chatgpt) |
+| **OpenAI Skills API** | A zip with one top-level folder | 8 zips built and checked against the documented limits | [OpenAI Skills API](#openai-skills-api) |
 
 ## Codex
 
@@ -21,7 +21,7 @@ bash scripts/install.sh --codex --project /path/to/your/project   # this project
 bash scripts/install.sh --codex --user                            # every project on this machine
 ```
 
-`--codex` and `--agents` do the same thing. Install all 5 skills together, because they refer to each other.
+`--codex` and `--agents` do the same thing. Install all 8 skills together, because they refer to each other.
 `--symlink`, `--force` and `--dry-run` work as they do for Claude Code.
 
 Codex scans `.agents/skills` in every directory from the working directory up to the repository root,
@@ -29,6 +29,8 @@ Codex scans `.agents/skills` in every directory from the working directory up to
 symlinked skill folders. To use a skill, describe the task and Codex picks one from the description,
 or run `/skills` or type `$` and the skill name to choose one yourself. (Codex skills documentation
 at learn.chatgpt.com, read 2026-10-14.)
+
+**Tested.** On 2026-10-14, with codex-cli 0.162.1, each skill's starter prompt was run with `codex exec` once with the skills installed in `.agents/skills` and once with none ([results](../evals/results/codex.md)). Codex read the expected skill's `SKILL.md` in 8 of 8 runs, and 7 of 8 answers contained every expected fact with the skills against 5 of 8 without. That checks that Codex finds and uses the skills from that folder; with one run per prompt and no judge, it says little about answer quality.
 
 Ready-to-paste prompts, one file per skill, are in [`../prompts/`](../prompts/README.md).
 
@@ -54,7 +56,7 @@ a single top-level folder; a bundle may hold exactly one `SKILL.md`; the zip may
 there may be at most 500 files per skill version; and an uncompressed file may be at most 25 MB. The
 zips in [`chatgpt/`](chatgpt/) meet all of these, one zip per skill:
 
-Upload the skills you need; they refer to each other by name, so take all five if you can.
+Upload the skills you need; they refer to each other by name, so take all eight if you can.
 
 | Zip | Skill |
 |---|---|

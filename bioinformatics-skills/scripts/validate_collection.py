@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate bioinformatics-skills (standard library only).
 
-Per skill: the twenty expected skills exist; frontmatter keys; name equals directory; license;
+Per skill: the twenty-three expected skills exist; frontmatter keys; name equals directory; license;
 description length and plain-YAML safety (no ': ' or ' #' when unquoted); SKILL.md under 500 lines; required headings; every relative link and every
 backticked `references/...`, `assets/...` or `scripts/...` path resolves; every references/*.md and
 every file under assets/ is mentioned in SKILL.md; code fences balanced; every backticked skill
@@ -25,7 +25,8 @@ EXPECTED = ["bioinformatics-workflow", "experimental-design", "biological-databa
             "protein-analysis", "phylogenetics", "variants-population-genetics", "omics-data-analysis",
             "information-theory-sequences", "sequence-statistics", "machine-learning-biology",
             "bioinformatics-programming", "reproducible-research-code", "research-writing-reporting",
-            "bioinformatics-review", "bioinformatics-learning-path"]
+            "bioinformatics-review", "bioinformatics-learning-path",
+            "literature-search-appraisal", "method-benchmarking", "research-proposal-planning"]
 SIBLING_COLLECTIONS = {"accuracy-review", "system-design-review"}  # named as method precedents
 HEADINGS = ["## Purpose and activation", "## Required inputs", "## Workflow", "## Decision framework",
             "## Failure and edge cases", "## Validation", "## Expected output", "## Sources and confidence"]
@@ -175,18 +176,15 @@ if r.returncode:
     err("ChatGPT bundles are invalid or out of date: " + " | ".join(
         ln.strip() for ln in r.stdout.splitlines() if ln.strip().startswith(("FAIL", "-")))[:400])
 
-cases_path = os.path.join(ROOT, "evals", "live_cases.json")
-if not os.path.isfile(cases_path):
-    err("missing evals/live_cases.json")
-else:
-    with open(cases_path, encoding="utf-8") as fh:
-        case_skills = sorted(c["skill"] for c in json.load(fh)["cases"])
-    if case_skills != sorted(EXPECTED):
-        err("evals/live_cases.json covers %s, expected every skill: %s" % (case_skills, sorted(EXPECTED)))
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "live_check.py"), "--dry-run"],
-                       capture_output=True, text=True)
+tools_runner = os.path.join(ROOT, "..", "tools", "run_evals.py")
+if not os.path.isfile(os.path.join(ROOT, "evals", "cases.json")):
+    err("missing evals/cases.json")
+elif os.path.isfile(tools_runner):
+    r = subprocess.run([sys.executable, tools_runner, "plan", ROOT], capture_output=True, text=True)
     if r.returncode:
-        err("scripts/live_check.py --dry-run failed: " + (r.stdout + r.stderr).strip()[-300:])
+        err("evals/cases.json: " + " | ".join(ln.strip() for ln in r.stdout.splitlines() if ln.startswith("PROBLEM"))[:500])
+else:
+    print("note: ../tools/run_evals.py not found, evaluation cases were not checked")
 
 try:
     out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split("\n")

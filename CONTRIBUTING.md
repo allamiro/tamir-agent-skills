@@ -34,6 +34,8 @@ knows one can navigate any other:
 ├── prompts/     README.md index; one file of prompts per skill where a skill needs several
 ├── scripts/     install.sh (--claude, --codex), build_chatgpt.py, validators, and check_answers.py where
 │                prompts have computable answers
+├── evals/       cases.json (outcome and trigger cases) and results/ written by tools/run_evals.py
+├── examples/    sample answers with token counts, written by tools/run_evals.py samples
 └── assets/      banner
 ```
 
@@ -69,8 +71,18 @@ python3 scripts/check_routing.py --verbose   # description routing smoke test
 python3 scripts/build_chatgpt.py --check     # bundle limits for ChatGPT / OpenAI uploads (--fresh also checks the committed zips)
 skills-ref validate skills/<name>            # official Agent Skills validator
 claude plugin validate skills                # Claude Code's own check of the skill files
-python3 scripts/live_check.py --dry-run      # Egyptology and Bioinformatics: plan real-agent runs; --run spends API credit
+python3 ../tools/run_evals.py plan .         # evaluation cases are valid; the live runs spend API credit (see TESTING.md)
 ```
+
+From the repository root, `python3 tools/check_repo.py` runs every free check in all three collections.
+
+## Adding a skill: the tests it needs
+
+Every skill needs, in its collection's `evals/cases.json`: one **outcome** case (its starter prompt, regular expressions
+for the key facts, and a rubric or a prompt with an "A good answer:" line) and, under **trigger**, at least one
+should-trigger prompt that does not name the skill and one near-miss prompt that shares its vocabulary but belongs
+elsewhere. A script needs a `--selftest` with hand-computed values. [TESTING.md](TESTING.md) explains what each measure
+tells you and how to run the live ones, which spend API credit; do not report a live number you did not run.
 
 `skills-ref` comes from the
 [agentskills reference library](https://github.com/agentskills/agentskills/tree/main/skills-ref).
