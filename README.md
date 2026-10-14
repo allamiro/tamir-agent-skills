@@ -4,14 +4,14 @@
 
 <p align="center">
   <img alt="License Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-096efb?style=flat-square&labelColor=15123d">
-  <img alt="17 skills" src="https://img.shields.io/badge/skills-17-6c64eb?style=flat-square&labelColor=15123d">
+  <img alt="22 skills" src="https://img.shields.io/badge/skills-22-6c64eb?style=flat-square&labelColor=15123d">
   <img alt="Agent Skills spec valid" src="https://img.shields.io/badge/Agent%20Skills%20spec-valid-9cc464?style=flat-square&labelColor=15123d">
   <img alt="Works with Claude Code, Codex and ChatGPT" src="https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Codex%20%C2%B7%20ChatGPT-fb6373?style=flat-square&labelColor=15123d">
 </p>
 
 Step-by-step expert workflows your coding agent can follow, packaged as
-[Agent Skills](https://agentskills.io/specification). Write them once, use them in Claude Code,
-Codex and ChatGPT.
+[Agent Skills](https://agentskills.io/specification). Write them once, use them in Claude Code
+and Codex. System Design also ships zips for ChatGPT.
 
 ## Collections
 
@@ -22,28 +22,31 @@ Codex and ChatGPT.
 
 More collections can sit beside it. Each one is a self-contained folder.
 
+## Which one is for my tool?
+
+| I use | System Design Skills | Egyptology Skills |
+|---|---|---|
+| **Claude Code** | [guide](system-design-skills/claude/README.md) | [guide](egyptology-skills/claude/README.md) |
+| **OpenAI Codex** | [guide](system-design-skills/openai/README.md#codex) | [guide](egyptology-skills/openai/README.md#codex) |
+| **ChatGPT** | [17 zips](system-design-skills/openai/chatgpt/) | Not built yet |
+
+Claude Code and Codex read the same `skills/` folder in each collection. ChatGPT takes zips, so it
+has its own folder where one exists. Each collection has the same layout: `skills/`, `claude/`,
+`openai/` and `prompts/`.
+
 ## Install
 
-### Claude Code
+Clone once, then run the installer from the collection you want.
 
 ```bash
 git clone https://github.com/allamiro/tamir-agent-skills.git
-cd tamir-agent-skills/system-design-skills
-bash scripts/install.sh --claude --project /path/to/your/project
+cd tamir-agent-skills/system-design-skills        # or: cd tamir-agent-skills/egyptology-skills
+bash scripts/install.sh --claude --project /path/to/your/project   # Claude Code
+bash scripts/install.sh --codex --project /path/to/your/project    # OpenAI Codex
 ```
 
-### Codex
-
-Codex reads `.agents/skills`.
-
-```bash
-bash scripts/install.sh --agents --project /path/to/your/project
-```
-
-### ChatGPT
-
-Upload a ready-made zip from
-[`system-design-skills/chatgpt/`](system-design-skills/chatgpt/) and pick it with `@`. Start with
+For ChatGPT, upload a ready-made zip from
+[`system-design-skills/openai/chatgpt/`](system-design-skills/openai/chatgpt/). Start with
 `system-design.zip`.
 
 Then ask in plain language:
@@ -52,7 +55,9 @@ Then ask in plain language:
 >
 > Review this architecture and give me findings with evidence and severity.
 
-Every skill has a ready-to-paste prompt in [`PROMPTS.md`](system-design-skills/PROMPTS.md).
+Every skill has ready-to-paste prompts:
+[System Design](system-design-skills/prompts/README.md) and
+[Egyptology](egyptology-skills/prompts/README.md), where each skill has its own file.
 
 ## What you get
 

@@ -16,6 +16,9 @@ Library-level checks:
   - all 17 expected skills exist, no unexpected ones
   - all 11 templates exist and are non-trivial
   - every skill's Sources block exists
+  - navigation: README.md, claude/README.md, openai/README.md and prompts/README.md exist and
+    their relative links resolve; openai/chatgpt/ holds exactly one zip per skill; prompts/
+    has a heading per skill; no skill is copied into claude/ or openai/
 
 Exit code 0 when everything passes, 1 otherwise.
 
@@ -216,6 +219,45 @@ def check_scripts(skills_root, errors, notes):
                     notes.append("%s/scripts/%s --selftest: %s" % (name, f, r.stdout.strip().splitlines()[-1]))
 
 
+def check_navigation(root, errors):
+    """Which folder is for which tool, and one prompt per skill."""
+    link = re.compile(r"\]\(([^)#\s]+)(?:#[^)]*)?\)")
+    docs = ["README.md", "claude/README.md", "openai/README.md", "prompts/README.md"]
+    texts = {}
+    for d in docs:
+        path = os.path.join(root, d)
+        if not os.path.isfile(path):
+            errors.append("missing file: %s" % d)
+            continue
+        text = open(path, encoding="utf-8").read()
+        texts[d] = text
+        if "PROMPTS.md" in text:
+            errors.append("%s: still mentions the old PROMPTS.md" % d)
+        for target in link.findall(text):
+            if re.match(r"^[a-z]+:", target):
+                continue
+            if not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(path), target))):
+                errors.append("%s: broken link %s" % (d, target))
+    readme = texts.get("README.md", "")
+    for needed in ("claude/README.md", "openai/README.md", "prompts/README.md"):
+        if needed not in readme:
+            errors.append("README.md does not link %s" % needed)
+    prompts = texts.get("prompts/README.md", "")
+    for s in EXPECTED_SKILLS:
+        if "skills/%s/" % s not in readme:
+            errors.append("README.md does not link skills/%s/" % s)
+        if "### `%s`" % s not in prompts:
+            errors.append("prompts/README.md has no prompt for %s" % s)
+    zdir = os.path.join(root, "openai", "chatgpt")
+    zips = sorted(f[:-4] for f in os.listdir(zdir) if f.endswith(".zip")) if os.path.isdir(zdir) else []
+    if zips != sorted(EXPECTED_SKILLS):
+        errors.append("openai/chatgpt/ zips %s != skills %s" % (zips, sorted(EXPECTED_SKILLS)))
+    for platform in ("claude", "openai"):
+        for dirpath, _dirs, files in os.walk(os.path.join(root, platform)):
+            if "SKILL.md" in files:
+                errors.append("%s holds a copy of a skill (%s): skills live only in skills/" % (platform, dirpath))
+
+
 def main():
     ap = argparse.ArgumentParser(description="Validate the system-design-skills library.")
     ap.add_argument("--root", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."),
@@ -251,6 +293,7 @@ def main():
     for f in ("book-provenance.md", "modernization-notes.md"):
         if not os.path.isfile(os.path.join(skills_root, "system-design", "references", f)):
             errors.append("missing system-design/references/%s" % f)
+    check_navigation(root, errors)
     if not a.skip_scripts:
         check_scripts(skills_root, errors, notes)
     for n in notes:

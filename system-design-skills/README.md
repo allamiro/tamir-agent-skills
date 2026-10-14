@@ -13,27 +13,52 @@ Seventeen skills that help a coding agent make sound architecture decisions: est
 pick components, find failure modes, and review existing designs. A coordinator skill runs the
 workflow and calls only the specialists a problem needs.
 
+## Which one is for my tool?
+
+| I use | Read | Install | Status |
+|---|---|---|---|
+| **Claude Code** | [`claude/`](claude/README.md) | `bash scripts/install.sh --claude --project DIR` | Works |
+| **OpenAI Codex** | [`openai/`](openai/README.md#codex) | `bash scripts/install.sh --codex --project DIR` | Works |
+| **ChatGPT** | [`openai/`](openai/README.md#chatgpt) | Upload zips from [`openai/chatgpt/`](openai/chatgpt/) | Zips built; app upload flow unconfirmed |
+
+Claude Code and Codex read the same files from [`skills/`](skills/). Nothing is copied per
+platform, so there is one place to fix a skill. ChatGPT needs its own zips, built from `skills/`.
+
+## What is in this folder
+
+```text
+system-design-skills/
+├── skills/     the 17 skills (SKILL.md plus references, scripts and templates)
+├── claude/     Claude Code: install and use
+├── openai/     OpenAI: Codex install, and chatgpt/ with one zip per skill
+├── prompts/    ready-to-paste prompts, one per skill
+├── scripts/    install.sh, build_chatgpt.py, validate_library.py, check_routing.py
+├── evals/      routing cases and end-to-end scenarios
+├── docs/       authoring guide
+└── assets/     banner
+```
+
 ## Skills
 
-| Skill | Use it for |
-|---|---|
-| `system-design` | The coordinator. An 11-step workflow for a new architecture |
-| `requirements-capacity` | Requirements, QPS and storage estimates, availability and latency budgets |
-| `architecture-scaling` | Monolith or services, sync or async, scaling ladder, bottlenecks |
-| `api-networking` | REST, GraphQL, RPC, HTTP versions, DNS, CDN, load balancing, API contracts |
-| `identity-security` | Auth, SSO, tokens, password hashing, TLS, tenant isolation, threat models |
-| `database-selection` | Choosing a database from access patterns |
-| `transactions-consistency` | Isolation levels, locking, consistency models, sagas, outbox |
-| `sharding-replication` | Partitioning, replicas, failover, with a capacity case first |
-| `caching-performance` | Cache strategies, invalidation, stampedes, Redis vs Memcached |
-| `messaging-streaming` | Queues, Kafka, delivery guarantees, idempotent consumers, retries |
-| `storage-systems` | Block, file and object storage, uploads, erasure coding, tiers |
-| `deployment-delivery` | Rolling, blue-green, canary, safe migrations, rollback |
-| `reliability-resilience` | Failure domains, availability math, backoff, breakers, disaster recovery |
-| `observability` | SLOs, burn-rate alerts, metrics, logs, traces, cardinality |
-| `geospatial-design` | Geohash, quadtree, nearby search, map tiles, routing |
-| `payment-systems` | Initiation, processing, ledger, settlement, idempotency, reconciliation |
-| `system-design-review` | Evidence-based review with severity-ranked findings |
+| Skill | Use it for | Prompt |
+|---|---|---|
+| [`system-design`](skills/system-design/) | The coordinator. An 11-step workflow for a new architecture | [prompt](prompts/README.md#system-design) |
+| [`requirements-capacity`](skills/requirements-capacity/) | Requirements, QPS and storage estimates, availability and latency budgets | [prompt](prompts/README.md#requirements-capacity) |
+| [`architecture-scaling`](skills/architecture-scaling/) | Monolith or services, sync or async, scaling ladder, bottlenecks | [prompt](prompts/README.md#architecture-scaling) |
+| [`api-networking`](skills/api-networking/) | REST, GraphQL, RPC, HTTP versions, DNS, CDN, load balancing, API contracts | [prompt](prompts/README.md#api-networking) |
+| [`identity-security`](skills/identity-security/) | Auth, SSO, tokens, password hashing, TLS, tenant isolation, threat models | [prompt](prompts/README.md#identity-security) |
+| [`database-selection`](skills/database-selection/) | Choosing a database from access patterns | [prompt](prompts/README.md#database-selection) |
+| [`transactions-consistency`](skills/transactions-consistency/) | Isolation levels, locking, consistency models, sagas, outbox | [prompt](prompts/README.md#transactions-consistency) |
+| [`sharding-replication`](skills/sharding-replication/) | Partitioning, replicas, failover, with a capacity case first | [prompt](prompts/README.md#sharding-replication) |
+| [`caching-performance`](skills/caching-performance/) | Cache strategies, invalidation, stampedes, Redis vs Memcached | [prompt](prompts/README.md#caching-performance) |
+| [`messaging-streaming`](skills/messaging-streaming/) | Queues, Kafka, delivery guarantees, idempotent consumers, retries | [prompt](prompts/README.md#messaging-streaming) |
+| [`storage-systems`](skills/storage-systems/) | Block, file and object storage, uploads, erasure coding, tiers | [prompt](prompts/README.md#storage-systems) |
+| [`deployment-delivery`](skills/deployment-delivery/) | Rolling, blue-green, canary, safe migrations, rollback | [prompt](prompts/README.md#deployment-delivery) |
+| [`reliability-resilience`](skills/reliability-resilience/) | Failure domains, availability math, backoff, breakers, disaster recovery | [prompt](prompts/README.md#reliability-resilience) |
+| [`observability`](skills/observability/) | SLOs, burn-rate alerts, metrics, logs, traces, cardinality | [prompt](prompts/README.md#observability) |
+| [`geospatial-design`](skills/geospatial-design/) | Geohash, quadtree, nearby search, map tiles, routing | [prompt](prompts/README.md#geospatial-design) |
+| [`payment-systems`](skills/payment-systems/) | Initiation, processing, ledger, settlement, idempotency, reconciliation | [prompt](prompts/README.md#payment-systems) |
+| [`system-design-review`](skills/system-design-review/) | Evidence-based review with severity-ranked findings | [prompt](prompts/README.md#system-design-review) |
 
 Eleven templates ship with the coordinator: design document, ADR, requirements, capacity
 worksheet, technology matrix, database review, failure analysis, security checklist,
@@ -41,36 +66,18 @@ observability review, production readiness checklist and review report.
 
 ## Install
 
-Install all skills together, because the specialists share the coordinator's templates.
+Run from this folder. Install all 17 skills together, because the specialists share the
+coordinator's templates.
 
 ```bash
 bash scripts/install.sh --claude --project /path/to/your/repo   # Claude Code
-bash scripts/install.sh --agents --project /path/to/your/repo   # Codex and .agents/skills readers
-bash scripts/install.sh --claude --user                         # every project on this machine
+bash scripts/install.sh --codex --project /path/to/your/repo    # OpenAI Codex
 ```
 
-Add `--symlink` to link instead of copy, `--force` to replace, `--dry-run` to preview.
-
-| Tool | Reads skills from |
-|---|---|
-| Claude Code | `.claude/skills/` or `~/.claude/skills/` |
-| Codex | `.agents/skills/` in the repo and each parent up to the repo root, `~/.agents/skills/`, `/etc/codex/skills/` (OpenAI Codex docs, read 2026-10-14) |
-
-## ChatGPT
-
-ChatGPT takes a zip with one top-level folder and exactly one `SKILL.md`. A skill that points at a
-sibling's templates would break that rule, so `chatgpt/` holds one self-contained zip per skill with
-its templates copied in.
-
-```bash
-python3 scripts/build_chatgpt.py            # rebuild chatgpt/*.zip
-python3 scripts/build_chatgpt.py --check    # verify limits only
-```
-
-Checked against OpenAI's developer docs (read 2026-10-14): single top-level folder, one
-`SKILL.md`, 500 files, 50 MB zip, 25 MB per file. The upload menu inside the ChatGPT app is
-unconfirmed, because OpenAI's help page was not reachable (HTTP 403). Follow the in-product flow.
-Upload `system-design.zip` plus the specialists you want.
+Add `--user` to install for every project on the machine, `--symlink` to link instead of copy,
+`--force` to replace, or `--dry-run` to preview. ChatGPT takes zips instead: see
+[`openai/`](openai/README.md#chatgpt). Details for each tool: [`claude/`](claude/README.md) and
+[`openai/`](openai/README.md).
 
 ## Try it
 
@@ -80,21 +87,23 @@ Upload `system-design.zip` plus the specialists you want.
 | "Review `docs/architecture.md` and `services/`. Give me findings with evidence and severity." | `system-design-review`, plus any specialist the findings need |
 | "Duplicate emails after consumer restarts. How do I make confirmation idempotent?" | `messaging-streaming`, with `transactions-consistency` |
 
-Every skill has a ready-to-paste prompt in [PROMPTS.md](PROMPTS.md). Fill a template by asking for
-it: "write an ADR for this decision" or "run the production readiness checklist".
+Every skill has a ready-to-paste prompt in [`prompts/`](prompts/README.md). Fill a template by asking
+for it: "write an ADR for this decision" or "run the production readiness checklist".
 
 ## Check it
 
 ```bash
-python3 scripts/validate_library.py         # spec, sections, size, links, templates, script self-tests
-python3 scripts/check_routing.py            # description routing, 43 cases (incl. PROMPTS.md)
+python3 scripts/validate_library.py         # spec, sections, size, links, templates, navigation, script self-tests
+python3 scripts/check_routing.py            # description routing, 43 cases (incl. prompts/)
 python3 scripts/build_chatgpt.py --check    # ChatGPT bundle limits
 skills-ref validate skills/<name>           # official validator
 ```
 
-Last run, 2026-10-14: all 17 skills and all 17 ChatGPT bundles pass `skills-ref`, the library
-validator reports 0 errors, routing passes 43 of 43, both script self-tests pass, and all 11 Mermaid
-diagrams parse. Routing is a word-match check, not a model of how an LLM picks a skill.
+Last run, 2026-10-14, after the folder restructure: all 17 skills and all 17 ChatGPT bundles pass
+`skills-ref`, the library validator reports 0 errors (including the navigation check), routing
+passes 43 of 43, both script self-tests pass, the 17 zips are byte-identical to a fresh build, and
+markdownlint reports 0 issues. The 11 Mermaid diagrams were parsed earlier the same day; the skills
+have not changed since. Routing is a word-match check, not a model of how an LLM picks a skill.
 
 Not run yet: the five end-to-end scenarios in [`evals/scenarios.md`](evals/scenarios.md). They need a
 live agent and a person to grade them.

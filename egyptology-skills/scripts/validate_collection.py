@@ -4,8 +4,10 @@
 Checks: five expected skills; frontmatter keys; name equals directory; description length;
 SKILL.md under 500 lines; required headings; every relative link and `references/...` or
 `assets/...` mention resolves; code fences balanced; the sign table (each row has a status,
-each code maps to a Unicode character); no source PDF or source folder is tracked by git;
-the lookup script self-test passes.
+each code maps to a Unicode character); navigation (claude/, openai/ and prompts/ files exist,
+relative links resolve, each skill has its own prompts file, prompt counts match the READMEs,
+prompts only use signs from the table, no skill is copied into a platform folder); no source PDF
+or source folder is tracked by git; the lookup script self-test passes.
 """
 import json
 import os
@@ -93,6 +95,59 @@ for r in rows:
         err("sign table: %s has role %s but no value" % (r["code"], r["role"]))
     if r["role"] == "determinative" and r.get("value"):
         err("sign table: determinative %s has a value" % r["code"])
+
+# Navigation: which folder is for which tool, and one prompts file per skill.
+NAV = ["README.md", "claude/README.md", "openai/README.md", "prompts/README.md"]
+# prompts/gardiner-sign-lookup.md asks about a sign that is deliberately not in the table.
+OUTSIDE_TABLE_TESTS = {"A14"}
+LINK = re.compile(r"\]\(([^)#\s]+)(?:#[^)]*)?\)")
+table_codes = {r["code"] for r in rows}
+
+
+def read_doc(rel):
+    path = os.path.join(ROOT, rel)
+    if not os.path.isfile(path):
+        err("missing file: " + rel)
+        return ""
+    return open(path, encoding="utf-8").read()
+
+
+for rel in NAV + ["prompts/%s.md" % n for n in EXPECTED]:
+    text = read_doc(rel)
+    base = os.path.dirname(os.path.join(ROOT, rel))
+    if "PROMPTS.md" in text:
+        err("%s: still mentions the old PROMPTS.md" % rel)
+    for target in LINK.findall(text):
+        if re.match(r"^[a-z]+:", target):
+            continue
+        if not os.path.exists(os.path.normpath(os.path.join(base, target))):
+            err("%s: broken link %s" % (rel, target))
+
+readme, prompts_index = read_doc("README.md"), read_doc("prompts/README.md")
+for needed in ("claude/README.md", "openai/README.md", "prompts/README.md"):
+    if needed not in readme:
+        err("README.md does not link " + needed)
+for name in EXPECTED:
+    text = read_doc("prompts/%s.md" % name)
+    count = len(re.findall(r"^> ", text, re.M))
+    headings = len(re.findall(r"^## \d+\. ", text, re.M))
+    if count < 3 or count != headings:
+        err("prompts/%s.md: %d prompts for %d numbered headings (need 3 or more, equal)" % (name, count, headings))
+    if "skills/%s/" % name not in readme:
+        err("README.md does not link skills/%s/" % name)
+    if "[%d](prompts/%s.md)" % (count, name) not in readme:
+        err("README.md prompt count for %s is not %d" % (name, count))
+    if "[%d prompts](%s.md)" % (count, name) not in prompts_index:
+        err("prompts/README.md prompt count for %s is not %d" % (name, count))
+    for line in re.findall(r"^> (.*)$", text, re.M):
+        for code in re.findall(r"\b[A-Z]{1,2}\d{1,3}[A-Z]?\b", line):
+            if code not in table_codes and code not in OUTSIDE_TABLE_TESTS:
+                err("prompts/%s.md: sign %s is not in the checked table" % (name, code))
+
+for platform in ("claude", "openai"):
+    for dirpath, _dirs, files in os.walk(os.path.join(ROOT, platform)):
+        if "SKILL.md" in files:
+            err("%s holds a copy of a skill (%s): skills live only in skills/" % (platform, dirpath))
 
 try:
     out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split("\n")

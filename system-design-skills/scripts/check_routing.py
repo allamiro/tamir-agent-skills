@@ -12,7 +12,7 @@ with a simple BM25 lexical score and checks:
 This is a lexical proxy for description quality. It does NOT prove an LLM will route
 correctly; it catches descriptions that lack the words users actually type.
 
-Also checks every prompt in PROMPTS.md: the skill named in its heading must rank first.
+Also checks every prompt in prompts/*.md: the skill named in its heading must rank first.
 
 Usage: python3 scripts/check_routing.py [--root PATH] [--verbose]
 """
@@ -79,7 +79,7 @@ def bm25(query, docs, k1=1.5, b=0.75):
 
 
 def load_prompt_cases(path):
-    """Cases from PROMPTS.md: a '### `skill`' heading followed by a '> prompt' line."""
+    """Cases from a prompts file: a '### `skill`' heading followed by a '> prompt' line."""
     cases, skill = [], None
     if not os.path.isfile(path):
         return cases
@@ -105,7 +105,11 @@ def main():
     root = os.path.abspath(a.root)
     cases_path = a.cases or os.path.join(root, "evals", "routing_cases.json")
     spec = json.load(open(cases_path, encoding="utf-8"))
-    spec["cases"] += load_prompt_cases(os.path.join(root, "PROMPTS.md"))
+    pdir = os.path.join(root, "prompts")
+    if os.path.isdir(pdir):
+        for f in sorted(os.listdir(pdir)):
+            if f.endswith(".md"):
+                spec["cases"] += load_prompt_cases(os.path.join(pdir, f))
     k = spec.get("top_k", 3)
     docs = load_skills(root)
     failures, passed = [], 0

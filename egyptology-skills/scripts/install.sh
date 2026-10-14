@@ -2,15 +2,15 @@
 # Install the Egyptology skills into an agent's skills directory.
 #
 # Usage:
-#   scripts/install.sh --claude --project /path/to/repo      # -> /path/to/repo/.claude/skills/
-#   scripts/install.sh --agents --project /path/to/repo      # -> /path/to/repo/.agents/skills/
-#   scripts/install.sh --claude --agents --user              # -> ~/.claude/skills and ~/.agents/skills
+#   scripts/install.sh --claude --project /path/to/repo      # Claude Code -> /path/to/repo/.claude/skills/
+#   scripts/install.sh --codex  --project /path/to/repo      # OpenAI Codex -> /path/to/repo/.agents/skills/
+#   scripts/install.sh --claude --codex --user               # -> ~/.claude/skills and ~/.agents/skills
 #   scripts/install.sh --claude --project . --symlink        # link instead of copy (tracks this checkout)
 #   scripts/install.sh --claude --project . --dry-run
 #
 # Options:
 #   --claude        install for Claude Code (.claude/skills)
-#   --agents        install to the cross-tool .agents/skills location used by Codex-style agents
+#   --codex         install for OpenAI Codex (.agents/skills); --agents is the same thing
 #   --project DIR   target project root (default: current directory)
 #   --user          target the home directory instead of a project
 #   --symlink       symlink each skill instead of copying
@@ -38,7 +38,7 @@ usage() { sed -n '2,25p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
 while [ $# -gt 0 ]; do
   case "$1" in
     --claude) targets+=(".claude/skills") ;;
-    --agents) targets+=(".agents/skills") ;;
+    --codex|--agents) targets+=(".agents/skills") ;;
     --project) [ $# -ge 2 ] || { echo "error: --project needs a directory" >&2; exit 2; }; base="$(cd "$2" && pwd)"; shift ;;
     --user) base="$HOME" ;;
     --symlink) mode="symlink" ;;
@@ -51,7 +51,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ ${#targets[@]} -eq 0 ]; then
-  echo "error: choose at least one of --claude or --agents" >&2
+  echo "error: choose at least one of --claude or --codex" >&2
   exit 2
 fi
 if [ ! -d "$src" ]; then

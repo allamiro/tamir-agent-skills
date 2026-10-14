@@ -16,7 +16,7 @@ Zips are built deterministically (fixed timestamps, sorted entries), so rebuildi
 unchanged skill yields a byte-identical file.
 
 Usage:
-  python3 scripts/build_chatgpt.py                 # all skills -> chatgpt/<skill>.zip
+  python3 scripts/build_chatgpt.py                 # all skills -> openai/chatgpt/<skill>.zip
   python3 scripts/build_chatgpt.py --skill payment-systems --out /tmp/out
   python3 scripts/build_chatgpt.py --check         # build to a temp dir and verify only
 """
@@ -167,7 +167,8 @@ def verify_zip(path, name):
 def main():
     ap = argparse.ArgumentParser(description="Build ChatGPT/OpenAI-ready skill zips.")
     ap.add_argument("--skill", action="append", help="build only this skill (repeatable)")
-    ap.add_argument("--out", default=os.path.join(ROOT, "chatgpt"), help="output directory (default: chatgpt/)")
+    ap.add_argument("--out", default=os.path.join(ROOT, "openai", "chatgpt"),
+                    help="output directory (default: openai/chatgpt/)")
     ap.add_argument("--check", action="store_true", help="build to a temporary directory and only verify")
     a = ap.parse_args()
     names = a.skill or sorted(d for d in os.listdir(SKILLS) if os.path.isfile(os.path.join(SKILLS, d, "SKILL.md")))

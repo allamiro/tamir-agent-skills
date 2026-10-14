@@ -22,9 +22,23 @@ engineering work*, and every claim in it must be traceable or clearly marked as 
 
 ## Adding a new collection
 
-Create `<domain>-skills/` with the same shape as `system-design-skills/`: a `skills/`
-directory, a README that states scope and verification status, and validators. Add the
-collection to the table in the root README.
+Create `<domain>-skills/` with the same layout as the existing collections, so a reader who
+knows one can navigate any other:
+
+```text
+<domain>-skills/
+├── README.md    scope, a "Which one is for my tool?" table, verification status
+├── skills/      the skills; Claude Code and Codex both read these files
+├── claude/      README.md: Claude Code install and use
+├── openai/      README.md: Codex and ChatGPT; chatgpt/ holds zips if you build them
+├── prompts/     README.md index; one file of prompts per skill where a skill needs several
+├── scripts/     install.sh (--claude, --codex) and validators
+└── assets/      banner
+```
+
+Skills live only in `skills/`. Do not copy a skill into `claude/` or `openai/`; the validators
+reject it. If a platform is not supported yet, say so in its README instead of leaving it out.
+Add the collection to the tables in the root README.
 
 ## Content rules
 
@@ -42,7 +56,7 @@ collection to the table in the root README.
 From the collection directory (for example `system-design-skills/`):
 
 ```bash
-python3 scripts/validate_library.py          # spec rules, sections, size, links, templates, script self-tests
+python3 scripts/validate_library.py          # spec rules, sections, size, links, templates, navigation, script self-tests
 python3 scripts/check_routing.py --verbose   # description routing smoke test
 python3 scripts/build_chatgpt.py --check     # bundle limits for ChatGPT / OpenAI uploads
 skills-ref validate skills/<name>            # official Agent Skills validator
